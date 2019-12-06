@@ -1,3 +1,4 @@
+![Logo](https://ko-fi.com/img/Kofi_Logo_Blue.svg "Ko-fi logo")
 # Ko-fi Wordpress Plugin
 The Official Ko-fi Wordpress plugin repository. Open to pull requests.
 
