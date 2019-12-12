@@ -85,7 +85,7 @@ class Ko_Fi
     {
         if (!empty($args['options']) && gettype($args['options']) == 'array') {
             $atts = [];
-            array_walk($args['options'], create_function('$v, $k', 'global $atts; $atts[]="$k:$v";'));
+            array_walk($args['options'], function($v, $k) { global $atts; $atts[]="$k:$v"; });
             $color_options = '{' . implode(', ', $atts) . '}';
         } else {
             //echo 'no options';
