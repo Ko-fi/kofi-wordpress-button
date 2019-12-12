@@ -4,9 +4,9 @@ class Default_ko_fi_options {
 
 	public static function get(){
 		return array(
-			'page_title'        => __( 'ko-fi Settings', 'Ko_fi' ),
+			'page_title'        => __( 'Ko-fi Settings', 'Ko_fi' ),
 			'page_description'  => false,
-			'menu_title'        => __( 'ko-fi Settings', 'Ko_fi' ),
+			'menu_title'        => __( 'Ko-fi Settings', 'Ko_fi' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'ko_fi_options',
 			'option_name'       => 'ko_fi_options',
@@ -28,7 +28,7 @@ class Default_ko_fi_options {
 							'slug'        => 'title',
 							'title'       => __( 'Default Title', 'Ko_fi' ),
 							'type'        => 'text',
-                            'description' => __( 'Default title for your ko-fi widgets. The title will only display above the widgets, not the shortcode link.', 'Ko_fi' ),
+                            'description' => __( 'Default title for your Ko-fi widgets. The title will only display above the widgets, not the shortcode link.', 'Ko_fi' ),
                             'label'       => __( 'Test label', 'Ko_fi' )
 						),
 						array(
@@ -55,7 +55,7 @@ class Default_ko_fi_options {
 							'slug'        => 'code',
 							'title'       => __( 'Default Code', 'Ko_fi' ),
 							'type'        => 'text',
-							'description' => __( 'Your ko-fi code or link.', 'Ko_fi' ),
+							'description' => __( 'Your Ko-fi code or link.', 'Ko_fi' ),
 						),
                         array(
                             'slug'        => 'hyperlink',
@@ -63,6 +63,13 @@ class Default_ko_fi_options {
                             'type'        => 'checkbox',
                             'label'       => 'Hyperlink',
                             'description' => __( 'Check this box if you want to display your button as a hyperlink by default.', 'Ko_fi' ),
+						),
+                        array(
+                            'slug'        => 'posts',
+                            'title'       => __( 'Add to Posts', 'Ko_fi' ),
+                            'type'        => 'checkbox',
+                            'label'       => 'Posts',
+                            'description' => __( 'Check this box if you want add a pretty linkbox to the bottom of all your posts.', 'Ko_fi' ),
                         )
 					)
 				)
