@@ -131,6 +131,7 @@ class Ko_Fi
             }
             $settings[$key] = $value;
         }
+        // To do: Need to sanitise coffee text. 
         if ($settings['coffee_hyperlink'] === true) {
             return "<a href='" . self::KOFI_URL . "/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
         } else {
@@ -150,13 +151,15 @@ class Ko_Fi
             $doPosts = self::$options['coffee_posts'];
         }
         if ($doPosts) {
+
+            // To do: Need to sanitise button text.
             $title = self::$options['coffee_title'];
             $description = self::$options['coffee_description'];
             $code = self::$options['coffee_code'];
             $kofi_url = self::KOFI_URL;
 
             // To do: refactor with get_embed_code snippet.
-            $button_code = "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
+            $button_html = "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
 	        <script type='text/javascript'>kofiwidget2.init('" . self::$options['coffee_text'] . "', '#" . self::$options['coffee_color'] . "', '" . self::$options['coffee_code'] . "');
                 kofiwidget2.draw();</script>";
                 
@@ -173,7 +176,7 @@ class Ko_Fi
         </p>
       </div>
       <div style="text-align: center; display: flex; justify-content: center;"> 
-          {$button_code}
+          {$button_html}
       </div>
     </div>
     EOT;
