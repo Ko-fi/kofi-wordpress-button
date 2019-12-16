@@ -13,6 +13,8 @@ License: GPL2
 class Ko_Fi
 {
 
+    const KOFI_URL = "https://www.ko-fi.com";
+
     public static $options = [];
 
     public static function init()
@@ -130,9 +132,9 @@ class Ko_Fi
             $settings[$key] = $value;
         }
         if ($settings['coffee_hyperlink'] === true) {
-            return "<a href='" . "http://www.ko-fi.com/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
+            return "<a href='" . self::KOFI_URL . "/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
         } else {
-            return "<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
+            return "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
 	        <script type='text/javascript'>kofiwidget2.init('" . $settings['coffee_text'] . "', '#" . $settings['coffee_color'] . "', '" . $settings['coffee_code'] . "');
 	            kofiwidget2.draw();</script>";
         }
@@ -151,6 +153,7 @@ class Ko_Fi
             $title = self::$options['coffee_title'];
             $description = self::$options['coffee_description'];
             $code = self::$options['coffee_code'];
+            $kofi_url = self::KOFI_URL;
             $linkbox = <<<EOT
     <div style="overflow:hidden;border-radius:5px 5px 5px 5px;box-shadow: 3px 2px 3px 5px;padding: 2% 2% 2% 2%; background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-radius:5px 5px 5px 5px;"data-bg-url="">
     <div>
@@ -164,7 +167,7 @@ class Ko_Fi
         </p>
     </div>
     <div style="text-align: center; display: flex; justify-content: center;"> 
-        <a href="https://ko-fi.com/{$code}" target="_blank">
+        <a href="{$kofi_url}/{$code}" target="_blank">
             <img style="border:0px;height:45px;" src="https://az743702.vo.msecnd.net/cdn/kofi5.png?v=2" alt="Buy Me a Coffee at ko-fi.com" height="45" border="0" align="middle"></a>
         </div>
     </div>
