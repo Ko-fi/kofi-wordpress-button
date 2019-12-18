@@ -102,6 +102,12 @@ class Ko_Fi
 
     }
 
+    public static function build_button($atts)
+    {
+        return "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('" . esc_attr($atts['coffee_text']) . "', '#" . $atts['coffee_color'] . "', '" . $atts['coffee_code'] . "'); kofiwidget2.draw();</script>";
+    }
+
     public static function get_embed_code($atts)
     {
 
@@ -131,13 +137,10 @@ class Ko_Fi
             }
             $settings[$key] = $value;
         }
-        // To do: Need to sanitise coffee text. 
         if ($settings['coffee_hyperlink'] === true) {
-            return "<a href='" . self::KOFI_URL . "/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
+            return "<a href='" . self::KOFI_URL . "/" . $settings['coffee_code'] . "'>" . esc_attr($settings['coffee_text']) . "</a>";
         } else {
-            return "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
-	        <script type='text/javascript'>kofiwidget2.init('" . $settings['coffee_text'] . "', '#" . $settings['coffee_color'] . "', '" . $settings['coffee_code'] . "');
-	            kofiwidget2.draw();</script>";
+            return self::build_button($settings);
         }
     }
 
@@ -152,16 +155,12 @@ class Ko_Fi
         }
         if ($doPosts) {
 
-            // To do: Need to sanitise button text.
             $title = self::$options['coffee_title'];
             $description = self::$options['coffee_description'];
             $code = self::$options['coffee_code'];
             $kofi_url = self::KOFI_URL;
 
-            // To do: refactor with get_embed_code snippet.
-            $button_html = "<script type='text/javascript' src='" . self::KOFI_URL . "/widgets/widget_2.js'></script>
-	        <script type='text/javascript'>kofiwidget2.init('" . self::$options['coffee_text'] . "', '#" . self::$options['coffee_color'] . "', '" . self::$options['coffee_code'] . "');
-                kofiwidget2.draw();</script>";
+            $button_html = self::build_button(self::$options);
                 
             $linkbox = <<<EOT
     <div style="overflow:hidden;border-radius:5px 5px 5px 5px;box-shadow: 3px 2px 3px 5px;padding: 2% 2% 2% 2%; background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-radius:5px 5px 5px 5px;"data-bg-url="">
