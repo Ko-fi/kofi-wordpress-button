@@ -12,11 +12,11 @@
     overflow: hidden;
 }
 .ko-fi-box {
-    width: 767px;
+    max-width: 767px;
+    min-width: 300px;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 3px 2px 3px 5px;
     padding: 2% 2% 2% 2%; 
-    border-radius:5px 5px 5px 5px;
     margin: 0 auto;
 }
 
