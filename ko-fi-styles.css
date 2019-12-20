@@ -1,0 +1,27 @@
+/**
+ * Ko-fi Button Plugin Styles
+ */
+
+.ko-fi-box,
+.ko-fi-button {
+    text-align: center; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.ko-fi-box {
+    width: 767px;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 3px 2px 3px 5px;
+    padding: 2% 2% 2% 2%; 
+    border-radius:5px 5px 5px 5px;
+    margin: 0 auto;
+}
+
+.ko-fi-box h2,
+.ko-fi-box h3,
+.ko-fi-box p {
+    text-align: center;
+}

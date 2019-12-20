@@ -28,6 +28,8 @@ class Ko_Fi
         self::$options = (new Ko_fi_Options())->get();
         add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
         add_filter('the_content', [__CLASS__, 'add_to_posts'], 10, 5);
+
+        wp_enqueue_style( 'ko-fi', plugin_dir_url( __FILE__ ) . 'ko-fi-styles.css' );
     }
 
     public static function add_action_links($actions, $plugin_file)
@@ -163,7 +165,7 @@ class Ko_Fi
             $button_html = self::build_button(self::$options);
                 
             $linkbox = <<<EOT
-    <div style="overflow:hidden;border-radius:5px 5px 5px 5px;box-shadow: 3px 2px 3px 5px;padding: 2% 2% 2% 2%; background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-radius:5px 5px 5px 5px;"data-bg-url="">
+    <div class="ko-fi-box">
       <div>
         <h3 style="text-align: center;">
             {$title}
@@ -174,7 +176,7 @@ class Ko_Fi
           {$description}
         </p>
       </div>
-      <div style="text-align: center; display: flex; justify-content: center;"> 
+      <div class="ko-fi-button"> 
           {$button_html}
       </div>
     </div>
