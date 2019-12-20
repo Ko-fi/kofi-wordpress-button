@@ -164,22 +164,22 @@ class Ko_Fi
             $button_html = self::build_button(self::$options);
                 
             $linkbox = <<<EOT
-    <div class="ko-fi-box">
-      <div>
-        <h3 style="text-align: center;">
-            {$title}
-        </h3>
-      </div>
-      <div>
-        <p style="text-align: center;">
-          {$description}
-        </p>
-      </div>
-      <div class="ko-fi-button"> 
-          {$button_html}
-      </div>
-    </div>
-    EOT;
+<div class="ko-fi-box">
+  <div>
+    <h3 style="text-align: center;">
+        {$title}
+    </h3>
+  </div>
+  <div>
+    <p style="text-align: center;">
+      {$description}
+    </p>
+  </div>
+  <div class="ko-fi-button"> 
+      {$button_html}
+  </div>
+</div>
+EOT;
             $theContent = $content;
             return (is_single()) ? $theContent . $linkbox : $theContent;
 
