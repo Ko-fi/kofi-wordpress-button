@@ -47,7 +47,6 @@ class Ko_Fi
 
             $actions = array_merge($plugin_links, $actions);
 
-
         }
 
         return $actions;
