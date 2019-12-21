@@ -28,8 +28,6 @@ class Ko_Fi
         self::$options = (new Ko_fi_Options())->get();
         add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
         add_filter('the_content', [__CLASS__, 'add_to_posts'], 10, 5);
-
-        wp_enqueue_style( 'ko-fi', plugin_dir_url( __FILE__ ) . 'ko-fi-styles.css' );
     }
 
     public static function add_action_links($actions, $plugin_file)
