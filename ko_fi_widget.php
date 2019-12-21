@@ -77,7 +77,7 @@ class ko_fi_widget extends WP_Widget
                       name="<?php echo $this->get_field_name('description'); ?>" rows="5"
                       type="text"><?php echo $description ?></textarea>
 
-			<label for="<?php echo $this->get_field_id('code'); ?>"><?php _e('Code:'); ?></label>
+			<label for="<?php echo $this->get_field_id('code'); ?>"><?php _e('Code or Username:'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('code'); ?>"
                    name="<?php echo $this->get_field_name('code'); ?>" type="text" value="<?php echo $code ?>">
 

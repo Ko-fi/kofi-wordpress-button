@@ -189,7 +189,6 @@ EOT;
 }
 
 function add_kofi_styles() {
-    //wp_enqueue_style( 'ko-fi', plugin_dir_url( __FILE__ ) . 'ko-fi-styles.css' );
     wp_register_style('ko-fi', plugins_url('ko-fi-styles.css', __FILE__));
     wp_enqueue_style('ko-fi');
 }
