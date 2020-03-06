@@ -1,11 +1,11 @@
 <?php
 
 /*
-Plugin Name: Ko-Fi Button
+Plugin Name: Ko-fi Button
 Plugin URI:
-Description: A ko-fi donate button for your website!
-Version: 0.3.0
-Author: Ko-fi Team; wwww.ko-fi.com
+Description: A Ko-fi donate button for your website!
+Version: 0.3.1
+Author: Ko-fi Team; www.ko-fi.com
 Author URI:
 License: GPL2
 */
@@ -85,7 +85,7 @@ class Ko_Fi
     {
         if (!empty($args['options']) && gettype($args['options']) == 'array') {
             $atts = [];
-            array_walk($args['options'], create_function('$v, $k', 'global $atts; $atts[]="$k:$v";'));
+            array_walk($args['options'], function($v, $k) { global $atts; $atts[]="$k:$v"; });
             $color_options = '{' . implode(', ', $atts) . '}';
         } else {
             //echo 'no options';
