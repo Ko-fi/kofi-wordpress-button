@@ -23,7 +23,6 @@ class ko_fi_widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-
         // outputs the content of the widget
         echo $args['before_widget'];
         if (!empty($instance['title'])) {
@@ -33,13 +32,18 @@ class ko_fi_widget extends WP_Widget
         }
 
         echo empty($instance['description']) ? '':"<p>{$instance['description']}</p>";
-        $new_instance = [
-            'title' => $instance['title'],
-            'text' => $instance['text'],
-            'color' => $instance['color'],
-            'hyperlink' => $instance['hyperlink'],
-            'code' => $instance['code']
-        ];
+
+        $new_instance = $this->get_new_instance();
+        if( !empty($instance['description']) ) {
+
+            $new_instance = [
+                'title' => $instance['title'],
+                'text' => $instance['text'],
+                'color' => $instance['color'],
+                'hyperlink' => $instance['hyperlink'],
+                'code' => $instance['code']
+            ];
+        }
         echo Ko_Fi::get_embed_code($new_instance);
         echo $args['after_widget'];
     }
