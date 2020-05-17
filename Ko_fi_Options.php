@@ -71,6 +71,13 @@ class Ko_fi_Options {
 					$this->options['page_name'],
 					$section['slug'],
 					$field['slug'] );
+
+				$selector = sprintf(
+					'%s_%s_%s',
+					$this->options['page_name'],
+					$section['slug'],
+					$field['slug'] );
+
 				add_settings_field(
 					$id,
 					sprintf( '<label for="%s">%s</label>',
@@ -87,6 +94,7 @@ class Ko_fi_Options {
 						'label'       => empty( $field['label'] ) ? '' : $field['label'],
 						'options'     => isset( $field['options'] ) ? '' : false,
 						'value'       => isset( $this->fallbacks["{$section['slug']}_{$field['slug']}"] ) ? $this->fallbacks["{$section['slug']}_{$field['slug']}"] : false,
+						'selector'	  => $selector
 					]
 				);
 			}
@@ -108,7 +116,8 @@ class Ko_fi_Options {
 
 	public function text( $args ) {
 		printf(
-			'<input class="regular-text" id="%1$s" name="%1$s" type="text" value="%2$s" />',
+			'<input class="regular-text" id="%1$s" name="%2$s" type="text" value="%3$s" />',
+			esc_attr( $args['selector'] ),
 			esc_attr( $args['option_id'] ),
 			esc_attr( $args['value'] )
 		);
@@ -120,7 +129,8 @@ class Ko_fi_Options {
 
 	public function number( $args ) {
 		printf(
-			'<input class="regular-text" id="%1$s" name="%1$s" type="number" value="%2$s" min="%3$s" max="%4$s" step="%5$s" />',
+			'<input class="regular-text" id="%1$s" name="%2$s" type="number" value="%3$s" min="%4$s" max="%5$s" step="%6$s" />',
+			esc_attr( $args['selector'] ),
 			esc_attr( $args['option_id'] ),
 			esc_attr( $args['value'] ),
 			intval( $args['options']['min'] ),
@@ -131,7 +141,8 @@ class Ko_fi_Options {
 
 	public function textarea( $args ) {
 		printf(
-			'<textarea class="all-options" id="%1$s" name="%1$s" rows="5">%2$s</textarea>',
+			'<textarea class="all-options" id="%1$s" name="%2$s" rows="5">%3$s</textarea>',
+			esc_attr( $args['selector'] ),
 			esc_attr( $args['option_id'] ),
 			esc_html( $args['value'] )
 		);
@@ -139,7 +150,7 @@ class Ko_fi_Options {
 
 
 	public function select( $args ) {
-		printf( '<select id="%1$s" name="%1$s">', esc_attr( $args['option_id'] ) );
+		printf( '<select id="%1$s" name="%2$s">', esc_attr( $args['selector'] ), esc_attr( $args['option_id'] ) );
 		foreach ( $args['options']['list'] as $value => $label ) {
 			printf(
 				'<option value="%s"%s>%s</option>',
@@ -155,14 +166,16 @@ class Ko_fi_Options {
 	public function checkbox( $args ) {
 		if ( ! empty( $args['label'] ) ) :
 			printf(
-				'<label><input id="%1$s" name="%1$s" type="checkbox" value="true"%2$s /> %3$s</label>',
+				'<label><input id="%1$s" name="%2$s" type="checkbox" value="true"%3$s /> %4$s</label>',
+				esc_attr( $args['selector'] ),
 				esc_attr( $args['option_id'] ),
 				checked( $args['value'], 'true', false ),
 				esc_html( $args['label'] )
 			);
 		else :
 			printf(
-				'<input id="%1$s" name="%1$s" type="checkbox" value="true"%2$s />',
+				'<input id="%1$s" name="%2$s" type="checkbox" value="true"%3$s />',
+				esc_attr( $args['selector'] ),
 				esc_attr( $args['option_id'] ),
 				checked( $args['value'], 'true', false )
 			);
@@ -174,7 +187,8 @@ class Ko_fi_Options {
 		foreach ( $args['options']['list'] as $value => $label ) {
 			$is_checked = ( isset( $args['value'][ $value ] ) && $args['value'][ $value ] );
 			printf(
-				'<label for="%1$s"><input id="%1$s" name="%1$s" type="checkbox" value="true"%2$s /> %3$s</label><br />',
+				'<label for="%1$s"><input id="%1$s" name="%2$s" type="checkbox" value="true"%3$s /> %4$s</label><br />',
+				esc_attr( $args['selector'] ),
 				esc_attr( "{$args['option_id']}[{$value}]" ),
 				checked( $is_checked, true, false ),
 				esc_html( $label )

@@ -104,6 +104,7 @@ class Ko_Fi
             //echo 'no options';
             $color_options = '';
         }
+
         echo sprintf('<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
             esc_attr($args['option_id']),
             empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
@@ -134,8 +135,6 @@ class Ko_Fi
                     $key = 'coffee_code';
                     if ($value == self::$options['coffee_code'])
                         $value = '';
-                    //$pattern = '/(?:https*:\/\/)?(?:www.)?(?:ko-fi\.com\/)?([A-Z,0-9,a-z]+)\/?/';
-                    //preg_match($pattern, $value, $matches);
                     $value = str_replace('http://ko-fi.com/', '', str_replace( 'https://ko-fi.com/', '', self::$options['coffee_code'] ));
                     break;
             }
