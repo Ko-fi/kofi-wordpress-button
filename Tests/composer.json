@@ -1,0 +1,10 @@
+{
+    "require-dev": {
+        "paulgibbs/behat-wordpress-extension": "^3.3",
+        "behat/mink-goutte-driver": "^1.2",
+        "dmore/behat-chrome-extension": "^1.3"
+    },
+    "autoload": {
+        "files": [ "./KofiTestExtensions/WidgetAwareContextTraitExtensions.php" ]
+    }
+}

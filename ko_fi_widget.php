@@ -44,6 +44,7 @@ class ko_fi_widget extends WP_Widget
                 'code' => $instance['code']
             ];
         }
+
         echo Ko_Fi::get_embed_code($new_instance);
         echo $args['after_widget'];
     }
@@ -62,14 +63,15 @@ class ko_fi_widget extends WP_Widget
 			$instance = $this->get_new_instance();
 		}
 
-        $title = esc_html($instance['title']);
-        $description = esc_html($instance['description']);
-        $text = esc_attr($instance['text']);
-        $hyperlink = esc_attr($instance['hyperlink']);
-        $color = esc_attr($instance['color']);
-		$code = esc_attr($instance['code']);
+        $title = esc_html( $instance['title'] );
+        $description = esc_html( $instance['description'] );
+        $text = esc_attr( $instance['text'] );
+        $hyperlink = esc_attr( $instance['hyperlink'] );
+        $color = esc_attr( $instance['color'] );
+        $code = esc_attr( $instance['code'] );
 
         ?>
+
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"

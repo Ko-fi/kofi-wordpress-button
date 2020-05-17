@@ -1,6 +1,6 @@
-Feature: Test that the settings page loads correctly
+Feature: Test that the settings page works as expected
 
-  Scenario: Test the the settings page loads
+  Scenario: Test the settings page loads
     Given I am logged in as an administrator
     And  the "kofi-button/Ko_fi" plugin is active
     And I am on the dashboard
