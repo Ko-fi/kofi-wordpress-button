@@ -127,10 +127,10 @@ class ko_fi_widget extends WP_Widget
     {
         // processes widget options to be saved
 
-		    if(empty($old_instance)){
-			
-			       $new_instance = $this->get_new_instance();
-		    }
+        if(empty($old_instance)){
+        
+                $new_instance = $this->get_new_instance();
+        }
 
         $instance = [];
         $defaults = Default_ko_fi_options::get()['defaults'];
