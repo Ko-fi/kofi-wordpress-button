@@ -36,7 +36,7 @@ trait WidgetAwareContextTraitExtensions
         }
 
         if ( $widget_id === null ) {
-            throw new UnexpectedValueException(sprintf('Widget "%s" could not be found', $widget_name));
+            throw new \UnexpectedValueException(sprintf('Widget "%s" could not be found', $widget_name));
         }
 
         return $widget_id;
@@ -110,8 +110,25 @@ trait WidgetAwareContextTraitExtensions
 
         if( $element_value !== $text ) {
 
-            throw new UnexpectedValueException(sprintf('Expected "%s" but have "%s"', $text, $element_value ));
+            throw new \UnexpectedValueException(sprintf('Expected "%s" but have "%s"', $text, $element_value ));
+        }
+    }
 
+    /**
+     * Check that the readonly attribute exists on an element
+     * 
+     * @param string $element The Id of the element to get the value from
+     * 
+     * return void
+     */
+    public function assertFieldIsReadOnly( $element_css ) {
+
+        $selector = '#'.$element_css.'[readonly]';
+        $element = $this->getSession()->getPage()->find("css", $selector);
+
+        if( $element === null ) {
+
+            throw new \UnexpectedValueException(sprintf('Did not find the readonly attribute on "%s" element', $element_css ));
         }
     }
 
@@ -140,7 +157,7 @@ trait WidgetAwareContextTraitExtensions
         }
 
         if ( $sidebar_id === null ) {
-            throw new UnexpectedValueException(sprintf('[W506] Sidebar "%s" does not exist', $sidebar_name));
+            throw new \UnexpectedValueException(sprintf('[W506] Sidebar "%s" does not exist', $sidebar_name));
         }
 
         return $sidebar_id;
