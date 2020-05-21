@@ -234,6 +234,23 @@ class FeatureContext extends RawWordpressContext {
     }
 
     /**
+     * Checks widget field is readonly
+     * 
+     * Example: Then the 'username' widget field should be readonly
+     *
+     * @Then the :widget_field widget field should be readonly
+     * 
+     * @param string $id of widget field
+     * 
+     * @return void
+     */
+    public function CheckWidgetFieldIsReadOnly( $widget_field )
+    {
+        $widget_field = $this->WithWidgetId( $widget_field );
+        $this->assertFieldIsReadOnly( $widget_field );
+    }
+
+    /**
      * Replace the widget_id place holder with the current widget id
      * 
      * @param string $name The css or element id which should have the widget id embedded in it.

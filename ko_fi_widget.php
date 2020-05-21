@@ -58,17 +58,18 @@ class ko_fi_widget extends WP_Widget
      */
     public function form($instance)
     {
+        $current_opts = $this->get_options();
 		if(empty($instance))
 		{
 			$instance = $this->get_new_instance();
-		}
+        }
 
         $title = esc_html( $instance['title'] );
         $description = esc_html( $instance['description'] );
         $text = esc_attr( $instance['text'] );
         $hyperlink = esc_attr( $instance['hyperlink'] );
         $color = esc_attr( $instance['color'] );
-        $code = esc_attr( $instance['code'] );
+        $code = esc_attr( $current_opts['coffee_code'] );
 
         ?>
 
@@ -84,7 +85,7 @@ class ko_fi_widget extends WP_Widget
                       type="text"><?php echo $description ?></textarea>
 
 			<label for="<?php echo $this->get_field_id('code'); ?>"><?php _e('Code:'); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('code'); ?>"
+            <input class="widefat" readonly id="<?php echo $this->get_field_id('code'); ?>"
                    name="<?php echo $this->get_field_name('code'); ?>" type="text" value="<?php echo $code ?>">
 
             <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Button text:'); ?></label>
@@ -137,10 +138,10 @@ class ko_fi_widget extends WP_Widget
 
         $instance['title'] = $new_instance['title'];
         $instance['description'] = $new_instance['description'];
-        $instance['text'] = $new_instance['text'];
-		    $instance['code'] = $new_instance['code'];
+        $instance['text'] = $new_instance['text'];		
         $instance['hyperlink'] = !empty( $new_instance['hyperlink'] ) ? $new_instance['hyperlink']  : false;
         $instance['color'] = empty($new_instance['color']) ? $defaults['coffee_color'] : $new_instance['color'];
+        $instance['code'] = $new_instance[ 'code' ];
 
         return $instance;
     }
@@ -152,8 +153,7 @@ class ko_fi_widget extends WP_Widget
      */
 	private function get_new_instance(){
 	
-		$defaults = Default_ko_fi_options::get()['defaults'];
-		$current_opts = get_option( 'ko_fi_options', $defaults );
+		$current_opts = $this->get_options();
 
 		$instance = [
 			'description' => $current_opts['coffee_description'],
@@ -166,6 +166,19 @@ class ko_fi_widget extends WP_Widget
 
 		return $instance;
 
-	}
+    }
+    
+    /**
+     * Get the current plugin options and if not present use the default values.
+     * 
+     * @return array
+     */
+    private function get_options() {
+
+        $defaults = Default_ko_fi_options::get()['defaults'];
+        $current_opts = get_option( 'ko_fi_options', $defaults );
+        
+        return $current_opts;
+    }
 
 }
