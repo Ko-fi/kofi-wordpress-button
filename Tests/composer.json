@@ -5,6 +5,9 @@
         "dmore/behat-chrome-extension": "^1.3"
     },
     "autoload": {
-        "files": [ "./KofiTestExtensions/WidgetAwareContextTraitExtensions.php" ]
+        "files": [ 
+            "./KofiTestExtensions/WidgetAwareContextTraitExtensions.php", 
+            "./KofiTestExtensions/OptionsAPIAwareTrait.php" 
+        ]
     }
 }

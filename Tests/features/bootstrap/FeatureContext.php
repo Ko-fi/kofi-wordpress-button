@@ -4,13 +4,14 @@ use PaulGibbs\WordpressBehatExtension\Context\RawWordpressContext;
 
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Mink\Exception\ExpectationException;
+use Behat\Gherkin\Node\TableNode;
 
 /**
  * Define application features from the specific context.
  */
 class FeatureContext extends RawWordpressContext {
 
-    use KofiTestExtensions\WidgetAwareContextTraitExtensions;
+    use KofiTestExtensions\WidgetAwareContextTraitExtensions, KofiTestExtensions\OptionsAPIAwareTrait;
 
     private $current_widget_id = '';
 
@@ -208,7 +209,8 @@ class FeatureContext extends RawWordpressContext {
 
         $time = 500; //milliseconds
         $widget_form_title = '"'.$title.'"';
-        $click_open = "$($('span:contains($widget_form_title)')[0]).parent().parent().parent().find('button').click();";
+
+        $click_open = "$('[id*=\"_$this->current_widget_id\"] button.widget-action').click()";
         $wait_for_title = "$('span:contains($widget_form_title)').length > 0;";
         $wait_for_open = "$('h3:contains($widget_form_title)').parent().parent().parent().parent().hasClass('open');";
 
@@ -248,6 +250,42 @@ class FeatureContext extends RawWordpressContext {
     {
         $widget_field = $this->WithWidgetId( $widget_field );
         $this->assertFieldIsReadOnly( $widget_field );
+    }
+
+    /**
+     * 
+     * Check if an option in the database still exists
+     * 
+     * Example Then the "my hero" option should not exist
+     * 
+     * @Then the :opton_name option should not exist
+     * 
+     * @param string $opton_name
+     */
+    public function CheckWPOptionNoLongerExists( $opton_name ) {
+
+        $this->assertOptionDoesntExist( $opton_name );
+    }
+
+    /**
+     * Check that an anchor element exists with the specified link
+     * 
+     * Example Then an anchor with the link :link exists
+     * 
+     * @Then an anchor with the link :link exists
+     * 
+     * @param string $link The link in the anchor
+     * 
+     */
+    public function CheckAnchorWithLinkExists( $link ) {
+
+        $selector = "a[href='$link']";
+        $element = $this->getSession()->getPage()->find("css", $selector);
+
+        if( $element === null ) {
+
+            throw new \UnexpectedValueException(sprintf('Did not find the anchor element"%s"', $selector ));
+        }
     }
 
     /**

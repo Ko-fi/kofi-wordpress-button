@@ -19,11 +19,11 @@ Feature: Test that the settings page works as expected
     And the "ko_fi_options_coffee_text" field should contain "Buy me a coffee!"
     And the "ko_fi_options[coffee_color]" field should contain "46B798"
     And the "ko_fi_options_coffee_description" field should contain "Buy me a coffee!"
-    And the "ko_fi_options_coffee_code" field should contain "http://ko-fi.com/"
+    And the "ko_fi_options_coffee_code" field should contain "supportkofi"
     And the "ko_fi_options_coffee_hyperlink" checkbox should be unchecked
 
   @db
-  Scenario: test field values can be saved
+  Scenario: Test field values can be saved
     Given I am logged in as an administrator
     And  the "kofi-button/Ko_fi" plugin is active
     And I am on the dashboard
@@ -42,3 +42,12 @@ Feature: Test that the settings page works as expected
     Then the "ko_fi_options_coffee_description" field should contain "Buy me a pizza"
     Then the "ko_fi_options_coffee_code" field should contain "http://ko-fi.com/123456"
     Then the "ko_fi_options_coffee_hyperlink" checkbox should be checked
+
+  @db
+  Scenario: Test that after deactivation the ko_fi_options no longer exist
+    Given I am logged in as an administrator
+    And  the "kofi-button/Ko_fi" plugin is active
+    And I am on the dashboard
+
+    When I deactivate the "kofi-button/Ko_fi" plugin
+    Then the "ko_fi_options" option should not exist
