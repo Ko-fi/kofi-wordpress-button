@@ -127,10 +127,10 @@ class ko_fi_widget extends WP_Widget
     public function update($new_instance, $old_instance)
     {
         // processes widget options to be saved
+        $old_instance = array_merge( $old_instance, $new_instance );
 
-        if(empty($old_instance)){
-        
-                $new_instance = $this->get_new_instance();
+        if(empty($old_instance)){        
+            $new_instance = $this->get_new_instance();
         }
 
         $instance = [];

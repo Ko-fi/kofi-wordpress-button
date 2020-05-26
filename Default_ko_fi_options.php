@@ -4,9 +4,9 @@ class Default_ko_fi_options {
 
 	public static function get(){
 		return array(
-			'page_title'        => __( 'ko-fi Settings', 'Ko_fi' ),
+			'page_title'        => __( 'Ko-fi Settings', 'Ko_fi' ),
 			'page_description'  => false,
-			'menu_title'        => __( 'ko-fi Settings', 'Ko_fi' ),
+			'menu_title'        => __( 'Ko-fi Settings', 'Ko_fi' ),
 			'capability'        => 'manage_options',
 			'menu_slug'         => 'ko_fi_options',
 			'option_name'       => 'ko_fi_options',
@@ -16,7 +16,7 @@ class Default_ko_fi_options {
 				'coffee_text'       => __( 'Buy me a coffee!', 'Ko_fi' ),
 				'coffee_color'      => __('46b798', 'Ko_fi' ),
                 'coffee_description'=> __( 'Buy me a coffee!', 'Ko_fi' ),
-				'coffee_code'       => 'http://ko-fi.com/',
+				'coffee_code'       => 'supportkofi',
                 'coffee_hyperlink'  => false
 			),
 			'sections'           => array(
@@ -53,9 +53,9 @@ class Default_ko_fi_options {
                         ),
 						array(
 							'slug'        => 'code',
-							'title'       => __( 'Default Code', 'Ko_fi' ),
+							'title'       => __( 'Default Page Name/ID', 'Ko_fi' ),
 							'type'        => 'text',
-							'description' => __( 'Your ko-fi code or link.', 'Ko_fi' ),
+							'description' => __( 'Your Ko-fi page name or page ID. e.g. supportkofi', 'Ko_fi' ),
 						),
                         array(
                             'slug'        => 'hyperlink',

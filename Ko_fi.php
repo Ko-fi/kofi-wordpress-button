@@ -38,6 +38,7 @@ class Ko_Fi
         require_once 'Ko_fi_Options.php';
         self::$options = (new Ko_fi_Options())->get();
         add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
+        register_deactivation_hook( __FILE__, [__CLASS__,'deactivate'] );
     }
 
     public static function add_action_links($actions, $plugin_file)
@@ -140,7 +141,8 @@ class Ko_Fi
             }
             $settings[$key] = $value;
         }
-        if ($settings['coffee_hyperlink'] === true) {
+
+        if (!empty($settings['coffee_hyperlink']) && $settings['coffee_hyperlink']) {
             return "<a href='" . "http://www.ko-fi.com/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
         } else {
             return "<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
@@ -149,7 +151,10 @@ class Ko_Fi
         }
     }
 
+    public static function deactivate() {
 
+        delete_option( 'ko_fi_options' );
+    }
 }
 
 add_action('plugins_loaded', ['Ko_Fi', 'init']);
