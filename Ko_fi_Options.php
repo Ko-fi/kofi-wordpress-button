@@ -1,10 +1,12 @@
 <?php
 
 class Ko_fi_Options {
+
 	protected $options = [ ];
 	protected $fallbacks = [ ];
 
 	public function __construct() {
+
 		$this->options = Default_ko_fi_options::get();
 
 		$this->fallbacks = get_option( $this->options['option_name'] );
@@ -92,7 +94,7 @@ class Ko_fi_Options {
 						'option_id'   => $id,
 						'description' => empty( $field['description'] ) ? '' : $field['description'],
 						'label'       => empty( $field['label'] ) ? '' : $field['label'],
-						'options'     => isset( $field['options'] ) ? '' : false,
+						'options'     => isset( $field['options'] ) ? $field['options'] : false,
 						'value'       => isset( $this->fallbacks["{$section['slug']}_{$field['slug']}"] ) ? $this->fallbacks["{$section['slug']}_{$field['slug']}"] : false,
 						'selector'	  => $selector
 					]

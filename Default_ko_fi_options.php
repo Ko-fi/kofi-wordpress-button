@@ -12,12 +12,13 @@ class Default_ko_fi_options {
 			'option_name'       => 'ko_fi_options',
 			'page_name'         => 'ko_fi_options',
 			'defaults'          => array(
-				'coffee_title'      => __( 'My Ko-fi button', 'Ko_fi' ),
-				'coffee_text'       => __( 'Buy me a coffee!', 'Ko_fi' ),
-				'coffee_color'      => __('46b798', 'Ko_fi' ),
-                'coffee_description'=> __( 'Buy me a coffee!', 'Ko_fi' ),
-				'coffee_code'       => 'supportkofi',
-                'coffee_hyperlink'  => false
+				'coffee_title'      		=> __( 'My Ko-fi button', 'Ko_fi' ),
+				'coffee_text'       		=> __( 'Buy me a coffee!', 'Ko_fi' ),
+				'coffee_color'      		=> __('46b798', 'Ko_fi' ),
+                'coffee_description'		=> __( 'Buy me a coffee!', 'Ko_fi' ),
+				'coffee_code'       		=> 'supportkofi',
+				'coffee_hyperlink'  		=> false,
+				'coffee_button_alignment' 	=> 'left'
 			),
 			'sections'           => array(
 				array(
@@ -63,7 +64,15 @@ class Default_ko_fi_options {
                             'type'        => 'checkbox',
                             'label'       => 'Hyperlink',
                             'description' => __( 'Check this box if you want to display your button as a hyperlink by default.', 'Ko_fi' ),
-                        )
+						),
+						array(
+                            'slug'        => 'button_alignment',
+                            'title'       => __( 'Button Alignment', 'Ko_fi' ),
+                            'type'        => 'select',
+                            'label'       => 'Button Alignment',
+							'description' => __( 'Select left, right or center button alignment.', 'Ko_fi' ),
+							'options'	  => [ 'list' => [ 'left' => 'Left', 'centre' => 'Centre', 'right' => 'Right' ] ]
+						),
 					)
 				)
 			)

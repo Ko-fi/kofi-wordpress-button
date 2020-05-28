@@ -114,10 +114,16 @@ class Ko_Fi
 
     }
 
-    public static function get_embed_code($atts)
+    public static function get_embed_code($atts, $widget_id = '')
     {
 
+        $selector = $widget_id !== '' ? '#'.$widget_id.' .btn-container' : '.btn-container';
         $settings = wp_parse_args($atts, self::$options);
+        $style_registry = [
+            'left' => "<style>$selector { float: none; text-align: left;}</style>",
+            'right' => "<style>$selector { float: right; text-align: left;}</style>",
+            'centre' => "<style>$selector { width: 100%; text-align: center; }</style>"
+        ];
         foreach ($atts as $key => $value) {
             switch ($key) {
                 case 'title'  :
@@ -138,14 +144,18 @@ class Ko_Fi
                         $value = '';
                     $value = str_replace('http://ko-fi.com/', '', str_replace( 'https://ko-fi.com/', '', self::$options['coffee_code'] ));
                     break;
+                case 'button_alignment':
+                    $key = 'coffee_button_alignment';
+                    break;
             }
+
             $settings[$key] = $value;
         }
 
         if (!empty($settings['coffee_hyperlink']) && $settings['coffee_hyperlink']) {
-            return "<a href='" . "http://www.ko-fi.com/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a>";
+            return $style_registry[ $settings['coffee_button_alignment'] ]."<div class='btn-container'><a href='" . "http://www.ko-fi.com/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a></div>";
         } else {
-            return "<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
+            return $style_registry[ $settings['coffee_button_alignment'] ]."<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
 	        <script type='text/javascript'>kofiwidget2.init('" . $settings['coffee_text'] . "', '#" . $settings['coffee_color'] . "', '" . $settings['coffee_code'] . "');
 	            kofiwidget2.draw();</script>";
         }

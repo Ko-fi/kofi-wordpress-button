@@ -41,11 +41,12 @@ class ko_fi_widget extends WP_Widget
                 'text' => $instance['text'],
                 'color' => $instance['color'],
                 'hyperlink' => $instance['hyperlink'],
-                'code' => $instance['code']
+                'code' => $instance['code'],
+                'button_alignment' => $instance['button_alignment']
             ];
         }
       
-        echo Ko_Fi::get_embed_code($new_instance);
+        echo Ko_Fi::get_embed_code($new_instance, $args[ 'widget_id' ]);
         echo $args['after_widget'];
     }
 
@@ -57,9 +58,9 @@ class ko_fi_widget extends WP_Widget
      * @return string|void
      */
     public function form($instance)
-    {
+    {        
         $current_opts = $this->get_options();
-		if(empty($instance))
+        if(empty($instance))
 		{
 			$instance = $this->get_new_instance();
         }
@@ -70,6 +71,7 @@ class ko_fi_widget extends WP_Widget
         $hyperlink = esc_attr( $instance['hyperlink'] );
         $color = esc_attr( $instance['color'] );
         $code = esc_attr( $current_opts['coffee_code'] );
+        $button_alignment = esc_attr( $instance['button_alignment'] );
 
         ?>
 
@@ -110,9 +112,16 @@ class ko_fi_widget extends WP_Widget
             ];
             echo Ko_Fi::get_jscolor($color_args);
             ?>
-
-
         </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('button_alignment'); ?>"><?php _e('Button Alignment'); ?></label>
+            <select id="<?php echo $this->get_field_id('button_alignment'); ?>" name="<?php echo $this->get_field_name('button_alignment'); ?>">
+                <option value="left" <?php selected( $button_alignment, 'left' ); ?>>Left</option>
+                <option value="centre" <?php selected( $button_alignment, 'centre' ); ?>>Centre</option>
+                <option value="right" <?php selected( $button_alignment, 'right' ); ?>>Right</option>
+            </select>
+        </p>
+
         <?php
     }
 
@@ -142,6 +151,7 @@ class ko_fi_widget extends WP_Widget
         $instance['hyperlink'] = !empty( $new_instance['hyperlink'] ) ? $new_instance['hyperlink']  : false;
         $instance['color'] = empty($new_instance['color']) ? $defaults['coffee_color'] : $new_instance['color'];
         $instance['code'] = $new_instance[ 'code' ];
+        $instance['button_alignment'] = $new_instance[ 'button_alignment' ];
 
         return $instance;
     }
@@ -152,8 +162,8 @@ class ko_fi_widget extends WP_Widget
      * @return array
      */
 	private function get_new_instance(){
-	
-		$current_opts = $this->get_options();
+    
+		$current_opts = $this->get_options(true);
 
 		$instance = [
 			'description' => $current_opts['coffee_description'],
@@ -162,10 +172,10 @@ class ko_fi_widget extends WP_Widget
             'color' => $current_opts['coffee_color'],
             'hyperlink' => !empty( $current_opts['coffee_hyperlink'] ) ? $current_opts['coffee_hyperlink'] : false,
             'code' => $current_opts['coffee_code'],
+            'button_alignment' => $current_opts['coffee_button_alignment']
         ];
 
 		return $instance;
-
     }
     
     /**
@@ -173,11 +183,17 @@ class ko_fi_widget extends WP_Widget
      * 
      * @return array
      */
-    private function get_options() {
+    private function get_options($use_defaults = false) {
+
 
         $defaults = Default_ko_fi_options::get()['defaults'];
         $current_opts = get_option( 'ko_fi_options', $defaults );
-        
+
+        if($use_defaults) {
+            $defaults[ 'coffee_code' ] = $current_opts['coffee_code'];
+            return $defaults;
+        }
+
         return $current_opts;
     }
 

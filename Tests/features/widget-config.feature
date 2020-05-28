@@ -6,8 +6,8 @@ Feature: Configure the Ko-Fi widget in the widget area
     And I am on the dashboard
 
     When I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description            |  text                  |   color       |
-            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
 
@@ -18,6 +18,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And the "<widget_id>text" widget field should contain "Buy me a coffee!"
     And the "<widget_id>hyperlink" widget checkbox should be unchecked
     And the "<widget_id>color" widget field should contain "46B798"
+    And the "<widget_id>button_alignment" widget field should contain "Left"
 
   @javascript
   Scenario: Test changing and saving of widget values works
@@ -26,8 +27,8 @@ Feature: Configure the Ko-Fi widget in the widget area
     And I am on the dashboard
 
     When I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description            |  text                  |   color       |
-            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
     And I wait for the widget form "My Ko-fi button" to open
@@ -36,6 +37,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And I fill in widget field "<widget_id>color" with "123456"
     And I fill in widget field "<widget_id>description" with "Buy me a pizza"
     And I check widget checkbox "<widget_id>hyperlink"
+    And I select "Right" from widget options "<widget_id>button_alignment"
     And I press the save widget button
 
     Then I should see "Buy me a pizza" in the "#<widget_id>description" widget element
@@ -44,6 +46,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And the "<widget_id>text" widget field should contain "Buy me a pizza"
     And the "<widget_id>hyperlink" widget checkbox should be checked
     And the "<widget_id>color" widget field should contain "123456"
+    And the "<widget_id>button_alignment" widget field should contain "Right"
 
   @db
   Scenario: Test changing the 'code' on the settings page gives the same code when adding a widget
@@ -51,8 +54,8 @@ Feature: Configure the Ko-Fi widget in the widget area
     And I have no "ko_fi_widget" widgets in "Footer"
     And I am on the dashboard
     And I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description            |  text                  |   color       |
-            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |
 
     When I go to the menu 'Settings > ko-fi Settings'
     And I fill in "ko_fi_options_coffee_code" with "http://ko-fi.com/123456"
