@@ -164,6 +164,24 @@ class FeatureContext extends RawWordpressContext {
     }
 
     /**
+     * Selects the option selected in a drop down list
+     * 
+     * Example: When I select "option 1" from widget options "my_option_list"
+     * 
+     * @When I select :option from widget options :select
+     * 
+     * @param string $option
+     * @param string $select
+     * 
+     * @return void
+     */
+    public function SelectDropdownValue( $option, $select) {
+
+        $select = $this->WithWidgetId( $select );
+        $this->getSession()->getPage()->selectFieldOption($select, $option);
+    }
+
+    /**
      * Presses the save widget button with specified widget_id + id
      * Example: When I press the save widget button
      *

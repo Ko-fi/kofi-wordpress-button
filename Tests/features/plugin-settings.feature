@@ -21,6 +21,7 @@ Feature: Test that the settings page works as expected
     And the "ko_fi_options_coffee_description" field should contain "Buy me a coffee!"
     And the "ko_fi_options_coffee_code" field should contain "supportkofi"
     And the "ko_fi_options_coffee_hyperlink" checkbox should be unchecked
+    And the "ko_fi_options_coffee_button_alignment" field should contain "Left"
 
   @db
   Scenario: Test field values can be saved
@@ -35,6 +36,7 @@ Feature: Test that the settings page works as expected
     And I fill in "ko_fi_options_coffee_description" with "Buy me a pizza"
     And I fill in "ko_fi_options_coffee_code" with "http://ko-fi.com/123456"
     And I check "ko_fi_options_coffee_hyperlink"
+    And I select "Right" from "ko_fi_options_coffee_button_alignment"
     And I press "submit"
     Then the "ko_fi_options_coffee_title" field should contain "Ko-Fi Test"
     Then the "ko_fi_options_coffee_text" field should contain "Buy me a pizza"
@@ -42,6 +44,7 @@ Feature: Test that the settings page works as expected
     Then the "ko_fi_options_coffee_description" field should contain "Buy me a pizza"
     Then the "ko_fi_options_coffee_code" field should contain "http://ko-fi.com/123456"
     Then the "ko_fi_options_coffee_hyperlink" checkbox should be checked
+    Then the "ko_fi_options_coffee_button_alignment" field should contain "Right"
 
   @db
   Scenario: Test that after deactivation the ko_fi_options no longer exist

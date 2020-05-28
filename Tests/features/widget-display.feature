@@ -6,22 +6,21 @@ Feature: Display the widget on the front page
         And  the "kofi-button/Ko_fi" plugin is active
         And I have no "ko_fi_widget" widgets in "Footer"
         And I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description           |  text                    |
-            | My Ko-fi button    | Buy me a coffee!      |  Buy me a coffee!        |              
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |
 
         When I go to "/"
         Then I should not see "Notice:"
         And I should not see "Warning:"
 
-    @do_test
     @db
     Scenario: Test the widget is displayed on the front page with the following settings
         Given I am logged in as an administrator
         And  the "kofi-button/Ko_fi" plugin is active
         And I have no "ko_fi_widget" widgets in "Footer"
         And I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description           |  text                  |   color       |
-            | My Ko-fi button   | Buy me a coffee!       |  Buy me a coffee!      |    46B798     |
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |
         
         When I go to "/"
         Then I should see "My Ko-fi button"
@@ -34,8 +33,8 @@ Feature: Display the widget on the front page
         And the "kofi-button/Ko_fi" plugin is active
         And I have no "ko_fi_widget" widgets in "Footer"
         And I have the 'ko_fi_widget' widget in 'Footer'
-            | title              | description            |  text                  |   color       |   hyperlink   |
-            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |   true        |
+            | title              | description            |  text                  |   color       |  button_alignment  | code          |   hyperlink   |
+            | My Ko-fi button    | Buy me a coffee!       |  Buy me a coffee!      |   46B798      |  left              | supportkofi   |   true        |
 
         When I go to "/"
         Then I should see "My Ko-fi button"
