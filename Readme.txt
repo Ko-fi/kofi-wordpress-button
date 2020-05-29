@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: kofibutton
 Donate link: https://ko-fi.com/supportkofi
-Tags: wordpress donation plugin, paypal, paypal donate, donate plugin, members, membership, monetization
+Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
-Tested up to: 4.9.8
-Stable tag: 4.3
+Tested up to: 5.4
+Stable tag: 1.0.1
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,15 +13,10 @@ Receive donations on your Ko-fi page with a button on your wordpress site.
 
 == Description ==
 
-Ko-fi is the original fast and friendly way for creators to fund their passions. Create your Ko-fi page and then use this Wordpress plugin to create a 'Support me on Ko-fi' button widget on your wordpress site.
-
-Used by over 300k people as an alternative to advertising, Ko-fi helps creators receive donations to fund everything from plugin development to blog writing to  
-
-*   Ko-fi has helped creators receive over $7,000,000 in donations
-*   Ko-fi is chosen by over 300k creators
-*   Ko-fi doesn't take a cut of your tips
-*   Setup your page for free
-
+Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $30 million has been earned on Ko-fi so far and it's growing every month! 
+The money goes directly to you with 0% fees from Ko-fi, it's completely Free and a great alternative to ads!
+Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations. 
+Use the Plugin to add a Ko-fi button to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
 
 == Installation ==
 
@@ -60,5 +55,12 @@ The Wordpress plugin allows wordpress users to easily add a customisable 'Suppor
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+* Minor Updates to the wording used withhin the plugin and to the use of 'Ko-fi'.
+* Addition of ability to change button alignment within containing element.
+* Bring plugin version in-line with readme.
+* Fix hyperlink functionlity.
+* Make the 'Default Code' widget field readonly and always the same value as on the settings page.
+
+= 1.0.0 =
 * Initial release
