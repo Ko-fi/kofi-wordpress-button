@@ -194,7 +194,7 @@ class FeatureContext extends RawWordpressContext {
         $time = 500; //milliseconds
         $button = $this->WithWidgetId( "<widget_id>savewidget" );
         $this->getSession()->getPage()->pressButton( $button );
-        $this->getSession()->wait( $time, "$('#$button').val() === 'Saved'" );
+        $this->getSession()->wait( $time, "jQuery('#$button').val() === 'Saved'" );
     }
 
     /**
@@ -228,9 +228,9 @@ class FeatureContext extends RawWordpressContext {
         $time = 500; //milliseconds
         $widget_form_title = '"'.$title.'"';
 
-        $click_open = "$('[id*=\"_$this->current_widget_id\"] button.widget-action').click()";
-        $wait_for_title = "$('span:contains($widget_form_title)').length > 0;";
-        $wait_for_open = "$('h3:contains($widget_form_title)').parent().parent().parent().parent().hasClass('open');";
+        $click_open = "jQuery('[id*=\"_$this->current_widget_id\"] button.widget-action').click()";
+        $wait_for_title = "jQuery('span:contains($widget_form_title)').length > 0;";
+        $wait_for_open = "jQuery('h3:contains($widget_form_title)').parent().parent().parent().parent().hasClass('open');";
 
         $this->getSession()->wait($time, $wait_for_title );
         $this->getSession()->executeScript( $click_open );
