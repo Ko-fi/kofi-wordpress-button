@@ -47,6 +47,9 @@ Ko-fi offer Ko-fi Gold, a totally optional upgrade which allows creators to rece
 
 The Wordpress plugin allows wordpress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the widget in a sidebar or widget area.
 
+= Acknowledgements
+
+* Thanks to @mlchaves for his assistance with making the plugin php7.3 compliant.
 
 == Screenshots ==
 
