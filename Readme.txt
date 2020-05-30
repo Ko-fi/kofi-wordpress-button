@@ -14,8 +14,11 @@ Receive donations on your Ko-fi page with a button on your wordpress site.
 == Description ==
 
 Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $30 million has been earned on Ko-fi so far and it's growing every month! 
+
 The money goes directly to you with 0% fees from Ko-fi, it's completely Free and a great alternative to ads!
+
 Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations. 
+
 Use the Plugin to add a Ko-fi button to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
 
 == Installation ==
@@ -47,7 +50,17 @@ Ko-fi offer Ko-fi Gold, a totally optional upgrade which allows creators to rece
 
 The Wordpress plugin allows wordpress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the widget in a sidebar or widget area.
 
-= Acknowledgements
+Alternatively use the [kofi] shortcode in your page or in the shortcode block.
+
+For more information see the help page at [ko-fi.com.](https://help.ko-fi.com/hc/en-us/articles/115004002614-Add-a-Ko-fi-button-to-your-WordPress-site)
+
+= Help! The Default Code on my widget has changed =
+
+With the release of 1.0.1 your Ko-fi code now comes from the settings page when using the shortcode or a widget. 
+
+If you have not set your Ko-fi code in the settings page then simply update the Default Page Name/Id on the settings page, save the change and the widget will automatically pick it up.
+
+= Acknowledgements =
 
 * Thanks to @mlchaves for his assistance with making the plugin php7.3 compliant.
 
