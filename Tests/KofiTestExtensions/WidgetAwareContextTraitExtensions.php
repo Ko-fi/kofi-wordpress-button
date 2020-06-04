@@ -106,8 +106,12 @@ trait WidgetAwareContextTraitExtensions
      */
     public function assertTextAreaContainsText( $element, $text  ) {
         
-        $element_value = $this->getSession()->getPage()->find("css", $element)->getValue();
+        $found_element = $this->getSession()->getPage()->find("css", $element);
+        if( $found_element === null ) {
+            throw new \UnexpectedValueException(sprintf('Did not find "%s" in page"', $element ));
+        }
 
+        $element_value = $found_element->getValue();
         if( $element_value !== $text ) {
 
             throw new \UnexpectedValueException(sprintf('Expected "%s" but have "%s"', $text, $element_value ));
@@ -130,6 +134,21 @@ trait WidgetAwareContextTraitExtensions
 
             throw new \UnexpectedValueException(sprintf('Did not find the readonly attribute on "%s" element', $element_css ));
         }
+    }
+
+    /**
+     * Add a widget without providing any settings
+     * 
+     * @param string $widget_name The name of the widget
+     * @param string $sidebar_name The human readable form of the sidebar to add the widget to
+     * 
+     * @return void
+     */
+    public function addWidgetWithoutSettings($widget_name, $sidebar_name) {
+
+        $sidebar_id = $this->getSidebar( $sidebar_name );
+        $widget_name = strtolower($widget_name);
+        $this->getDriver()->wpcli('widget', 'add '.$widget_name.' '.$sidebar_id);
     }
 
     /**
