@@ -12,14 +12,15 @@ Feature: Test that the settings page works as expected
   Scenario: Test that the default values are set
     Given I am logged in as an administrator
     And  the "kofi-button/Ko_fi" plugin is active
+    And the "ko_fi_options" option does not exist
     And I am on the dashboard
 
     When I go to the menu 'Settings > ko-fi Settings'
-    Then the "ko_fi_options_coffee_title" field should contain "My Ko-fi button"
+    Then the "ko_fi_options_coffee_title" field should contain "Support This Site"
     And the "ko_fi_options_coffee_text" field should contain "Buy me a coffee!"
-    And the "ko_fi_options[coffee_color]" field should contain "46B798"
-    And the "ko_fi_options_coffee_description" field should contain "Buy me a coffee!"
-    And the "ko_fi_options_coffee_code" field should contain "supportkofi"
+    And the "ko_fi_options[coffee_color]" field should contain "ff5f5f"
+    And the "ko_fi_options_coffee_description" field should contain "If you like what I do please support me on Ko-fi"
+    And the "ko_fi_options_coffee_code" field should contain ""
     And the "ko_fi_options_coffee_hyperlink" checkbox should be unchecked
     And the "ko_fi_options_coffee_button_alignment" field should contain "Left"
 
@@ -52,5 +53,6 @@ Feature: Test that the settings page works as expected
     And  the "kofi-button/Ko_fi" plugin is active
     And I am on the dashboard
 
-    When I deactivate the "kofi-button/Ko_fi" plugin
+    When I go to the menu 'Settings > ko-fi Settings'
+    Then I deactivate the "kofi-button/Ko_fi" plugin
     Then the "ko_fi_options" option should not exist

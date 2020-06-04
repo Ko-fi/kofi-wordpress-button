@@ -26,7 +26,25 @@ trait OptionsAPIAwareTrait
         if( !empty( $options_list ) ) {
             throw new \UnexpectedValueException(sprintf('The option "%s" still exists', $option_name ));
         }
+    }
 
+    /**
+     * Delete an option if it exists
+     * 
+     * @param string $option_name
+     * 
+     * @return void
+     */
+    public function deleteOption( $option_name ) {
+
+        $options_list = json_decode( $this->getDriver()->wpcli('option', 'list', [
+            '--search="'.$option_name.'"','--format=json',
+        ])['stdout'] );
+
+        if( !empty( $options_list ) ) {
+            
+            $this->getDriver()->wpcli('option', 'delete '.$option_name);
+        }
     }
 
 }

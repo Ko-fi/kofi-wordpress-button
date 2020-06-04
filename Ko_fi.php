@@ -4,7 +4,7 @@
 Plugin Name: Ko-fi Button
 Plugin URI:
 Description: A Ko-fi donate button for your website!
-Version: 1.0.1
+Version: 1.0.2
 Author: Ko-fi Team; www.ko-fi.com
 Author URI:
 License: GPL2
@@ -55,8 +55,6 @@ class Ko_Fi
             ];
 
             $actions = array_merge($plugin_links, $actions);
-
-
         }
 
         return $actions;
@@ -81,7 +79,6 @@ class Ko_Fi
     // Add Shortcode
     public static function kofi_shortcode($atts)
     {
-
         // Attributes
         $atts = shortcode_atts(
             array(
@@ -111,19 +108,11 @@ class Ko_Fi
             empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
             esc_attr($args['value']),
             esc_attr($color_options));
-
     }
 
     public static function get_embed_code($atts, $widget_id = '')
     {
-
-        $selector = $widget_id !== '' ? '#'.$widget_id.' .btn-container' : '.btn-container';
         $settings = wp_parse_args($atts, self::$options);
-        $style_registry = [
-            'left' => "<style>$selector { float: none; text-align: left;}</style>",
-            'right' => "<style>$selector { float: right; text-align: left;}</style>",
-            'centre' => "<style>$selector { width: 100%; text-align: center; }</style>"
-        ];
         foreach ($atts as $key => $value) {
             switch ($key) {
                 case 'title'  :
@@ -152,12 +141,33 @@ class Ko_Fi
             $settings[$key] = $value;
         }
 
+        $style_registry = [
+            'left' => "float: none; text-align: left;",
+            'right' => "float: right; text-align: left;",
+            'centre' => "width: 100%; text-align: center;"
+        ];
+        
+        $btn_container_style = '"'.$style_registry[ $settings['coffee_button_alignment'] ].'"';
         if (!empty($settings['coffee_hyperlink']) && $settings['coffee_hyperlink']) {
-            return $style_registry[ $settings['coffee_button_alignment'] ]."<div class='btn-container'><a href='" . "http://www.ko-fi.com/" . $settings['coffee_code'] . "'>{$settings['coffee_text']}</a></div>";
+
+            return '<div style='.$btn_container_style.' class="btn-container">'.
+                        '<a href="http://www.ko-fi.com/'.$settings['coffee_code'].'">'.$settings['coffee_text'].'</a>'.
+                    '</div>';
         } else {
-            return $style_registry[ $settings['coffee_button_alignment'] ]."<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
-	        <script type='text/javascript'>kofiwidget2.init('" . $settings['coffee_text'] . "', '#" . $settings['coffee_color'] . "', '" . $settings['coffee_code'] . "');
-	            kofiwidget2.draw();</script>";
+
+            $html_variable_name = str_replace( '-', '_', $widget_id );
+            if( empty( $html_variable_name ) ) {
+                $html_variable_name = 'kofiShortcode'.rand(1, 1000);
+            }
+
+            $html_variable_name .= 'Html';
+
+            return "<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>".
+            "<script type='text/javascript'>".
+                "kofiwidget2.init('" . $settings['coffee_text'] . "', '#" . $settings['coffee_color'] . "', '" . $settings['coffee_code'] . "');".
+                "let ".$html_variable_name." = kofiwidget2.getHTML().replace('<div class=btn-container>', '<div style=".$btn_container_style." class=btn-container>');".
+                "document.writeln($html_variable_name);".
+            "</script>";
         }
     }
 

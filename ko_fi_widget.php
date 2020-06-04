@@ -5,8 +5,7 @@
  */
 class ko_fi_widget extends WP_Widget
 {
-
-    function __construct()
+    public function __construct()
     {
         $widget_ops = [
             'classname' => 'ko_fi_widget',
@@ -34,6 +33,7 @@ class ko_fi_widget extends WP_Widget
         echo empty($instance['description']) ? '':"<p>{$instance['description']}</p>";
 
         $new_instance = $this->get_new_instance();
+
         if( !empty($instance['description']) ) {
 
             $new_instance = [
@@ -61,7 +61,7 @@ class ko_fi_widget extends WP_Widget
     {        
         $current_opts = $this->get_options();
         if(empty($instance))
-		{
+		{            
 			$instance = $this->get_new_instance();
         }
 
@@ -76,29 +76,17 @@ class ko_fi_widget extends WP_Widget
         ?>
 
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-                   name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title ?>">
-        </p>
-        <p>
-            <label for="<?php echo $this->get_field_id('description'); ?>"><?php _e('Description:'); ?></label>
-            <textarea class="widefat" id="<?php echo $this->get_field_id('description'); ?>"
-                      name="<?php echo $this->get_field_name('description'); ?>" rows="5"
-                      type="text"><?php echo $description ?></textarea>
-
-			<label for="<?php echo $this->get_field_id('code'); ?>"><?php _e('Code:'); ?></label>
+            <label for="<?php echo $this->get_field_id('code'); ?>"><?php _e('Page Name or ID:'); ?></label>
             <input class="widefat" readonly id="<?php echo $this->get_field_id('code'); ?>"
                    name="<?php echo $this->get_field_name('code'); ?>" type="text" value="<?php echo $code ?>">
+        </p>
 
+        <p>
             <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Button text:'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('text'); ?>"
                    name="<?php echo $this->get_field_name('text'); ?>" type="text" value="<?php echo $text ?>">
         </p>
-        <p>
-            <label for="<?php echo $this->get_field_id('hyperlink'); ?>"><?php _e('Hyperlink?'); ?></label>
-            <input id="<?php echo $this->get_field_id('hyperlink'); ?>"
-                   name="<?php echo $this->get_field_name('hyperlink'); ?>" type="checkbox" value="true" <?php checked($hyperlink, 'true');?>>
-        </p>
+
         <p>
             <label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Button (hex)color:'); ?></label>
             <?php
@@ -113,6 +101,25 @@ class ko_fi_widget extends WP_Widget
             echo Ko_Fi::get_jscolor($color_args);
             ?>
         </p>
+
+        <p>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
+                   name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title ?>">
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('description'); ?>"><?php _e('Description:'); ?></label>
+            <textarea class="widefat" id="<?php echo $this->get_field_id('description'); ?>"
+                      name="<?php echo $this->get_field_name('description'); ?>" rows="5"
+                      type="text"><?php echo $description ?></textarea>
+			
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('hyperlink'); ?>"><?php _e('Hyperlink?'); ?></label>
+            <input id="<?php echo $this->get_field_id('hyperlink'); ?>"
+                   name="<?php echo $this->get_field_name('hyperlink'); ?>" type="checkbox" value="true" <?php checked($hyperlink, 'true');?>>
+        </p>
+
         <p>
             <label for="<?php echo $this->get_field_id('button_alignment'); ?>"><?php _e('Button Alignment'); ?></label>
             <select id="<?php echo $this->get_field_id('button_alignment'); ?>" name="<?php echo $this->get_field_name('button_alignment'); ?>">
@@ -163,7 +170,7 @@ class ko_fi_widget extends WP_Widget
      */
 	private function get_new_instance(){
     
-		$current_opts = $this->get_options(true);
+		$current_opts = $this->get_options();
 
 		$instance = [
 			'description' => $current_opts['coffee_description'],
@@ -183,18 +190,14 @@ class ko_fi_widget extends WP_Widget
      * 
      * @return array
      */
-    private function get_options($use_defaults = false) {
-
+    private function get_options() {
 
         $defaults = Default_ko_fi_options::get()['defaults'];
         $current_opts = get_option( 'ko_fi_options', $defaults );
 
-        if($use_defaults) {
-            $defaults[ 'coffee_code' ] = $current_opts['coffee_code'];
-            return $defaults;
-        }
+        //ensure that any new option values are picked up
+        $current_opts = array_merge( $defaults, $current_opts );
 
         return $current_opts;
     }
-
 }

@@ -17,9 +17,7 @@ class Ko_fi_Options {
 
 		add_action( 'admin_init', [ $this, 'set_options' ] );
 		add_action( 'admin_menu', [ $this, 'menu' ] );
-
 	}
-
 
 	public function default_fallbacks() {
 		update_option( $this->options['option_name'], $this->options['defaults'] );
@@ -42,7 +40,14 @@ class Ko_fi_Options {
 	public function get_page_html() {
 		?>
 		<div class="wrap">
+			<style>
+				.ko-fi-settings-page-description,
+				.ko-fi-settings-section-description {
+					font-size: 1.1em;
+				}
+			</style>
 			<h1><?php echo esc_html( $this->options['menu_title'] ); ?></h1>
+			<section class="ko-fi-settings-page-description"><?php echo $this->options['page_description'] ?></section>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( $this->options['option_name'] );
@@ -59,26 +64,39 @@ class Ko_fi_Options {
 		register_setting(
 			$this->options['option_name'],
 			$this->options['option_name']
-		//todo: set up validate function;
 		);
 
 		foreach ( $this->options['sections'] as $section ) {
 
-			add_settings_section( $section['slug'], $section['title'], '', $this->options['page_name'] );
+			add_settings_section( 
+				$section['slug'], 
+				$section['title'], 
+				function() use( $section ){ 
+					echo '<section class="ko-fi-settings-section-description">'.
+						esc_html( $section[ 'section_description' ] ).
+						'</section>'; 
+				}, 
+				$this->options['page_name'] 
+			);
 
 			foreach ( $section['fields'] as $field ) {
 
 				$id = sprintf(
 					'%s[%s_%s]',
 					$this->options['page_name'],
-					$section['slug'],
+					$section['slug_prefix'],
 					$field['slug'] );
 
 				$selector = sprintf(
 					'%s_%s_%s',
 					$this->options['page_name'],
-					$section['slug'],
+					$section['slug_prefix'],
 					$field['slug'] );
+
+				$placeholder = empty( $field['placeholder'] ) ? '' : $field['placeholder'];
+				$field_value = isset( $this->fallbacks[ $section['slug_prefix'].'_'.$field['slug'] ] ) ? 
+								$this->fallbacks[ $section['slug_prefix'].'_'.$field['slug'] ] : 
+								false;
 
 				add_settings_field(
 					$id,
@@ -90,13 +108,14 @@ class Ko_fi_Options {
 					$this->options['page_name'],
 					$section['slug'],
 					[
-						'option_type' => $field['type'],
-						'option_id'   => $id,
-						'description' => empty( $field['description'] ) ? '' : $field['description'],
-						'label'       => empty( $field['label'] ) ? '' : $field['label'],
-						'options'     => isset( $field['options'] ) ? $field['options'] : false,
-						'value'       => isset( $this->fallbacks["{$section['slug']}_{$field['slug']}"] ) ? $this->fallbacks["{$section['slug']}_{$field['slug']}"] : false,
-						'selector'	  => $selector
+						'option_type' 	=> $field['type'],
+						'option_id'   	=> $id,
+						'description' 	=> empty( $field['description'] ) ? '' : $field['description'],
+						'label'       	=> empty( $field['label'] ) ? '' : $field['label'],
+						'options'     	=> isset( $field['options'] ) ? $field['options'] : false,
+						'value'       	=> $field_value,
+						'selector'	  	=> $selector,
+						'placeholder'  	=> $placeholder	
 					]
 				);
 			}
@@ -115,13 +134,13 @@ class Ko_fi_Options {
 		<?php endif;
 	}
 
-
 	public function text( $args ) {
 		printf(
-			'<input class="regular-text" id="%1$s" name="%2$s" type="text" value="%3$s" />',
+			'<input class="regular-text" id="%1$s" name="%2$s" type="text" value="%3$s" placeholder="%4$s"/>',
 			esc_attr( $args['selector'] ),
 			esc_attr( $args['option_id'] ),
-			esc_attr( $args['value'] )
+			esc_attr( $args['value'] ),
+			esc_attr( $args['placeholder'] )
 		);
 	}
 
@@ -150,7 +169,6 @@ class Ko_fi_Options {
 		);
 	}
 
-
 	public function select( $args ) {
 		printf( '<select id="%1$s" name="%2$s">', esc_attr( $args['selector'] ), esc_attr( $args['option_id'] ) );
 		foreach ( $args['options']['list'] as $value => $label ) {
@@ -163,7 +181,6 @@ class Ko_fi_Options {
 		}
 		printf( '</select>' );
 	}
-
 
 	public function checkbox( $args ) {
 		if ( ! empty( $args['label'] ) ) :
@@ -183,7 +200,6 @@ class Ko_fi_Options {
 			);
 		endif;
 	}
-
 
 	public function checkbox_list( $args ) {
 		foreach ( $args['options']['list'] as $value => $label ) {

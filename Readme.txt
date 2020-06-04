@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
 Tested up to: 5.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,14 +23,16 @@ Use the Plugin to add a Ko-fi button to any widget area, sidebar or use the shor
 
 == Installation ==
 
-To install the plugin, please follow the following steps. 
+To install the plugin, please follow the following steps.
 
-1. Upload the plugin files to the `/wp-content/plugins/ko-fi-plugin` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
-3. Use the Settings->ko-fi Settings screen to configure the defalut settings
-4. Go to 'Widgets' and add a 'Ko-fi button' widget to a Sidebar or widget area
-5. Customise the tile, description, enter your page code (requires Ko-fi page to be setup) and choose a colour for your button
+Installation To install the plugin, please follow the following steps.
 
+1. Go to ‘Plugins’and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory. 
+2. Activate the plugin through the ‘Plugins’ screen in WordPress.
+3. Use the Settings > Ko-fi Settings screen to link to your Ko-fi page and configure the default settings.  
+4. Go to Appearance > Widgets and add a ‘Ko-fi button’ widget to any Sidebar or Widget area. 
+5. Override any default settings in the widget.
+6. You can also add your Ko-fi button to any Page or Post using Shortcode [kofi].
 
 == Frequently Asked Questions ==
 
@@ -70,6 +72,12 @@ If you have not set your Ko-fi code in the settings page then simply update the 
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
+= 1.0.2 =
+* Align 'Default Code' field name in the Widget with the field name 'Page Name Or ID' on the settings.
+* Set the default value in 'Page Name or ID' on the settings to being empty and set the placeholder to 'supportkofi'.
+* When adding a new widget take the default values from the current Ko-fi settings.
+* Re-arrange settings into a more logical order on the settings page.
 
 = 1.0.1 =
 * Minor Updates to the wording used withhin the plugin and to the use of 'Ko-fi'.

@@ -43,6 +43,21 @@ class FeatureContext extends RawWordpressContext {
     }
 
     /**
+     * 
+     * Delete an existing option
+     * 
+     * Example Given the "my hero" option does not exist
+     * 
+     * @Given the :opton_name option does not exist
+     * 
+     * @param string $opton_name
+     */
+    public function DeleteWPOption( $opton_name ) {
+
+        $this->deleteOption( $opton_name );
+    }
+
+    /**
      * Saves the widget root id for use in further steps
      *
      * Example: When I save the id of the "my_widget" in the "Footer"
@@ -304,6 +319,38 @@ class FeatureContext extends RawWordpressContext {
 
             throw new \UnexpectedValueException(sprintf('Did not find the anchor element"%s"', $selector ));
         }
+    }
+
+    /**
+     * Adds a widget without having to provide predefined settings
+     * 
+     * Example Then I add a "my_widget" widget to the "Footer"
+     * 
+     * @Then I add a :widget_name widget to the :sidebar_name
+     * 
+     * @param string $widget_name The name of the widget
+     * @param string $sidebar_name The human readable form of the sidebar to add the widget to
+     * 
+     */
+    public function AddWidgetWithoutAnySettings( $widget_name, $sidebar_name ) {
+
+        $this->addWidgetWithoutSettings( $widget_name, $sidebar_name );
+    }
+
+    /**
+     * Debug - Show the content of an element
+     * 
+     * Example Then I show the content in the "my_element" element
+     * 
+     * @Then I show the content in the :element element
+     * 
+     * @param string $element CSS of the element we want to check
+     * 
+     */
+    public function ShowTheContentInElement( $element ) {
+
+        $found_element = $this->getSession()->getPage()->find("css", $element);
+        var_dump($found_element->getHtml());
     }
 
     /**
