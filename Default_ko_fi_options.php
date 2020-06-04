@@ -24,21 +24,21 @@ class Default_ko_fi_options {
 				[
 					'slug'  => 'coffee_button_settings',
 					'slug_prefix' => 'coffee',
-					'section_description' => __( 'These are settings for the [kofi] shortcode and default settings for Widgets', 'Ko_fi') ,
+					'section_description' => __( 'These are settings for the [kofi] shortcode and default settings for widgets', 'Ko_fi') ,
 					'title' => __( 'Button Settings', 'Ko_fi' ),
 					'fields'=> [
 						[
 							'slug'        => 'code',
 							'title'       => __( 'Page Name or ID', 'Ko_fi' ),
 							'type'        => 'text',
-							'description' => __( 'Your Ko-fi Page Name (the bit after Ko-fi.com in the urlbar) e.g. ko-fi.com/supportkofi just enter supportkofi', 'Ko_fi' ),
+							'description' => __( 'Your Ko-fi Page Name (the bit after Ko-fi.com in the URL bar) e.g. ko-fi.com/supportkofi just enter supportkofi', 'Ko_fi' ),
 							'placeholder' => __( 'supportkofi', 'Ko_fi' ),
 						],						
 						[
 							'slug'        => 'text',
 							'title'       => __( 'Button Text', 'Ko_fi' ),
 							'type'        => 'text',
-                            'description' => __( 'This text will appear on the button(so don\'t make it too long!).' , 'Ko_fi' )
+                            'description' => __( 'This text will appear on the button (so don\'t make it too long!).' , 'Ko_fi' )
 						],
 						[
 							'slug'        => 'color',
@@ -71,10 +71,10 @@ class Default_ko_fi_options {
 						],						
 						[
 							'slug'        => 'hyperlink',
-							'title'       => __( 'Hyperlink', 'Ko_fi' ),
+							'title'       => __( 'Text link only', 'Ko_fi' ),
 							'type'        => 'checkbox',
-							'label'       => 'Hyperlink',
-							'description' => __( 'Check this box if you want to display your button as a hyperlink by default.', 'Ko_fi' ),
+							'label'       => '',
+							'description' => __( 'Check this box to display your Ko-fi link as a simple text link (removes button background and doesn\'t use JavaScript)', 'Ko_fi' ),
 						],
 						[
 							'slug'        => 'button_alignment',

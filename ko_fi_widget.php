@@ -115,7 +115,7 @@ class ko_fi_widget extends WP_Widget
 			
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id('hyperlink'); ?>"><?php _e('Hyperlink?'); ?></label>
+            <label for="<?php echo $this->get_field_id('hyperlink'); ?>"><?php _e('Text link only?'); ?></label>
             <input id="<?php echo $this->get_field_id('hyperlink'); ?>"
                    name="<?php echo $this->get_field_name('hyperlink'); ?>" type="checkbox" value="true" <?php checked($hyperlink, 'true');?>>
         </p>

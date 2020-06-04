@@ -162,7 +162,7 @@ class Ko_fi_Options {
 
 	public function textarea( $args ) {
 		printf(
-			'<textarea class="all-options" id="%1$s" name="%2$s" rows="5">%3$s</textarea>',
+			'<textarea class="all-options" id="%1$s" name="%2$s" rows="5" style="width: 350px;">%3$s</textarea>',
 			esc_attr( $args['selector'] ),
 			esc_attr( $args['option_id'] ),
 			esc_html( $args['value'] )
