@@ -27,7 +27,7 @@ Feature: Display the widget on the front page
         When I go to "/"
         Then I should see "My Ko-fi button"
         And I should see "If you like what I do please support me on Ko-fi" in the "section.ko_fi_widget p" element
-        And the "section.ko_fi_widget" element should contain "kofiwidget2.init('Buy me a coffee!', '#46B798', '');"
+        And the "section.ko_fi_widget" element should contain "kofiwidget2.init(\"Buy me a coffee!\", \"#46B798\", \"\");"
 
     @db
     Scenario: Test the widget hyperlink is displayed when the hyperlink option is set
@@ -53,3 +53,33 @@ Feature: Display the widget on the front page
         Then I go to "/"
         And I should see "My Ko-fi button"
         And an anchor with the link "http://www.ko-fi.com/123456" exists
+
+    @db
+    Scenario: Test the widget is displayed on the front page when there is an apostrophe in the button text
+        Given I am logged in as an administrator
+        And the "ko_fi_options" option does not exist
+        And  the "kofi-button/Ko_fi" plugin is active
+        And I have no "ko_fi_widget" widgets in "Footer"
+        And I have the 'ko_fi_widget' widget in 'Footer'
+            | title              | description                                            |  text                  |   color       |  button_alignment  |
+            | My Ko-fi button    | If you like what I do please support me on Ko-fi       |  Buy me a coffee!'      |   46B798      |  left              |
+        
+        When I go to "/"
+        Then I should see "My Ko-fi button"
+        And I should see "If you like what I do please support me on Ko-fi" in the "section.ko_fi_widget p" element
+        And the "section.ko_fi_widget" element should contain "kofiwidget2.init(\"Buy me a coffee!'\", \"#46B798\", \"\");"
+
+    @db
+    Scenario: Test the widget is displayed on the front page and double quote is removed
+        Given I am logged in as an administrator
+        And the "ko_fi_options" option does not exist
+        And  the "kofi-button/Ko_fi" plugin is active
+        And I have no "ko_fi_widget" widgets in "Footer"
+        And I have the 'ko_fi_widget' widget in 'Footer'
+            | title              | description                                            |  text                  |   color       |  button_alignment  |
+            | My Ko-fi button    | If you like what I do please support me on Ko-fi       |  Buy me a coffee!"      |   46B798      |  left              |
+        
+        When I go to "/"
+        Then I should see "My Ko-fi button"
+        And I should see "If you like what I do please support me on Ko-fi" in the "section.ko_fi_widget p" element
+        And the "section.ko_fi_widget" element should contain "kofiwidget2.init(\"Buy me a coffee!\", \"#46B798\", \"\");"
