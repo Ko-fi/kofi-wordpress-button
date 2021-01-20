@@ -72,6 +72,7 @@ If you have not set your Ko-fi code in the settings page then simply update the 
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
 = 1.0.3 =
 * Handle the case with an apostrophe in the button text.
 * Remove double quotation marks when rendering widget javascript to browser.

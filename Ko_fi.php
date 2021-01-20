@@ -4,7 +4,7 @@
 Plugin Name: Ko-fi Button
 Plugin URI:
 Description: A Ko-fi donate button for your website!
-Version: 1.0.2
+Version: 1.0.3
 Author: Ko-fi Team; www.ko-fi.com
 Author URI:
 License: GPL2
