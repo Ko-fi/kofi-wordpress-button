@@ -1,5 +1,6 @@
 Feature: Configure the Ko-Fi widget in the widget area
 
+  @javascript
   Scenario: Test that the default values are set when adding widget
     Given I am logged in as an administrator
     And I have no "ko_fi_widget" widgets in "Footer"
@@ -10,6 +11,7 @@ Feature: Configure the Ko-Fi widget in the widget area
             | Support This Site     | If you like what I do please support me on Ko-fi  |  Buy me a coffee!      |   46B798      |  left              |
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
 
     Then I should see "If you like what I do please support me on Ko-fi" in the "#<widget_id>description" widget element
     And the "<widget_id>title" widget field should contain "Support This Site"
@@ -31,14 +33,15 @@ Feature: Configure the Ko-Fi widget in the widget area
             | Support This Site     | If you like what I do please support me on Ko-fi  |  Buy me a coffee!      |   46B798      |  left              |
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
-    And I wait for the widget form "Support This Site" to open
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
     And I fill in widget field "<widget_id>title" with "Ko-Fi Test"
     And I fill in widget field "<widget_id>text" with "Buy me a pizza"
     And I fill in widget field "<widget_id>color" with "123456"
     And I fill in widget field "<widget_id>description" with "Buy me a pizza"
     And I check widget checkbox "<widget_id>hyperlink"
     And I select "Right" from widget options "<widget_id>button_alignment"
-    And I press the save widget button
+    And I press the update button on the widget screen
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
 
     Then I should see "Buy me a pizza" in the "#<widget_id>description" widget element
     And the "<widget_id>title" widget field should contain "Ko-Fi Test"
@@ -49,6 +52,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And the "<widget_id>button_alignment" widget field should contain "Right"
 
   @db
+  @javascript
   Scenario: Test changing the 'code' on the settings page gives the same code when adding a widget
     Given I am logged in as an administrator
     And I have no "ko_fi_widget" widgets in "Footer"
@@ -63,9 +67,11 @@ Feature: Configure the Ko-Fi widget in the widget area
 
     Then I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
     And the "<widget_id>code" widget field should contain "supportkofi_1"
 
   @db
+  @javascript
   Scenario: Test saving changes in the setting pages are reflected when adding a new widget
     Given I am logged in as an administrator
     And I have no "ko_fi_widget" widgets in "Footer"
@@ -94,6 +100,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And I am on the dashboard
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
 
     Then I should see "Buy me a pizza" in the "#<widget_id>description" widget element
     And the "<widget_id>title" widget field should contain "Ko-Fi Test"
@@ -104,6 +111,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     And the "<widget_id>button_alignment" widget field should contain "Right" 
 
   @db
+  @javascript
   Scenario: Test adding a widget then updating the settings doesn't change the widget settings except for page name/id
 
   Given I am logged in as an administrator
@@ -146,6 +154,7 @@ Feature: Configure the Ko-Fi widget in the widget area
     Then I am on the dashboard
     And I go to the menu 'Appearance > Widgets'
     And I save the id of the "ko_fi_widget" in the "Footer"
+    And I have a legacy widget and I wait for the widget form "Ko-fi Button" to open
 
     Then I should see "Buy me an Iced Ko-fi" in the "#<widget_id>description" widget element
     And the "<widget_id>title" widget field should contain "My Iced Ko-fi"

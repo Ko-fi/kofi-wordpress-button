@@ -213,6 +213,21 @@ class FeatureContext extends RawWordpressContext {
     }
 
     /**
+     * Presses the update button on the widget screen
+     * Example: When I press the update button on the widget screen
+     *
+     * @When I press the update button on the widget screen
+     * 
+     * @return void
+     */
+    public function PressUpdateWidgetButton()
+    {
+        $time = 500; //milliseconds
+        $this->getSession()->getPage()->pressButton( 'Update' );
+        $this->getSession()->wait( $time, "jQuery('.edit-widgets-header__actions button').attr('disabled') !== undefined" );
+    }
+
+    /**
      * Show information about the selected widget type
      * 
      * Example: When I show info about the "my_widget" in the "Footer"
@@ -246,6 +261,30 @@ class FeatureContext extends RawWordpressContext {
         $click_open = "jQuery('[id*=\"_$this->current_widget_id\"] button.widget-action').click()";
         $wait_for_title = "jQuery('span:contains($widget_form_title)').length > 0;";
         $wait_for_open = "jQuery('h3:contains($widget_form_title)').parent().parent().parent().parent().hasClass('open');";
+
+        $this->getSession()->wait($time, $wait_for_title );
+        $this->getSession()->executeScript( $click_open );
+        $this->getSession()->wait($time, $wait_for_open );
+    }
+
+    /**
+     * Open the widget configuration form on the widget page.
+     * 
+     * @When I have a legacy widget and I wait for the widget form :title to open
+     * 
+     * @param string $title The title of the widget form
+     * 
+     * @return void
+     */
+    public function ILegacyWidgetWaitForWidgetFormsToOpen( $title ) {
+
+        $time = 500; //milliseconds
+        $widget_form_title = '"'.$title.'"';
+        $jQuery_stub = "jQuery('.wp-block-legacy-widget__edit-form-title:contains($widget_form_title)')";
+
+        $click_open = $jQuery_stub.".parent().removeAttr('hidden')";
+        $wait_for_title = $jQuery_stub.".Length > 0";
+        $wait_for_open = $jQuery_stub.".closest('.wp-block-legacy-widget').hasClass('is-selected')";
 
         $this->getSession()->wait($time, $wait_for_title );
         $this->getSession()->executeScript( $click_open );
