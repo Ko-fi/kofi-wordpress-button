@@ -46,7 +46,7 @@ class Ko_fi_Options {
 					font-size: 1.1em;
 				}
 			</style>
-			<h1><?php echo esc_html( $this->options['menu_title'] ); ?></h1>
+			<h1><?php echo esc_html( $this->options['page_title'] ); ?></h1>
 			<section class="ko-fi-settings-page-description"><?php echo $this->options['page_description'] ?></section>
 			<form method="post" action="options.php">
 				<?php
