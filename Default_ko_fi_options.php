@@ -15,7 +15,7 @@ class Default_ko_fi_options {
 				'coffee_title'      		=> __( 'Support This Site', 'Ko_fi' ),
 				'coffee_text'       		=> __( 'Buy me a coffee!', 'Ko_fi' ),
 				'coffee_color'      		=> __('ff5f5f', 'Ko_fi' ),
-                'coffee_description'		=> __( 'If you like what I do please support me on Ko-fi', 'Ko_fi' ),
+				'coffee_description'		=> __( 'If you like what I do please support me on Ko-fi', 'Ko_fi' ),
 				'coffee_code'       		=> '',
 				'coffee_hyperlink'  		=> false,
 				'coffee_button_alignment' 	=> 'left'
@@ -38,7 +38,7 @@ class Default_ko_fi_options {
 							'slug'        => 'text',
 							'title'       => __( 'Button Text', 'Ko_fi' ),
 							'type'        => 'text',
-                            'description' => __( 'This text will appear on the button (so don\'t make it too long!).' , 'Ko_fi' )
+							'description' => __( 'This text will appear on the button (so don\'t make it too long!).' , 'Ko_fi' )
 						],
 						[
 							'slug'        => 'color',
