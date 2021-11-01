@@ -162,12 +162,12 @@ class Ko_Fi
 			$html_variable_name .= 'Html';
 			
 
-			return "<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>".
+			return "<div class='ko-fi-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>".
 			"<script type='text/javascript'>".
 				'kofiwidget2.init("' . self::sanitise_coffee_text( $settings['coffee_text'] ). '", "#' . $settings['coffee_color'] . '", "' . $settings['coffee_code'] . '");'.
 				"let ".$html_variable_name." = kofiwidget2.getHTML().replace('<div class=btn-container>', '<div style=".$btn_container_style." class=btn-container>');".
 				"document.writeln($html_variable_name);".
-			"</script>";
+			"</script></div>";
 		}
 	}
 
