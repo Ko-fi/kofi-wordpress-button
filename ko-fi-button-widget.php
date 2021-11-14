@@ -22,7 +22,7 @@ class ko_fi_widget extends WP_Widget
 	 */
 	public function widget($args, $instance)
 	{
-		// outputs the content of the widget
+		// outputs the content of the widget.
 		echo $args['before_widget'];
 		if (!empty($instance['title'])) {
 			echo $args['before_title'];
@@ -46,7 +46,7 @@ class ko_fi_widget extends WP_Widget
 			];
 		}
 	  
-		echo Ko_Fi::get_embed_code($new_instance, $args[ 'widget_id' ]);
+		echo Ko_Fi::get_button_embed_code( $new_instance, $args[ 'widget_id' ] );
 		echo $args['after_widget'];
 	}
 

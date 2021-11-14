@@ -66,29 +66,42 @@ class Ko_Fi
 		wp_register_script('extra', $dir_url . 'extra.js', ['jscolor']);
 		wp_enqueue_script('jscolor');
 		wp_enqueue_script('extra');
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
 	}
 
 	public static function widget()
 	{
-		require_once 'ko_fi_widget.php';
+		require_once 'ko-fi-button-widget.php';
 		register_widget('ko_fi_widget');
+		require_once 'class-ko-fi-panel-widget.php';
+		register_widget('ko_fi_panel_widget');
 
 	}
 
-	// Add Shortcode
-	public static function kofi_shortcode($atts)
-	{
-		// Attributes
+	/**
+	 * Add Shortcode
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @return string
+	 */
+	public static function kofi_shortcode( $atts ) {
+		// Attributes.
 		$atts = shortcode_atts(
 			array(
-				'text' => self::$options['coffee_text'],
-				'color' => self::$options['coffee_color']
+				'text'  => self::$options['coffee_text'],
+				'color' => self::$options['coffee_color'],
+				'type'  => 'button',
 			),
 			$atts
 		);
 
-		// Return custom embed code
-		return self::get_embed_code($atts);
+		// Return custom embed code.
+		if ( 'button' === $atts['type'] ) {
+			return self::get_button_embed_code( $atts );
+		} elseif ( 'panel' === $atts['type'] ) {
+			return self::get_panel_embed_code( $atts );
+		}
 	}
 
 	public static function get_jscolor($args)
@@ -102,14 +115,16 @@ class Ko_Fi
 			$color_options = '';
 		}
 
-		echo sprintf('<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
+		echo sprintf(
+			'<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
 			esc_attr($args['option_id']),
 			empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
 			esc_attr($args['value']),
-			esc_attr($color_options));
+			esc_attr($color_options)
+		);
 	}
 
-	public static function get_embed_code($atts, $widget_id = '')
+	public static function get_button_embed_code($atts, $widget_id = '')
 	{
 		$settings = wp_parse_args($atts, self::$options);
 		foreach ($atts as $key => $value) {
@@ -130,7 +145,7 @@ class Ko_Fi
 					$key = 'coffee_code';
 					if ($value == self::$options['coffee_code'])
 						$value = '';
-					$value = str_replace('http://ko-fi.com/', '', str_replace( 'https://ko-fi.com/', '', self::$options['coffee_code'] ));
+					$value = self::sanitise_username( self::$options['coffee_code'] );
 					break;
 				case 'button_alignment':
 					$key = 'coffee_button_alignment';
@@ -180,6 +195,42 @@ class Ko_Fi
 		
 		return str_replace('"', '', $text);
 	}
+
+	/**
+	 * Get the embed code for the donation panel
+	 *
+	 * @param array $atts Optional (usually shortcode) attributes.
+	 * @return string
+	 */
+	public static function get_panel_embed_code( $atts, $widget_id = '' ) {
+		if ( isset( $atts['code'] ) && ! empty( $atts['code'] ) ) {
+			$code = $atts['code'];
+		} else {
+			$code = self::$options['coffee_code'];
+		}
+		if ( ! empty( $code ) ) {
+			$return = sprintf(
+				'<iframe id="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
+				$code
+			);
+		}
+		return $return;
+	}
+
+	/**
+	 * Get a username and sanitise it
+	 *
+	 * @param string $username Username string to sanitise.
+	 * @return string
+	 */
+	public static function sanitise_username( $username ) {
+		// Strip URL down to just a username.
+		$username = str_replace( 'http://ko-fi.com/', '', $username );
+		$username = str_replace( 'https://ko-fi.com/', '', $username );
+		$username = rtrim( $username, '/' );
+		return $username;
+	}
+
 }
 
 add_action('plugins_loaded', ['Ko_Fi', 'init']);
