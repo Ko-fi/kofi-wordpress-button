@@ -30,7 +30,8 @@ class Ko_Fi
 	public static function init()
 	{
 		add_action('widgets_init', [__CLASS__, 'widget']);
-		add_action('admin_enqueue_scripts', array(__CLASS__, 'scripts'), 9);
+		add_action( 'init', array( __CLASS__, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 9 );
 		add_shortcode('kofi', [__CLASS__, 'kofi_shortcode']);
 
 		require_once 'Default_ko_fi_options.php';
@@ -59,13 +60,22 @@ class Ko_Fi
 		return $actions;
 	}
 
-	public static function scripts()
-	{
+	/**
+	 * Register any custom scripts and styles we'll need
+	 */
+	public static function register_scripts() {
 		$dir_url = plugin_dir_url(__FILE__);
-		wp_register_script('jscolor', $dir_url . 'jscolor.js', ['jquery']);
-		wp_register_script('extra', $dir_url . 'extra.js', ['jscolor']);
-		wp_enqueue_script('jscolor');
-		wp_enqueue_script('extra');
+		wp_register_script( 'jscolor', $dir_url . 'jscolor.js', array( 'jquery' ) );
+		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jscolor' ) );
+		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
+	}
+
+	/**
+	 * Enqueue scripts for the admin
+	 */
+	public static function enqueue_admin_scripts() {
+		wp_enqueue_script( 'jscolor' );
+		wp_enqueue_script( 'extra' );
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -155,18 +165,21 @@ class Ko_Fi
 			$settings[$key] = $value;
 		}
 
-		$style_registry = [
-			'left' => "float: none; text-align: left;",
-			'right' => "float: right; text-align: left;",
-			'centre' => "width: 100%; text-align: center;"
-		];
+		$style_registry = array(
+			'left'   => 'float: none; text-align: left;',
+			'right'  => 'float: right; text-align: left;',
+			'centre' => 'width: 100%; text-align: center;',
+		);
 		
-		$btn_container_style = '"'.$style_registry[ $settings['coffee_button_alignment'] ].'"';
-		if (!empty($settings['coffee_hyperlink']) && $settings['coffee_hyperlink']) {
-
-			return '<div style='.$btn_container_style.' class="btn-container">'.
-						'<a href="http://www.ko-fi.com/'.$settings['coffee_code'].'">'.$settings['coffee_text'].'</a>'.
-					'</div>';
+		$btn_container_style = $style_registry[ $settings['coffee_button_alignment'] ];
+		
+		if ( ! empty( $settings['coffee_hyperlink'] ) && $settings['coffee_hyperlink'] ) {
+			return sprintf(
+				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div>',
+				$btn_container_style,
+				$settings['coffee_code'],
+				$settings['coffee_text']
+			);
 		} else {
 
 			$html_variable_name = str_replace( '-', '_', $widget_id );
@@ -175,14 +188,24 @@ class Ko_Fi
 			}
 
 			$html_variable_name .= 'Html';
-			
 
-			return "<div class='ko-fi-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>".
-			"<script type='text/javascript'>".
-				'kofiwidget2.init("' . self::sanitise_coffee_text( $settings['coffee_text'] ). '", "#' . $settings['coffee_color'] . '", "' . $settings['coffee_code'] . '");'.
-				"let ".$html_variable_name." = kofiwidget2.getHTML().replace('<div class=btn-container>', '<div style=".$btn_container_style." class=btn-container>');".
-				"document.writeln($html_variable_name);".
-			"</script></div>";
+			wp_enqueue_script( 'ko-fi-button-widget' );
+
+			return sprintf(
+				'<div class="ko-fi-button" id="%4$s" style="%5$s">
+					<script type="text/javascript">
+					jQuery( document ).ready( function() {
+						kofiwidget2.init( "%1$s", "%2$s", "%3$s" );
+						jQuery( "#%4$s" ).html( kofiwidget2.getHTML() );
+					});
+					</script>
+				</div>',
+				self::sanitise_coffee_text( $settings['coffee_text'] ),
+				$settings['coffee_color'],
+				$settings['coffee_code'],
+				$html_variable_name,
+				$btn_container_style
+			);
 		}
 	}
 
