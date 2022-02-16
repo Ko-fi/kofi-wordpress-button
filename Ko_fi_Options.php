@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
 class Ko_fi_Options {
 
 	protected $options = [ ];

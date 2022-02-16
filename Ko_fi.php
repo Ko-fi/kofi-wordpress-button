@@ -9,6 +9,9 @@
  * License: GPL2
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 if (!function_exists('write_log')) {
 	function write_log ( $log )  {
@@ -68,6 +71,7 @@ class Ko_Fi
 		wp_register_script( 'jscolor', $dir_url . 'jscolor.js', array( 'jquery' ) );
 		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jscolor' ) );
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
+		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ) );
 	}
 
 	/**
@@ -170,41 +174,35 @@ class Ko_Fi
 			'right'  => 'float: right; text-align: left;',
 			'centre' => 'width: 100%; text-align: center;',
 		);
-		
+
 		$btn_container_style = $style_registry[ $settings['coffee_button_alignment'] ];
-		
+
 		if ( ! empty( $settings['coffee_hyperlink'] ) && $settings['coffee_hyperlink'] ) {
 			return sprintf(
 				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div>',
-				$btn_container_style,
-				$settings['coffee_code'],
-				$settings['coffee_text']
+				esc_attr( $btn_container_style ),
+				esc_attr( $settings['coffee_code'] ),
+				esc_html( $settings['coffee_text'] )
 			);
 		} else {
 
 			$html_variable_name = str_replace( '-', '_', $widget_id );
-			if( empty( $html_variable_name ) ) {
-				$html_variable_name = 'kofiShortcode'.rand(1, 1000);
+			if ( empty( $html_variable_name ) ) {
+				$html_variable_name = 'kofiShortcode' . wp_rand( 1, 1000 );
 			}
 
 			$html_variable_name .= 'Html';
 
 			wp_enqueue_script( 'ko-fi-button-widget' );
+			wp_enqueue_script( 'ko-fi-button' );
 
 			return sprintf(
-				'<div class="ko-fi-button" id="%4$s" style="%5$s">
-					<script type="text/javascript">
-					jQuery( document ).ready( function() {
-						kofiwidget2.init( "%1$s", "%2$s", "%3$s" );
-						jQuery( "#%4$s" ).html( kofiwidget2.getHTML() );
-					});
-					</script>
-				</div>',
+				'<div class="ko-fi-button" data-text="%1$s" data-color="%2$s" data-code="%3$s" id="%4$s" style="%5$s"></div>',
 				self::sanitise_coffee_text( $settings['coffee_text'] ),
-				$settings['coffee_color'],
-				$settings['coffee_code'],
-				$html_variable_name,
-				$btn_container_style
+				esc_attr( $settings['coffee_color'] ),
+				esc_attr( $settings['coffee_code'] ),
+				esc_attr( $html_variable_name ),
+				esc_attr( $btn_container_style )
 			);
 		}
 	}
@@ -234,7 +232,7 @@ class Ko_Fi
 		if ( ! empty( $code ) ) {
 			$return = sprintf(
 				'<iframe id="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
-				$code
+				esc_attr( $code )
 			);
 		}
 		return $return;

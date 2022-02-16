@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
 class Default_ko_fi_options {
 
 	public static function get(){

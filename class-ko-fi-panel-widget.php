@@ -5,6 +5,10 @@
  * @package kofi-wordpress-button
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
 /**
  * Widget class for donation panel
  */
