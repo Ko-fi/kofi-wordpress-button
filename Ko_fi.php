@@ -84,12 +84,14 @@ class Ko_Fi
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 
-	public static function widget()
-	{
+	/**
+	 * Instantiate the widgets
+	 */
+	public static function widget() {
 		require_once 'ko-fi-button-widget.php';
-		register_widget('ko_fi_widget');
+		register_widget( 'ko_fi_widget' );
 		require_once 'class-ko-fi-panel-widget.php';
-		register_widget('ko_fi_panel_widget');
+		register_widget( 'ko_fi_panel_widget' );
 
 	}
 
@@ -103,9 +105,10 @@ class Ko_Fi
 		// Attributes.
 		$atts = shortcode_atts(
 			array(
-				'text'  => self::$options['coffee_text'],
-				'color' => self::$options['coffee_color'],
-				'type'  => 'button',
+				'text'        => self::$options['coffee_text'],
+				'color'       => self::$options['coffee_color'],
+				'type'        => 'button',
+				'coffee_code' => self::$options['coffee_code'],
 			),
 			$atts
 		);
