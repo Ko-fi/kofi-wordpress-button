@@ -105,10 +105,10 @@ class Ko_Fi
 		// Attributes.
 		$atts = shortcode_atts(
 			array(
-				'text'        => self::$options['coffee_text'],
-				'color'       => self::$options['coffee_color'],
-				'type'        => 'button',
-				'coffee_code' => self::$options['coffee_code'],
+				'text'  => self::$options['coffee_text'],
+				'color' => self::$options['coffee_color'],
+				'type'  => 'button',
+				'code'  => self::$options['coffee_code'],
 			),
 			$atts
 		);
@@ -144,7 +144,7 @@ class Ko_Fi
 	public static function get_button_embed_code($atts, $widget_id = '')
 	{
 		$settings = wp_parse_args($atts, self::$options);
-		foreach ($atts as $key => $value) {
+		foreach ( $atts as $key => $value ) {
 			switch ($key) {
 				case 'title'  :
 					$key = 'coffee_title';
@@ -160,16 +160,18 @@ class Ko_Fi
 					break;
 				case 'code':
 					$key = 'coffee_code';
-					if ($value == self::$options['coffee_code'])
-						$value = '';
-					$value = self::sanitise_username( self::$options['coffee_code'] );
+					if ( empty( $value ) ) {
+						$value = self::sanitise_username( self::$options['coffee_code'] );
+					} else {
+						$value = self::sanitise_username( $value );
+					}
 					break;
 				case 'button_alignment':
 					$key = 'coffee_button_alignment';
 					break;
 			}
 
-			$settings[$key] = $value;
+			$settings[ $key ] = $value;
 		}
 
 		$style_registry = array(
