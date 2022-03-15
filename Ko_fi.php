@@ -157,6 +157,7 @@ class Ko_Fi
 					break;
 				case 'color' :
 					$key = 'coffee_color';
+					$value = '#' . ltrim( $value, '#' );
 					break;
 				case 'code':
 					$key = 'coffee_code';
