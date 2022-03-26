@@ -103,14 +103,11 @@ class ko_fi_widget extends WP_Widget
 			<label for="<?php echo esc_attr( $this->get_field_id( 'color' ) ); ?>"><?php esc_html_e( 'Button (hex)color:' ); ?></label>
 			<?php
 			$color_args = [
-				'option_id' => $this->get_field_id('color'),
-				'name' => $this->get_field_name('color'),
-				'value' => $color,
-				'options' => [
-					'hash' => 'true'
-				]
+				'option_id' => $this->get_field_id( 'color' ),
+				'name'      => $this->get_field_name( 'color' ),
+				'value'     => $color,
 			];
-			echo Ko_Fi::get_jscolor($color_args);
+			echo Ko_Fi::get_jscolor( $color_args );
 			?>
 		</p>
 

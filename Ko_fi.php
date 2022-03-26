@@ -67,9 +67,8 @@ class Ko_Fi
 	 * Register any custom scripts and styles we'll need
 	 */
 	public static function register_scripts() {
-		$dir_url = plugin_dir_url(__FILE__);
-		wp_register_script( 'jscolor', $dir_url . 'jscolor.js', array( 'jquery' ) );
-		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jscolor' ) );
+		$dir_url = plugin_dir_url( __FILE__ );
+		wp_register_script( 'ko-fi-extra', $dir_url . 'extra.js', array( 'wp-color-picker' ) );
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
 		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ) );
 	}
@@ -78,8 +77,7 @@ class Ko_Fi
 	 * Enqueue scripts for the admin
 	 */
 	public static function enqueue_admin_scripts() {
-		wp_enqueue_script( 'jscolor' );
-		wp_enqueue_script( 'extra' );
+		wp_enqueue_script( 'ko-fi-extra' );
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -133,10 +131,10 @@ class Ko_Fi
 		}
 
 		echo sprintf(
-			'<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
+			'<input class="kofi-color-picker"  id="%1$s" name="%2$s" value="%3$s" />',
 			esc_attr($args['option_id']),
 			empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
-			esc_attr($args['value']),
+			esc_attr( self::maybe_prepend_hex_hash( $args['value'] ) ),
 			esc_attr($color_options)
 		);
 	}
@@ -237,7 +235,7 @@ class Ko_Fi
 		}
 		if ( ! empty( $code ) ) {
 			$return = sprintf(
-				'<iframe id="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
+				'<iframe class="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
 				esc_attr( $code )
 			);
 		}
@@ -256,6 +254,16 @@ class Ko_Fi
 		$username = str_replace( 'https://ko-fi.com/', '', $username );
 		$username = rtrim( $username, '/' );
 		return $username;
+	}
+
+	/**
+	 * Take a colour hex and prepend a # character if it doesn't have one
+	 *
+	 * @param string $hex Colour hex code.
+	 * @return string
+	 */
+	public static function maybe_prepend_hex_hash( $hex ) {
+		return '#' . ltrim( $hex, '#' );
 	}
 
 }

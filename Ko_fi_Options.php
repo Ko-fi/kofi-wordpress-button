@@ -149,7 +149,7 @@ class Ko_fi_Options {
 	}
 
 	public function color( $args ) {
-		echo Ko_Fi::get_jscolor($args);
+		echo Ko_Fi::get_jscolor( $args );
 	}
 
 	public function number( $args ) {
