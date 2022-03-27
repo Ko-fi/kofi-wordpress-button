@@ -3,8 +3,8 @@ Contributors: kofibutton, thehandofcod, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
-Tested up to: 5.8
-Stable tag: 1.0.3
+Tested up to: 5.9
+Stable tag: 1.1.0
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,8 +24,6 @@ Use the Plugin to add a Ko-fi button to any widget area, sidebar or use the shor
 == Installation ==
 
 To install the plugin, please follow the following steps.
-
-Installation To install the plugin, please follow the following steps.
 
 1. Go to ‘Plugins’and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory. 
 2. Activate the plugin through the ‘Plugins’ screen in WordPress.
@@ -72,6 +70,15 @@ If you have not set your Ko-fi code in the settings page then simply update the 
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
+= 1.1.0 =
+* Fix button alignment bug with themes that support full width aligned blocks
+* Fix conflict with Elementor
+* Add donation panel widget
+* Expand shortcode capabilities to include changing the username and embed the donation panel
+* Allow changing the username in the widget
+* Additional security checks
+* Code quality improvements
 
 = 1.0.3 =
 * Handle the case with an apostrophe in the button text.
