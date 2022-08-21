@@ -84,7 +84,7 @@ class ko_fi_widget extends WP_Widget
 		$text = esc_attr( $instance['text'] );
 		$hyperlink = esc_attr( $instance['hyperlink'] );
 		$color = esc_attr( $instance['color'] );
-		$code = esc_attr( $current_opts['coffee_code'] );
+		$code             = isset( $instance['code'] ) ? $instance['code'] : $current_opts['coffee_code'];
 		$button_alignment = esc_attr( $instance['button_alignment'] );
 
 		?>
