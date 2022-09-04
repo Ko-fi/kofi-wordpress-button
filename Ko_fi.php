@@ -214,19 +214,18 @@ class Ko_Fi
 	}
 
 	public static function deactivate() {
-
 		delete_option( 'ko_fi_options' );
 	}
 
-	public static function sanitise_coffee_text($text) {
-		
-		return str_replace('"', '', $text);
+	public static function sanitise_coffee_text( $text ) {
+		return str_replace( '"', '', $text );
 	}
 
 	/**
 	 * Get the embed code for the donation panel
 	 *
-	 * @param array $atts Optional (usually shortcode) attributes.
+	 * @param array  $atts Optional (usually shortcode) attributes.
+	 * @param string $widget_id Unique widget ID.
 	 * @return string
 	 */
 	public static function get_panel_embed_code( $atts, $widget_id = '' ) {
@@ -236,10 +235,7 @@ class Ko_Fi
 			$code = self::$options['coffee_code'];
 		}
 		if ( ! empty( $code ) ) {
-			$return = sprintf(
-				'<iframe id="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
-				esc_attr( $code )
-			);
+			$return = '<iframe id="kofiframe" src="https://ko-fi.com/' . esc_attr( $code ) . '/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>';
 		}
 		return $return;
 	}
@@ -260,4 +256,4 @@ class Ko_Fi
 
 }
 
-add_action('plugins_loaded', ['Ko_Fi', 'init']);
+add_action( 'plugins_loaded', array( 'Ko_Fi', 'init' ) );
