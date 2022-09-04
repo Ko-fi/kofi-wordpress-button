@@ -1,5 +1,5 @@
 === Ko-fi Button ===
-Contributors: kofibutton, thehandofcod, cameronjonesweb
+Contributors: kofibutton, chrisodell, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
