@@ -67,10 +67,11 @@ class Ko_Fi
 	 * Register any custom scripts and styles we'll need
 	 */
 	public static function register_scripts() {
-		$dir_url = plugin_dir_url( __FILE__ );
-		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ),  );
-		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
-		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ) );
+		$dir_url     = plugin_dir_url( __FILE__ );
+		$plugin_data = get_plugin_data( __FILE__ );
+		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ), $plugin_data['Version'], true );
 	}
 
 	/**
