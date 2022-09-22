@@ -67,9 +67,8 @@ class Ko_Fi
 	 * Register any custom scripts and styles we'll need
 	 */
 	public static function register_scripts() {
-		$dir_url = plugin_dir_url(__FILE__);
-		wp_register_script( 'jscolor', $dir_url . 'jscolor.js', array( 'jquery' ) );
-		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jscolor' ) );
+		$dir_url = plugin_dir_url( __FILE__ );
+		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ),  );
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
 		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ) );
 	}
@@ -78,8 +77,8 @@ class Ko_Fi
 	 * Enqueue scripts for the admin
 	 */
 	public static function enqueue_admin_scripts() {
-		wp_enqueue_script( 'jscolor' );
 		wp_enqueue_script( 'extra' );
+		// Color picker.
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -121,23 +120,12 @@ class Ko_Fi
 		}
 	}
 
-	public static function get_jscolor($args)
-	{
-		if (!empty($args['options']) && gettype($args['options']) == 'array') {
-			$atts = [];
-			array_walk($args['options'], function($v, $k) { global $atts; $atts[]="$k:$v"; });
-			$color_options = '{' . implode(', ', $atts) . '}';
-		} else {
-			//echo 'no options';
-			$color_options = '';
-		}
-
+	public static function get_jscolor( $args ) {
 		echo sprintf(
-			'<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
-			esc_attr($args['option_id']),
-			empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
-			esc_attr($args['value']),
-			esc_attr($color_options)
+			'<input class="jscolor"  id="%1$s" name="%2$s" value="%3$s" />',
+			esc_attr( $args['option_id'] ),
+			esc_attr( empty( $args['name'] ) ? $args['option_id'] : $args['name'] ),
+			esc_attr( $args['value'] )
 		);
 	}
 
