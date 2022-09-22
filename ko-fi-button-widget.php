@@ -89,7 +89,7 @@ class ko_fi_widget extends WP_Widget
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Page Name or ID:' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>">
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>" placeholder="<?php echo ! empty( $current_opts['coffee_code'] ) ? esc_attr( $current_opts['coffee_code'] ) : 'supportkofi'; ?>">
 		</p>
 
 		<p>
