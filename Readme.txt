@@ -64,6 +64,17 @@ If you have not set your Ko-fi code in the settings page then simply update the 
 
 In most instances there shouldn't be any issues upgrading to the block widget editor, but if you do encounter errors try removing the widget, saving, and adding the widget again.
 
+= What options are available for the `[kofi]` shortcode? =
+
+The following options are available:
+
+* `type`: The type of Ko-fi widget to embed. Either `button` (default) or `panel`.
+* `code`: Your Ko-fi username
+* `text`: The button text (if using `button` type)
+* `color`: The button background color (if using `button` type)
+
+You don't need to provide any of the options unless required, the options will default to the settings from the plugin settings page if not specified.
+
 = Acknowledgements =
 
 * Thanks to @mlchaves for his assistance with making the plugin php7.3 compliant.
