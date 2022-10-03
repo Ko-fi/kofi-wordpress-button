@@ -3,7 +3,7 @@
  * Plugin Name: Ko-fi Button
  * Plugin URI:
  * Description: A Ko-fi donate button for your website!
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Ko-fi Team
  * Author URI: https://www.ko-fi.com
  * License: GPL2
@@ -67,19 +67,19 @@ class Ko_Fi
 	 * Register any custom scripts and styles we'll need
 	 */
 	public static function register_scripts() {
-		$dir_url = plugin_dir_url(__FILE__);
-		wp_register_script( 'jscolor', $dir_url . 'jscolor.js', array( 'jquery' ) );
-		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jscolor' ) );
-		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ) );
-		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ) );
+		$dir_url     = plugin_dir_url( __FILE__ );
+		$plugin_data = get_plugin_data( __FILE__ );
+		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ), $plugin_data['Version'], true );
 	}
 
 	/**
 	 * Enqueue scripts for the admin
 	 */
 	public static function enqueue_admin_scripts() {
-		wp_enqueue_script( 'jscolor' );
 		wp_enqueue_script( 'extra' );
+		// Color picker.
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -121,23 +121,12 @@ class Ko_Fi
 		}
 	}
 
-	public static function get_jscolor($args)
-	{
-		if (!empty($args['options']) && gettype($args['options']) == 'array') {
-			$atts = [];
-			array_walk($args['options'], function($v, $k) { global $atts; $atts[]="$k:$v"; });
-			$color_options = '{' . implode(', ', $atts) . '}';
-		} else {
-			//echo 'no options';
-			$color_options = '';
-		}
-
+	public static function get_jscolor( $args ) {
 		echo sprintf(
-			'<input class="jscolor %4$s "  id="%1$s" name="%2$s" value="%3$s" />',
-			esc_attr($args['option_id']),
-			empty($args['name']) ? esc_attr($args['option_id']) : $args['name'],
-			esc_attr($args['value']),
-			esc_attr($color_options)
+			'<input class="jscolor"  id="%1$s" name="%2$s" value="%3$s" />',
+			esc_attr( $args['option_id'] ),
+			esc_attr( empty( $args['name'] ) ? $args['option_id'] : $args['name'] ),
+			esc_attr( $args['value'] )
 		);
 	}
 
@@ -214,19 +203,18 @@ class Ko_Fi
 	}
 
 	public static function deactivate() {
-
 		delete_option( 'ko_fi_options' );
 	}
 
-	public static function sanitise_coffee_text($text) {
-		
-		return str_replace('"', '', $text);
+	public static function sanitise_coffee_text( $text ) {
+		return str_replace( '"', '', $text );
 	}
 
 	/**
 	 * Get the embed code for the donation panel
 	 *
-	 * @param array $atts Optional (usually shortcode) attributes.
+	 * @param array  $atts Optional (usually shortcode) attributes.
+	 * @param string $widget_id Unique widget ID.
 	 * @return string
 	 */
 	public static function get_panel_embed_code( $atts, $widget_id = '' ) {
@@ -236,10 +224,7 @@ class Ko_Fi
 			$code = self::$options['coffee_code'];
 		}
 		if ( ! empty( $code ) ) {
-			$return = sprintf(
-				'<iframe id="kofiframe" src="https://ko-fi.com/%1$s/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>',
-				esc_attr( $code )
-			);
+			$return = '<iframe id="kofiframe" src="https://ko-fi.com/' . esc_attr( $code ) . '/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>';
 		}
 		return $return;
 	}
@@ -260,4 +245,4 @@ class Ko_Fi
 
 }
 
-add_action('plugins_loaded', ['Ko_Fi', 'init']);
+add_action( 'plugins_loaded', array( 'Ko_Fi', 'init' ) );

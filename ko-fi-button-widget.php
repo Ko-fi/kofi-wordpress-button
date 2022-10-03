@@ -67,31 +67,29 @@ class ko_fi_widget extends WP_Widget
 	/**
 	 * Outputs the options form on admin
 	 *
-	 * @param array $instance The widget options
+	 * @param array $instance The widget options.
 	 *
 	 * @return string|void
 	 */
-	public function form($instance)
-	{        
+	public function form( $instance ) {
 		$current_opts = $this->get_options();
-		if(empty($instance))
-		{            
+		if ( empty( $instance ) ) {
 			$instance = $this->get_new_instance();
 		}
 
-		$title = esc_html( $instance['title'] );
-		$description = esc_html( $instance['description'] );
-		$text = esc_attr( $instance['text'] );
-		$hyperlink = esc_attr( $instance['hyperlink'] );
-		$color = esc_attr( $instance['color'] );
-		$code = esc_attr( $current_opts['coffee_code'] );
-		$button_alignment = esc_attr( $instance['button_alignment'] );
+		$title            = $instance['title'];
+		$description      = $instance['description'];
+		$text             = $instance['text'];
+		$hyperlink        = $instance['hyperlink'];
+		$color            = $instance['color'];
+		$code             = isset( $instance['code'] ) ? $instance['code'] : $current_opts['coffee_code'];
+		$button_alignment = $instance['button_alignment'];
 
 		?>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Page Name or ID:' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>">
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>" placeholder="<?php echo ! empty( $current_opts['coffee_code'] ) ? esc_attr( $current_opts['coffee_code'] ) : 'supportkofi'; ?>">
 		</p>
 
 		<p>
@@ -102,15 +100,15 @@ class ko_fi_widget extends WP_Widget
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'color' ) ); ?>"><?php esc_html_e( 'Button (hex)color:' ); ?></label>
 			<?php
-			$color_args = [
-				'option_id' => $this->get_field_id('color'),
-				'name' => $this->get_field_name('color'),
-				'value' => $color,
-				'options' => [
-					'hash' => 'true'
-				]
-			];
-			echo Ko_Fi::get_jscolor($color_args);
+			$color_args = array(
+				'option_id' => $this->get_field_id( 'color' ),
+				'name'      => $this->get_field_name( 'color' ),
+				'value'     => $color,
+				'options'   => array(
+					'hash' => 'true',
+				),
+			);
+			echo Ko_Fi::get_jscolor( $color_args );
 			?>
 		</p>
 

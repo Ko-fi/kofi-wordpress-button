@@ -1,15 +1,15 @@
 === Ko-fi Button ===
-Contributors: kofibutton, thehandofcod, cameronjonesweb
+Contributors: kofibutton, chrisodell, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
 Tested up to: 6.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Receive donations on your Ko-fi page with a button on your wordpress site.
+Receive donations on your Ko-fi page with a button on your WordPress site.
 
 == Description ==
 
@@ -46,9 +46,9 @@ Nope, we don't take a fee from your donations. The payment processor will take a
 
 Ko-fi offer Ko-fi Gold, a totally optional upgrade which allows creators to receive recurring monthly donations, create supporter only content and build a monthly membership service. 
 
-= What does the Wordpress Plugin do =
+= What does the WordPress Plugin do =
 
-The Wordpress plugin allows wordpress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the widget in a sidebar or widget area.
+The WordPress plugin allows WordPress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the widget in a sidebar or widget area.
 
 Alternatively use the [kofi] shortcode in your page or in the shortcode block.
 
@@ -60,6 +60,21 @@ With the release of 1.0.1 your Ko-fi code now comes from the settings page when 
 
 If you have not set your Ko-fi code in the settings page then simply update the Default Page Name/Id on the settings page, save the change and the widget will automatically pick it up.
 
+= I'm getting errors with the widget after upgrading to the block widget editor =
+
+In most instances there shouldn't be any issues upgrading to the block widget editor, but if you do encounter errors try removing the widget, saving, and adding the widget again.
+
+= What options are available for the `[kofi]` shortcode? =
+
+The following options are available:
+
+* `type`: The type of Ko-fi widget to embed. Either `button` (default) or `panel`.
+* `code`: Your Ko-fi username
+* `text`: The button text (if using `button` type)
+* `color`: The button background color (if using `button` type)
+
+You don't need to provide any of the options unless required, the options will default to the settings from the plugin settings page if not specified.
+
 = Acknowledgements =
 
 * Thanks to @mlchaves for his assistance with making the plugin php7.3 compliant.
@@ -70,6 +85,12 @@ If you have not set your Ko-fi code in the settings page then simply update the 
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
+= 1.2.0 =
+* PHP 8 compatibility updates
+* Replace third party color picker script with native color picker from WordPress core
+* Improve reliability of default coffee code settings
+* Code quality improvements
 
 = 1.1.0 =
 * Fix button alignment bug with themes that support full width aligned blocks

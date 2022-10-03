@@ -43,7 +43,7 @@ class Ko_fi_Options {
 
 	public function get_page_html() {
 		?>
-		<div class="wrap">
+		<div class="wrap ko-fi-settings">
 			<style>
 				.ko-fi-settings-page-description,
 				.ko-fi-settings-section-description {
