@@ -3,10 +3,12 @@
  * Plugin Name: Ko-fi Button
  * Plugin URI:
  * Description: A Ko-fi donate button for your website!
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Ko-fi Team
  * Author URI: https://www.ko-fi.com
  * License: GPL2
+ *
+ * @package kofi-wordpress-button
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
