@@ -37,9 +37,10 @@ class Ko_Fi
 		add_action('widgets_init', [__CLASS__, 'widget']);
 		add_action( 'init', array( __CLASS__, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 9 );
+		add_action( 'wp_head', array( __CLASS__, 'maybe_display_floating_button' ) );
 		add_shortcode('kofi', [__CLASS__, 'kofi_shortcode']);
 
-		require_once 'Default_ko_fi_options.php';
+		require_once 'class-default-ko-fi-options.php';
 		require_once 'Ko_fi_Options.php';
 		self::$options = (new Ko_fi_Options())->get();
 		add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
@@ -77,6 +78,7 @@ class Ko_Fi
 		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-floating-button', 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js', array( 'jquery' ), $plugin_data['Version'], true );
 	}
 
 	/**
@@ -127,11 +129,12 @@ class Ko_Fi
 	}
 
 	public static function get_jscolor( $args ) {
+		$value = ! empty( $args['value'] ) ? '#' . ltrim( $args['value'], '#' ) : $args['value'];
 		echo sprintf(
 			'<input class="jscolor"  id="%1$s" name="%2$s" value="%3$s" />',
 			esc_attr( $args['option_id'] ),
 			esc_attr( empty( $args['name'] ) ? $args['option_id'] : $args['name'] ),
-			esc_attr( $args['value'] )
+			esc_attr( $value )
 		);
 	}
 
@@ -246,6 +249,45 @@ class Ko_Fi
 		$username = str_replace( 'https://ko-fi.com/', '', $username );
 		$username = rtrim( $username, '/' );
 		return $username;
+	}
+
+	public function maybe_display_floating_button() {
+		if ( isset( self::$options['coffee_floating_button_enabled'] ) && ! empty( ( self::$options['coffee_floating_button_enabled'] ) ) && apply_filters( 'kofi_display_floating_button', true ) ) {
+			$code  = isset( self::$options['coffee_floating_button_code'] ) && ! empty( self::$options['coffee_floating_button_code'] ) ? self::$options['coffee_floating_button_code'] : self::$options['coffee_code'];
+			$text  = isset( self::$options['coffee_floating_button_text'] ) && ! empty( self::$options['coffee_floating_button_text'] ) ? self::$options['coffee_floating_button_text'] : Default_ko_fi_options::get()['defaults']['coffee_floating_button_text'];
+			$color = isset( self::$options['coffee_floating_button_color'] ) && ! empty( self::$options['coffee_floating_button_color'] ) ? self::$options['coffee_floating_button_color'] : self::$options['coffee_color'];
+			wp_enqueue_script( 'ko-fi-floating-button' );
+			wp_add_inline_script(
+				'ko-fi-floating-button',
+				sprintf(
+					'kofiWidgetOverlay.draw( "%1$s", {
+						"type": "floating-chat",
+						"floating-chat.donateButton.text": "%2$s",
+						"floating-chat.donateButton.background-color": "%3$s",
+						"floating-chat.donateButton.text-color": "%4$s"
+					});',
+					esc_attr( $code ),
+					esc_attr( $text ),
+					esc_attr( $color ),
+					esc_attr( self::get_contrast_yiq( $color ) )
+				)
+			);
+		}
+	}
+
+	/**
+	 * Determine the color text should be based on the background colour
+	 *
+	 * @link https://24ways.org/2010/calculating-color-contrast/
+	 * @param string $hex Colour hex value.
+	 * @return string Black or white
+	 */
+	public function get_contrast_yiq( $hex ) {
+		$r   = hexdec( substr( $hex, 0, 2 ) );
+		$g   = hexdec( substr( $hex, 2, 2 ) );
+		$b   = hexdec( substr( $hex, 4, 2 ) );
+		$yiq = ( ( $r * 299 ) + ( $g * 587 ) + ( $b * 114 ) ) / 1000;
+		return ( $yiq >= 128 ) ? '#323842' : '#fff';
 	}
 
 }
