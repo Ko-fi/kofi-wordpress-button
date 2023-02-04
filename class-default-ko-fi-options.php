@@ -28,14 +28,14 @@ class Default_Ko_Fi_Options {
 				'coffee_code'                    => '',
 				'coffee_hyperlink'               => false,
 				'coffee_button_alignment'        => 'left',
-				'coffee_floating_button_enabled' => false,
+				'coffee_floating_button_display' => 'none',
 				'coffee_floating_button_text'    => 'Support Me',
 			),
 			'sections'         => array(
 				array(
 					'slug'                => 'coffee_button_settings',
 					'slug_prefix'         => 'coffee',
-					'section_description' => __( 'These are settings for the array(kofi) shortcode and default settings for widgets', 'Ko_fi' ),
+					'section_description' => __( 'These are settings for the [kofi] shortcode and default settings for widgets', 'Ko_fi' ),
 					'title'               => __( 'Button Settings', 'Ko_fi' ),
 					'fields'              => array(
 						array(
@@ -110,10 +110,16 @@ class Default_Ko_Fi_Options {
 					'title'               => __( 'Floating Button Settings', 'Ko_fi' ),
 					'fields'              => array(
 						array(
-							'slug'        => 'floating_button_enabled',
-							'title'       => __( 'Enabled', 'Ko_fi' ),
-							'type'        => 'checkbox',
-							'description' => __( 'Display the floating button on all pages.', 'Ko_fi' ),
+							'slug'        => 'floating_button_display',
+							'title'       => __( 'Default Display', 'Ko_fi' ),
+							'type'        => 'select',
+							'description' => __( 'Choose the default display setting. This can be overridden on individual pages.', 'Ko_fi' ),
+							'options'     => array(
+								'list' => array(
+									'none' => 'Hide on all pages',
+									'all'  => 'Show on all pages',
+								),
+							),
 						),
 						array(
 							'slug'        => 'floating_button_code',
