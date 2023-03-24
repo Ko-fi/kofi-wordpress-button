@@ -287,7 +287,7 @@ class Ko_Fi
 	}
 
 	public static function render_floating_button() {
-		$code  = isset( self::$options['coffee_floating_button_code'] ) && ! empty( self::$options['coffee_floating_button_code'] ) ? self::$options['coffee_floating_button_code'] : self::$options['coffee_code'];
+		$code  = self::$options['coffee_code'];
 		$text  = isset( self::$options['coffee_floating_button_text'] ) && ! empty( self::$options['coffee_floating_button_text'] ) ? self::$options['coffee_floating_button_text'] : Default_ko_fi_options::get()['defaults']['coffee_floating_button_text'];
 		$color = isset( self::$options['coffee_floating_button_color'] ) && ! empty( self::$options['coffee_floating_button_color'] ) ? self::$options['coffee_floating_button_color'] : self::$options['coffee_color'];
 		wp_enqueue_script( 'ko-fi-floating-button' );

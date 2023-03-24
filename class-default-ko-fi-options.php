@@ -122,13 +122,6 @@ class Default_Ko_Fi_Options {
 							),
 						),
 						array(
-							'slug'        => 'floating_button_code',
-							'title'       => __( 'Page Name or ID', 'Ko_fi' ),
-							'type'        => 'text',
-							'description' => __( 'Your Ko-fi Page Name (the bit after Ko-fi.com in the URL bar) e.g. ko-fi.com/supportkofi just enter supportkofi', 'Ko_fi' ),
-							'placeholder' => __( 'supportkofi', 'Ko_fi' ),
-						),
-						array(
 							'slug'        => 'floating_button_text',
 							'title'       => __( 'Button Text', 'Ko_fi' ),
 							'type'        => 'text',
