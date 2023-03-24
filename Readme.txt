@@ -13,9 +13,9 @@ Receive donations on your Ko-fi page with a button on your WordPress site.
 
 == Description ==
 
-Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $30 million has been earned on Ko-fi so far and it's growing every month! 
+Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $200 million has been earned on Ko-fi so far and it's growing every month! 
 
-The money goes directly to you with 0% fees from Ko-fi, it's completely Free and a great alternative to ads!
+The money goes directly to you with 0% fees from Ko-fi, it's completely free and a great alternative to ads!
 
 Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations. 
 
@@ -44,7 +44,7 @@ Nope, we don't take a fee from your donations. The payment processor will take a
 
 = What about monthly memberships =
 
-Ko-fi offer Ko-fi Gold, a totally optional upgrade which allows creators to receive recurring monthly donations, create supporter only content and build a monthly membership service. 
+Yes, use Ko-fi to receive monthly subscriptions or create your own membership tiers. Use membership tiers to offer different benefits and price points to suit your audience.
 
 = What does the WordPress Plugin do =
 
