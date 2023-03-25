@@ -40,6 +40,8 @@ class Ko_Fi
 		add_action( 'wp_head', array( __CLASS__, 'maybe_display_floating_button' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'register_posts_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_post_meta' ), 10, 2 );
+		add_action( 'rest_api_init', array( __CLASS__, 'prevent_floating_button_displaying_on_widget_previews' ) );
+
 		add_shortcode('kofi', [__CLASS__, 'kofi_shortcode']);
 
 
@@ -379,6 +381,13 @@ class Ko_Fi
 				}
 			}
 		}
+	}
+
+	/**
+	 * Prevent the floating button from displaying over the top of legacy widgets when enabled.
+	 */
+	public function prevent_floating_button_displaying_on_widget_previews() {
+		add_filter( 'kofi_display_floating_button', '__return_false' );
 	}
 
 }
