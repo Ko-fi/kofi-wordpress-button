@@ -3,7 +3,7 @@
  * Plugin Name: Ko-fi Button
  * Plugin URI:
  * Description: A Ko-fi donate button for your website!
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: Ko-fi Team
  * Author URI: https://www.ko-fi.com
  * License: GPL2
@@ -37,9 +37,15 @@ class Ko_Fi
 		add_action('widgets_init', [__CLASS__, 'widget']);
 		add_action( 'init', array( __CLASS__, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 9 );
+		add_action( 'wp_head', array( __CLASS__, 'maybe_display_floating_button' ) );
+		add_action( 'add_meta_boxes', array( __CLASS__, 'register_posts_meta_box' ) );
+		add_action( 'save_post', array( __CLASS__, 'save_post_meta' ), 10, 2 );
+		add_action( 'rest_api_init', array( __CLASS__, 'prevent_floating_button_displaying_on_widget_previews' ) );
+
 		add_shortcode('kofi', [__CLASS__, 'kofi_shortcode']);
 
-		require_once 'Default_ko_fi_options.php';
+
+		require_once 'class-default-ko-fi-options.php';
 		require_once 'Ko_fi_Options.php';
 		self::$options = (new Ko_fi_Options())->get();
 		add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
@@ -77,6 +83,7 @@ class Ko_Fi
 		wp_register_script( 'extra', $dir_url . 'extra.js', array( 'jquery' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ), $plugin_data['Version'], true );
+		wp_register_script( 'ko-fi-floating-button', 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js', array( 'jquery' ), $plugin_data['Version'], true );
 	}
 
 	/**
@@ -127,11 +134,12 @@ class Ko_Fi
 	}
 
 	public static function get_jscolor( $args ) {
+		$value = ! empty( $args['value'] ) ? '#' . ltrim( $args['value'], '#' ) : $args['value'];
 		echo sprintf(
 			'<input class="jscolor"  id="%1$s" name="%2$s" value="%3$s" />',
 			esc_attr( $args['option_id'] ),
 			esc_attr( empty( $args['name'] ) ? $args['option_id'] : $args['name'] ),
-			esc_attr( $args['value'] )
+			esc_attr( $value )
 		);
 	}
 
@@ -246,6 +254,140 @@ class Ko_Fi
 		$username = str_replace( 'https://ko-fi.com/', '', $username );
 		$username = rtrim( $username, '/' );
 		return $username;
+	}
+
+	/**
+	 * 
+	 */
+	public function maybe_display_floating_button() {
+		$value = false;
+		// Get default from global options.
+		$settings = self::$options['coffee_floating_button_display'];
+		if ( ! empty( $settings ) ) {
+			if ( 'all' === $settings ) {
+				$value = true;
+			} elseif ( 'none' === $settings ) {
+				$value = false;
+			}
+		} else {
+			$value = false;
+		}
+		if ( is_singular() ) {
+			// Overrides on individual pages.
+			$post_meta = get_post_meta( get_the_ID(), 'kofi_display_floating_button', true );
+			if ( ! empty( $post_meta ) ) {
+				if ( 'yes' === $post_meta ) {
+					$value = true;
+				} elseif ( 'no' === $post_meta ) {
+					$value = false;
+				}
+			}
+		}
+		if ( apply_filters( 'kofi_display_floating_button', $value ) ) {
+			self::render_floating_button();
+		}
+	}
+
+	public static function render_floating_button() {
+		$code  = self::$options['coffee_code'];
+		$text  = isset( self::$options['coffee_floating_button_text'] ) && ! empty( self::$options['coffee_floating_button_text'] ) ? self::$options['coffee_floating_button_text'] : Default_ko_fi_options::get()['defaults']['coffee_floating_button_text'];
+		$color = isset( self::$options['coffee_floating_button_color'] ) && ! empty( self::$options['coffee_floating_button_color'] ) ? self::$options['coffee_floating_button_color'] : self::$options['coffee_color'];
+		wp_enqueue_script( 'ko-fi-floating-button' );
+		wp_add_inline_script(
+			'ko-fi-floating-button',
+			sprintf(
+				'kofiWidgetOverlay.draw( "%1$s", {
+					"type": "floating-chat",
+					"floating-chat.donateButton.text": "%2$s",
+					"floating-chat.donateButton.background-color": "%3$s",
+					"floating-chat.donateButton.text-color": "%4$s"
+				});',
+				esc_attr( $code ),
+				esc_attr( $text ),
+				esc_attr( $color ),
+				esc_attr( self::get_contrast_yiq( $color ) )
+			)
+		);
+	}
+
+	/**
+	 * Determine the color text should be based on the background colour
+	 *
+	 * @link https://24ways.org/2010/calculating-color-contrast/
+	 * @param string $hex Colour hex value.
+	 * @return string Black or white
+	 */
+	public function get_contrast_yiq( $hex ) {
+		$r   = hexdec( substr( $hex, 0, 2 ) );
+		$g   = hexdec( substr( $hex, 2, 2 ) );
+		$b   = hexdec( substr( $hex, 4, 2 ) );
+		$yiq = ( ( $r * 299 ) + ( $g * 587 ) + ( $b * 114 ) ) / 1000;
+		return ( $yiq >= 128 ) ? '#323842' : '#fff';
+	}
+
+	/**
+	 * Create a meta box on each public post type for Ko-fi related settings
+	 */
+	public function register_posts_meta_box() {
+		$public_post_types = get_post_types(
+			array(
+				'public' => true,
+			),
+			'names'
+		);
+		if ( ! empty( $public_post_types ) ) {
+			foreach ( $public_post_types as $public_post_type ) {
+				add_meta_box( 'kofi_posts', __( 'Ko-fi', 'Ko_fi' ), array( __CLASS__, 'posts_meta_box_callback' ), $public_post_type, 'side' );
+			}
+		}
+	}
+
+	/**
+	 * Callback function to render posts meta box
+	 *
+	 * @param WP_Post $post Post object.
+	 */
+	public function posts_meta_box_callback( $post ) {
+		$default = self::$options['coffee_floating_button_display'];
+		$value   = get_post_meta( get_the_ID( $post ), 'kofi_display_floating_button', true );
+		wp_nonce_field( 'kofi_meta_box_save', 'kofi_meta_box_nonce' );
+		?>
+		<label>
+			<p><strong><?php esc_html_e( 'Display floating button on this page', 'Ko_fi' ); ?></strong></p>
+			<select name="kofi_display_floating_button">
+				<option value="">Default (<?php echo 'all' === $default ? 'Show' : 'Hide'; ?>)</option>
+				<option value="yes" <?php selected( 'yes', $value ); ?>>Always show on this page</option>
+				<option value="no" <?php selected( 'no', $value ); ?>>Never show on this page</option>
+			</select>
+		</label>
+		<?php
+	}
+
+	/**
+	 * Save post meta from Ko-fi meta box
+	 *
+	 * @param int     $post_id Post ID.
+	 * @param WP_POST $post Post object.
+	 */
+	public function save_post_meta( $post_id, $post ) {
+		if ( isset( $_POST['kofi_meta_box_nonce'] ) && ! empty( $_POST['kofi_meta_box_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['kofi_meta_box_nonce'] ) );
+			if ( wp_verify_nonce( $nonce, 'kofi_meta_box_save' ) ) {
+				if ( current_user_can( 'edit_post', $post_id ) ) {
+					if ( isset( $_POST['kofi_display_floating_button'] ) ) {
+						$kofi_display_floating_button = sanitize_text_field( wp_unslash( $_POST['kofi_display_floating_button'] ) );
+						update_post_meta( $post_id, 'kofi_display_floating_button', $kofi_display_floating_button );
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Prevent the floating button from displaying over the top of legacy widgets when enabled.
+	 */
+	public function prevent_floating_button_displaying_on_widget_previews() {
+		add_filter( 'kofi_display_floating_button', '__return_false' );
 	}
 
 }

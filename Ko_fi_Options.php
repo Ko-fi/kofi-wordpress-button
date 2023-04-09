@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Ko_fi_Options {
 
-	protected $options = [ ];
-	protected $fallbacks = [ ];
+	protected $options   = array();
+	protected $fallbacks = array();
 
 	public function __construct() {
 
@@ -73,14 +73,12 @@ class Ko_fi_Options {
 		foreach ( $this->options['sections'] as $section ) {
 
 			add_settings_section( 
-				$section['slug'], 
-				$section['title'], 
-				function() use( $section ){ 
-					echo '<section class="ko-fi-settings-section-description">'.
-						esc_html( $section[ 'section_description' ] ).
-						'</section>'; 
-				}, 
-				$this->options['page_name'] 
+				$section['slug'],
+				$section['title'],
+				function () use ( $section ) {
+					echo '<section class="ko-fi-settings-section-description">' . esc_html( $section['section_description'] ) . '</section>';
+				},
+				$this->options['page_name'],
 			);
 
 			foreach ( $section['fields'] as $field ) {
@@ -111,16 +109,16 @@ class Ko_fi_Options {
 					[ $this, 'get_field' ],
 					$this->options['page_name'],
 					$section['slug'],
-					[
-						'option_type' 	=> $field['type'],
-						'option_id'   	=> $id,
-						'description' 	=> empty( $field['description'] ) ? '' : $field['description'],
-						'label'       	=> empty( $field['label'] ) ? '' : $field['label'],
-						'options'     	=> isset( $field['options'] ) ? $field['options'] : false,
-						'value'       	=> $field_value,
-						'selector'	  	=> $selector,
-						'placeholder'  	=> $placeholder	
-					]
+					array(
+						'option_type' => $field['type'],
+						'option_id'   => $id,
+						'description' => empty( $field['description'] ) ? '' : $field['description'],
+						'label'       => empty( $field['label'] ) ? '' : $field['label'],
+						'options'     => isset( $field['options'] ) ? $field['options'] : false,
+						'value'       => $field_value,
+						'selector'    => $selector,
+						'placeholder' => $placeholder,
+					)
 				);
 			}
 		}
