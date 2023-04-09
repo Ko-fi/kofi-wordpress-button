@@ -3,7 +3,7 @@
  * Plugin Name: Ko-fi Button
  * Plugin URI:
  * Description: A Ko-fi donate button for your website!
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Ko-fi Team
  * Author URI: https://www.ko-fi.com
  * License: GPL2
@@ -257,9 +257,9 @@ class Ko_Fi
 	}
 
 	/**
-	 * 
+	 * Determine whether to display floating button on the page
 	 */
-	public function maybe_display_floating_button() {
+	public static function maybe_display_floating_button() {
 		$value = false;
 		// Get default from global options.
 		$settings = self::$options['coffee_floating_button_display'];
@@ -288,6 +288,9 @@ class Ko_Fi
 		}
 	}
 
+	/**
+	 * Display the floating button
+	 */
 	public static function render_floating_button() {
 		$code  = self::$options['coffee_code'];
 		$text  = isset( self::$options['coffee_floating_button_text'] ) && ! empty( self::$options['coffee_floating_button_text'] ) ? self::$options['coffee_floating_button_text'] : Default_ko_fi_options::get()['defaults']['coffee_floating_button_text'];
@@ -317,7 +320,7 @@ class Ko_Fi
 	 * @param string $hex Colour hex value.
 	 * @return string Black or white
 	 */
-	public function get_contrast_yiq( $hex ) {
+	public static function get_contrast_yiq( $hex ) {
 		$r   = hexdec( substr( $hex, 0, 2 ) );
 		$g   = hexdec( substr( $hex, 2, 2 ) );
 		$b   = hexdec( substr( $hex, 4, 2 ) );
@@ -328,7 +331,7 @@ class Ko_Fi
 	/**
 	 * Create a meta box on each public post type for Ko-fi related settings
 	 */
-	public function register_posts_meta_box() {
+	public static function register_posts_meta_box() {
 		$public_post_types = get_post_types(
 			array(
 				'public' => true,
@@ -347,7 +350,7 @@ class Ko_Fi
 	 *
 	 * @param WP_Post $post Post object.
 	 */
-	public function posts_meta_box_callback( $post ) {
+	public static function posts_meta_box_callback( $post ) {
 		$default = self::$options['coffee_floating_button_display'];
 		$value   = get_post_meta( get_the_ID( $post ), 'kofi_display_floating_button', true );
 		wp_nonce_field( 'kofi_meta_box_save', 'kofi_meta_box_nonce' );
@@ -369,7 +372,7 @@ class Ko_Fi
 	 * @param int     $post_id Post ID.
 	 * @param WP_POST $post Post object.
 	 */
-	public function save_post_meta( $post_id, $post ) {
+	public static function save_post_meta( $post_id, $post ) {
 		if ( isset( $_POST['kofi_meta_box_nonce'] ) && ! empty( $_POST['kofi_meta_box_nonce'] ) ) {
 			$nonce = sanitize_text_field( wp_unslash( $_POST['kofi_meta_box_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'kofi_meta_box_save' ) ) {
@@ -386,7 +389,7 @@ class Ko_Fi
 	/**
 	 * Prevent the floating button from displaying over the top of legacy widgets when enabled.
 	 */
-	public function prevent_floating_button_displaying_on_widget_previews() {
+	public static function prevent_floating_button_displaying_on_widget_previews() {
 		add_filter( 'kofi_display_floating_button', '__return_false' );
 	}
 

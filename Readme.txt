@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
 Tested up to: 6.2
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,6 +90,9 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
+= 1.3.1 =
+* Fix errors on sites running PHP 8
 
 = 1.3.0 =
 * Intoduce new floating button options.
