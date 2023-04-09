@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
 Tested up to: 6.2
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ The money goes directly to you with 0% fees from Ko-fi, it's completely free and
 
 Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations. 
 
-Use the Plugin to add a Ko-fi button to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
+Use the Plugin to add a Ko-fi button or donation panel to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
 
 == Installation ==
 
@@ -75,6 +75,11 @@ The following options are available:
 
 You don't need to provide any of the options unless required, the options will default to the settings from the plugin settings page if not specified.
 
+= How can I control which pages the Floating Button displays on? =
+
+By default, the floating button displays on every page when enabled. You can override it on individual posts and pages with the `Display floating button on this page` setting to hide on specific pages, or alternatively display only on specific pages when disabled globally.
+For more advanced use cases, you can use the `kofi_display_floating_button` filter.
+
 = Acknowledgements =
 
 * Thanks to @mlchaves for his assistance with making the plugin php7.3 compliant.
@@ -85,6 +90,9 @@ You don't need to provide any of the options unless required, the options will d
 2. Customise the button for a specific widget placement
 
 == Changelog ==
+
+= 1.3.0 =
+* Intoduce new floating button options.
 
 = 1.2.1 =
 * Fix potential fatal error
