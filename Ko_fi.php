@@ -3,7 +3,7 @@
  * Plugin Name: Ko-fi Button
  * Plugin URI:
  * Description: A Ko-fi donate button for your website!
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Ko-fi Team
  * Author URI: https://www.ko-fi.com
  * License: GPL2
