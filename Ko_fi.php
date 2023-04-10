@@ -117,10 +117,10 @@ class Ko_Fi
 		// Attributes.
 		$atts = shortcode_atts(
 			array(
-				'text'  => self::$options['coffee_text'],
-				'color' => self::$options['coffee_color'],
+				'text'  => self::get_plugin_option( 'coffee_text' ),
+				'color' => self::get_plugin_option( 'coffee_color' ),
 				'type'  => 'button',
-				'code'  => self::$options['coffee_code'],
+				'code'  => self::get_plugin_option( 'coffee_code' ),
 			),
 			$atts
 		);
@@ -164,7 +164,7 @@ class Ko_Fi
 				case 'code':
 					$key = 'coffee_code';
 					if ( empty( $value ) ) {
-						$value = self::sanitise_username( self::$options['coffee_code'] );
+						$value = self::sanitise_username( self::get_plugin_option( 'coffee_code' ) );
 					} else {
 						$value = self::sanitise_username( $value );
 					}
@@ -234,7 +234,7 @@ class Ko_Fi
 		if ( isset( $atts['code'] ) && ! empty( $atts['code'] ) ) {
 			$code = $atts['code'];
 		} else {
-			$code = self::$options['coffee_code'];
+			$code = self::get_plugin_option( 'coffee_code' );
 		}
 		if ( ! empty( $code ) ) {
 			$return = '<iframe id="kofiframe" src="https://ko-fi.com/' . esc_attr( $code ) . '/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>';
@@ -262,7 +262,7 @@ class Ko_Fi
 	public static function maybe_display_floating_button() {
 		$value = false;
 		// Get default from global options.
-		$settings = self::$options['coffee_floating_button_display'];
+		$settings = self::get_plugin_option( 'coffee_floating_button_display' );
 		if ( ! empty( $settings ) ) {
 			if ( 'all' === $settings ) {
 				$value = true;
@@ -292,9 +292,9 @@ class Ko_Fi
 	 * Display the floating button
 	 */
 	public static function render_floating_button() {
-		$code  = self::$options['coffee_code'];
-		$text  = isset( self::$options['coffee_floating_button_text'] ) && ! empty( self::$options['coffee_floating_button_text'] ) ? self::$options['coffee_floating_button_text'] : Default_ko_fi_options::get()['defaults']['coffee_floating_button_text'];
-		$color = isset( self::$options['coffee_floating_button_color'] ) && ! empty( self::$options['coffee_floating_button_color'] ) ? self::$options['coffee_floating_button_color'] : self::$options['coffee_color'];
+		$code  = self::get_plugin_option( 'coffee_code' );
+		$text  = self::get_plugin_option( 'coffee_floating_button_text' );
+		$color = ! empty( self::get_plugin_option( 'coffee_floating_button_color' ) ) ? self::get_plugin_option( 'coffee_floating_button_color' ) : self::get_plugin_option( 'coffee_color' );
 		wp_enqueue_script( 'ko-fi-floating-button' );
 		wp_add_inline_script(
 			'ko-fi-floating-button',
@@ -351,7 +351,7 @@ class Ko_Fi
 	 * @param WP_Post $post Post object.
 	 */
 	public static function posts_meta_box_callback( $post ) {
-		$default = self::$options['coffee_floating_button_display'];
+		$default = self::get_plugin_option( 'coffee_floating_button_display' );
 		$value   = get_post_meta( get_the_ID( $post ), 'kofi_display_floating_button', true );
 		wp_nonce_field( 'kofi_meta_box_save', 'kofi_meta_box_nonce' );
 		?>
@@ -391,6 +391,16 @@ class Ko_Fi
 	 */
 	public static function prevent_floating_button_displaying_on_widget_previews() {
 		add_filter( 'kofi_display_floating_button', '__return_false' );
+	}
+
+	/**
+	 * Get plugin option if set, otherwise get the default
+	 *
+	 * @param string $option Option array key.
+	 * @return mixed
+	 */
+	public static function get_plugin_option( $option ) {
+		return isset( self::$options[ $option ] ) && ! empty( self::$options[ $option ] ) ? self::$options[ $option ] : Default_ko_fi_options::get()['defaults'][ $option ];
 	}
 
 }
