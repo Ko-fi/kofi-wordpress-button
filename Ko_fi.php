@@ -49,7 +49,7 @@ class Ko_Fi
 		require_once 'Ko_fi_Options.php';
 		self::$options = (new Ko_fi_Options())->get();
 		add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
-		register_deactivation_hook( __FILE__, [__CLASS__,'deactivate'] );
+		register_uninstall_hook( __FILE__, array( __CLASS__,'deactivate' ) );
 	}
 
 	public static function add_action_links($actions, $plugin_file)
