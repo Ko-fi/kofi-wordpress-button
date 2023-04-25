@@ -187,10 +187,10 @@ class Ko_Fi
 
 		if ( ! empty( $settings['coffee_hyperlink'] ) && $settings['coffee_hyperlink'] ) {
 			return sprintf(
-				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div>',
+				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div></div>',
 				esc_attr( $btn_container_style ),
 				esc_attr( $settings['coffee_code'] ),
-				wp_strip_all_tags( $settings['coffee_text'] )
+				esc_attr( wp_strip_all_tags( $settings['coffee_text'] ) )
 			);
 		} else {
 
@@ -206,7 +206,7 @@ class Ko_Fi
 
 			return sprintf(
 				'<div class="ko-fi-button" data-text="%1$s" data-color="%2$s" data-code="%3$s" id="%4$s" style="%5$s"></div>',
-				wp_strip_all_tags( self::sanitise_coffee_text( $settings['coffee_text'] ) ),
+				esc_attr( wp_strip_all_tags( $settings['coffee_text'] ) ),
 				esc_attr( $settings['coffee_color'] ),
 				esc_attr( $settings['coffee_code'] ),
 				esc_attr( $html_variable_name ),
@@ -217,10 +217,6 @@ class Ko_Fi
 
 	public static function deactivate() {
 		delete_option( 'ko_fi_options' );
-	}
-
-	public static function sanitise_coffee_text( $text ) {
-		return str_replace( '"', '', $text );
 	}
 
 	/**
