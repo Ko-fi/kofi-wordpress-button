@@ -12,21 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Ko fi widget
  */
-class ko_fi_widget extends WP_Widget {
+class Ko_Fi_Button_Widget extends WP_Widget {
 
+	/**
+	 * Widget constructor
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'ko_fi_widget',
 			'description' => 'A ko-fi button for your website!',
 		);
-		parent::__construct('ko_fi_widget', 'Ko-fi Button', $widget_ops);
+		parent::__construct( 'ko_fi_widget', 'Ko-fi Button', $widget_ops );
 	}
 
 	/**
 	 * Outputs the content of the widget
 	 *
-	 * @param array $args
-	 * @param array $instance
+	 * @param array $args Widget arguments.
+	 * @param array $instance Widget instance.
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget.
@@ -46,7 +49,7 @@ class ko_fi_widget extends WP_Widget {
 
 		$new_instance = $this->get_new_instance();
 
-		if ( ! empty($instance['description']) ) {
+		if ( ! empty( $instance['description'] ) ) {
 
 			$new_instance = array(
 				'title'            => $instance['title'],

@@ -9,8 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
+/**
+ * Class that holds the options page settings
+ */
 class Default_Ko_Fi_Options {
 
+	/**
+	 * Get the options for the settings page, including default values
+	 */
 	public static function get() {
 		return array(
 			'page_title'       => __( 'Ko-fi Settings', 'Ko_fi' ),
