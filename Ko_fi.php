@@ -1,4 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.StrictClassFileNames (ignore the file name as changing it will deactivate the plugin upon updating)
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase (ignore the file name as changing it will deactivate the plugin upon updating)
 /**
  * Plugin Name: Ko-fi Button
  * Plugin URI:
