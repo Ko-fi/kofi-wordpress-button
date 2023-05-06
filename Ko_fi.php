@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
-if (!function_exists('write_log')) {
+if ( ! function_exists( 'write_log' ) ) {
 	function write_log ( $log )  {
 		if ( true === WP_DEBUG ) {
 			if ( is_array( $log ) || is_object( $log ) ) {
@@ -27,14 +27,12 @@ if (!function_exists('write_log')) {
 	}
 }
 
-class Ko_Fi
-{
+class Ko_Fi {
 
-	public static $options = [];
+	public static $options = array();
 
-	public static function init()
-	{
-		add_action('widgets_init', [__CLASS__, 'widget']);
+	public static function init() {
+		add_action( 'widgets_init', array( __CLASS__, 'widget' ) );
 		add_action( 'init', array( __CLASS__, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 9 );
 		add_action( 'wp_head', array( __CLASS__, 'maybe_display_floating_button' ) );
@@ -42,30 +40,28 @@ class Ko_Fi
 		add_action( 'save_post', array( __CLASS__, 'save_post_meta' ), 10, 2 );
 		add_action( 'rest_api_init', array( __CLASS__, 'prevent_floating_button_displaying_on_widget_previews' ) );
 
-		add_shortcode('kofi', [__CLASS__, 'kofi_shortcode']);
-
+		add_shortcode( 'kofi', array( __CLASS__, 'kofi_shortcode' ) );
 
 		require_once 'class-default-ko-fi-options.php';
 		require_once 'Ko_fi_Options.php';
-		self::$options = (new Ko_fi_Options())->get();
-		add_filter('plugin_action_links', [__CLASS__,'add_action_links'],10,5);
-		register_uninstall_hook( __FILE__, array( __CLASS__,'deactivate' ) );
+
+		self::$options = ( new Ko_fi_Options() )->get();
+		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 5 );
+		register_uninstall_hook( __FILE__, array( __CLASS__, 'deactivate' ) );
 	}
 
-	public static function add_action_links($actions, $plugin_file)
-	{
+	public static function add_action_links( $actions, $plugin_file ) {
 		static $plugin;
 
-		if (!isset($plugin))
-			$plugin = plugin_basename(__FILE__);
-		if ($plugin == $plugin_file) {
+		if ( ! isset( $plugin ) ) {
+			$plugin = plugin_basename( __FILE__ );
+		}
+		if ( $plugin == $plugin_file ) {
 
-			$settings_url = sprintf('<a href="%s">Settings</a>', menu_page_url(Default_ko_fi_options::get()['menu_slug'], false));
-			$plugin_links = [
-				'settings' => $settings_url
-			];
+			$settings_url = sprintf( '<a href="%s">Settings</a>', menu_page_url( Default_ko_fi_options::get()['menu_slug'], false ) );
+			$plugin_links = array( 'settings' => $settings_url );
 
-			$actions = array_merge($plugin_links, $actions);
+			$actions = array_merge( $plugin_links, $actions );
 		}
 
 		return $actions;
@@ -143,22 +139,21 @@ class Ko_Fi
 		);
 	}
 
-	public static function get_button_embed_code($atts, $widget_id = '')
-	{
-		$settings = wp_parse_args($atts, self::$options);
+	public static function get_button_embed_code( $atts, $widget_id = '' ) {
+		$settings = wp_parse_args( $atts, self::$options );
 		foreach ( $atts as $key => $value ) {
-			switch ($key) {
-				case 'title'  :
+			switch ( $key ) {
+				case 'title':
 					$key = 'coffee_title';
 					break;
-				case 'text'   :
+				case 'text':
 					$key = 'coffee_text';
 					break;
-				case 'hyperlink' :
+				case 'hyperlink':
 					$key = 'coffee_hyperlink';
 					break;
-				case 'color' :
-					$key = 'coffee_color';
+				case 'color':
+					$key   = 'coffee_color';
 					$value = '#' . ltrim( $value, '#' );
 					break;
 				case 'code':

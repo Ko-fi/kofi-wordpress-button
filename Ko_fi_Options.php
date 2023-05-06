@@ -19,8 +19,8 @@ class Ko_fi_Options {
 			$this->default_fallbacks();
 		}
 
-		add_action( 'admin_init', [ $this, 'set_options' ] );
-		add_action( 'admin_menu', [ $this, 'menu' ] );
+		add_action( 'admin_init', array( $this, 'set_options' ) );
+		add_action( 'admin_menu', array( $this, 'menu' ) );
 	}
 
 	public function default_fallbacks() {
@@ -34,10 +34,7 @@ class Ko_fi_Options {
 			$this->options['menu_title'],
 			$this->options['capability'],
 			$this->options['menu_slug'],
-			[
-				$this,
-				'get_page_html'
-			]
+			array( $this, 'get_page_html' )
 		);
 	}
 
@@ -51,7 +48,7 @@ class Ko_fi_Options {
 				}
 			</style>
 			<h1><?php echo esc_html( $this->options['page_title'] ); ?></h1>
-			<section class="ko-fi-settings-page-description"><?php echo $this->options['page_description'] ?></section>
+			<section class="ko-fi-settings-page-description"><?php echo esc_html( $this->options['page_description'] ); ?></section>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( $this->options['option_name'] );
@@ -72,13 +69,13 @@ class Ko_fi_Options {
 
 		foreach ( $this->options['sections'] as $section ) {
 
-			add_settings_section( 
+			add_settings_section(
 				$section['slug'],
 				$section['title'],
 				function () use ( $section ) {
 					echo '<section class="ko-fi-settings-section-description">' . esc_html( $section['section_description'] ) . '</section>';
 				},
-				$this->options['page_name'],
+				$this->options['page_name']
 			);
 
 			foreach ( $section['fields'] as $field ) {
@@ -87,26 +84,27 @@ class Ko_fi_Options {
 					'%s[%s_%s]',
 					$this->options['page_name'],
 					$section['slug_prefix'],
-					$field['slug'] );
+					$field['slug']
+				);
 
 				$selector = sprintf(
 					'%s_%s_%s',
 					$this->options['page_name'],
 					$section['slug_prefix'],
-					$field['slug'] );
+					$field['slug']
+				);
 
 				$placeholder = empty( $field['placeholder'] ) ? '' : $field['placeholder'];
-				$field_value = isset( $this->fallbacks[ $section['slug_prefix'].'_'.$field['slug'] ] ) ? 
-								$this->fallbacks[ $section['slug_prefix'].'_'.$field['slug'] ] : 
-								false;
+				$field_value = isset( $this->fallbacks[ $section['slug_prefix'] . '_' . $field['slug'] ] ) ? $this->fallbacks[ $section['slug_prefix'] . '_' . $field['slug'] ] : false;
 
 				add_settings_field(
 					$id,
-					sprintf( '<label for="%s">%s</label>',
+					sprintf(
+						'<label for="%s">%s</label>',
 						esc_attr( $id ),
 						esc_html( $field['title'] )
 					),
-					[ $this, 'get_field' ],
+					array( $this, 'get_field' ),
 					$this->options['page_name'],
 					$section['slug'],
 					array(
@@ -130,10 +128,11 @@ class Ko_fi_Options {
 
 	public function get_field( $args ) {
 		call_user_func( array( $this, $args['option_type'] ), $args );
-		if ( ! empty( $args['description'] ) ) :
+		if ( ! empty( $args['description'] ) ) {
 			?>
-			<p class="description"><?php echo $args['description'] ?></p>
-		<?php endif;
+			<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
+			<?php
+		}
 	}
 
 	public function text( $args ) {
@@ -147,7 +146,7 @@ class Ko_fi_Options {
 	}
 
 	public function color( $args ) {
-		echo Ko_Fi::get_jscolor($args);
+		echo Ko_Fi::get_jscolor( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function number( $args ) {
