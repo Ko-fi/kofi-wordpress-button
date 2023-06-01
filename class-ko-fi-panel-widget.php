@@ -46,7 +46,7 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 			$code = Ko_Fi::$options['coffee_code'];
 		}
 
-		echo Ko_Fi::get_panel_embed_code( array( 'code' => $code ), $args[ 'widget_id' ] );
+		echo Ko_Fi::get_panel_embed_code( array( 'code' => $code ), $args['widget_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 

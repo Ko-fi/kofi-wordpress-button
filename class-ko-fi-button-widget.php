@@ -12,25 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Ko fi widget
  */
-class ko_fi_widget extends WP_Widget
-{
-	public function __construct()
-	{
-		$widget_ops = [
+class Ko_Fi_Button_Widget extends WP_Widget {
+
+	/**
+	 * Widget constructor
+	 */
+	public function __construct() {
+		$widget_ops = array(
 			'classname'   => 'ko_fi_widget',
 			'description' => 'A ko-fi button for your website!',
-		];
-		parent::__construct('ko_fi_widget', 'Ko-fi Button', $widget_ops);
+		);
+		parent::__construct( 'ko_fi_widget', 'Ko-fi Button', $widget_ops );
 	}
 
 	/**
 	 * Outputs the content of the widget
 	 *
-	 * @param array $args
-	 * @param array $instance
+	 * @param array $args Widget arguments.
+	 * @param array $instance Widget instance.
 	 */
-	public function widget($args, $instance)
-	{
+	public function widget( $args, $instance ) {
 		// outputs the content of the widget.
 		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if ( ! empty( $instance['title'] ) ) {
@@ -48,20 +49,20 @@ class ko_fi_widget extends WP_Widget
 
 		$new_instance = $this->get_new_instance();
 
-		if ( ! empty($instance['description']) ) {
+		if ( ! empty( $instance['description'] ) ) {
 
-			$new_instance = [
-				'title' => $instance['title'],
-				'text' => $instance['text'],
-				'color' => $instance['color'],
-				'hyperlink' => $instance['hyperlink'],
-				'code' => $instance['code'],
-				'button_alignment' => $instance['button_alignment']
-			];
+			$new_instance = array(
+				'title'            => $instance['title'],
+				'text'             => $instance['text'],
+				'color'            => $instance['color'],
+				'hyperlink'        => $instance['hyperlink'],
+				'code'             => $instance['code'],
+				'button_alignment' => $instance['button_alignment'],
+			);
 		}
-	  
-		echo Ko_Fi::get_button_embed_code( $new_instance, $args[ 'widget_id' ] );
-		echo $args['after_widget'];
+
+		echo Ko_Fi::get_button_embed_code( $new_instance, $args['widget_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -108,7 +109,7 @@ class ko_fi_widget extends WP_Widget
 					'hash' => 'true',
 				),
 			);
-			echo Ko_Fi::get_jscolor( $color_args );
+			echo Ko_Fi::get_jscolor( $color_args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</p>
 
@@ -174,33 +175,33 @@ class ko_fi_widget extends WP_Widget
 	 * @return array
 	 */
 	private function get_new_instance() {
-	
+
 		$current_opts = $this->get_options();
 
-		$instance = [
-			'description' => $current_opts['coffee_description'],
-			'title' => $current_opts['coffee_title'],
-			'text' => $current_opts['coffee_text'],
-			'color' => $current_opts['coffee_color'],
-			'hyperlink' => !empty( $current_opts['coffee_hyperlink'] ) ? $current_opts['coffee_hyperlink'] : false,
-			'code' => $current_opts['coffee_code'],
-			'button_alignment' => $current_opts['coffee_button_alignment']
-		];
+		$instance = array(
+			'description'      => $current_opts['coffee_description'],
+			'title'            => $current_opts['coffee_title'],
+			'text'             => $current_opts['coffee_text'],
+			'color'            => $current_opts['coffee_color'],
+			'hyperlink'        => ! empty( $current_opts['coffee_hyperlink'] ) ? $current_opts['coffee_hyperlink'] : false,
+			'code'             => $current_opts['coffee_code'],
+			'button_alignment' => $current_opts['coffee_button_alignment'],
+		);
 
 		return $instance;
 	}
-	
+
 	/**
 	 * Get the current plugin options and if not present use the default values.
-	 * 
+	 *
 	 * @return array
 	 */
 	private function get_options() {
 
-		$defaults = Default_ko_fi_options::get()['defaults'];
+		$defaults     = Default_ko_fi_options::get()['defaults'];
 		$current_opts = get_option( 'ko_fi_options', $defaults );
 
-		//ensure that any new option values are picked up
+		// ensure that any new option values are picked up.
 		$current_opts = array_merge( $defaults, $current_opts );
 
 		return $current_opts;
