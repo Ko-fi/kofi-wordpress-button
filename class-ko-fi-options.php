@@ -80,7 +80,7 @@ class Ko_Fi_Options {
 				}
 			</style>
 			<h1><?php echo esc_html( $this->options['page_title'] ); ?></h1>
-			<section class="ko-fi-settings-page-description"><?php echo esc_html( $this->options['page_description'] ); ?></section>
+			<section class="ko-fi-settings-page-description"><?php echo wp_kses_post( $this->options['page_description'] ); ?></section>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( $this->options['option_name'] );

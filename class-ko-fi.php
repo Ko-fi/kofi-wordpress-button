@@ -193,7 +193,7 @@ class Ko_Fi {
 
 		if ( ! empty( $settings['coffee_hyperlink'] ) && $settings['coffee_hyperlink'] ) {
 			return sprintf(
-				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div></div>',
+				'<div style="%1$s" class="ko-fi-button-link"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div></div>',
 				esc_attr( $btn_container_style ),
 				esc_attr( $settings['coffee_code'] ),
 				esc_attr( wp_strip_all_tags( $settings['coffee_text'] ) )
