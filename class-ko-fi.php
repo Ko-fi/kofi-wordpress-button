@@ -39,7 +39,7 @@ class Ko_Fi {
 		require_once 'class-ko-fi-options.php';
 
 		self::$options = ( new Ko_Fi_Options() )->get();
-		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 5 );
+		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 2 );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -51,11 +51,8 @@ class Ko_Fi {
 	 * @return array
 	 */
 	public static function add_action_links( $actions, $plugin_file ) {
-		static $plugin;
+		$plugin = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'Ko_fi.php';
 
-		if ( ! isset( $plugin ) ) {
-			$plugin = plugin_basename( __FILE__ );
-		}
 		if ( $plugin === $plugin_file ) {
 
 			$settings_url = sprintf( '<a href="%s">Settings</a>', menu_page_url( Default_ko_fi_options::get()['menu_slug'], false ) );
