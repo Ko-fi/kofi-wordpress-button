@@ -20,7 +20,7 @@ class Default_Ko_Fi_Options {
 	public static function get() {
 		return array(
 			'page_title'       => __( 'Ko-fi Settings', 'Ko_fi' ),
-			'page_description' => __( 'Link your Ko-fi page or create one at <a href="https://www.ko-fi.com">www.ko-fi.com</a>. Add a Ko-fi donation button to any Widget area or use the array(kofi) shortcode to add your button to any Page or Post.', 'Ko_fi' ),
+			'page_description' => __( 'Link your Ko-fi page or create one at <a href="https://www.ko-fi.com">www.ko-fi.com</a>. Add a Ko-fi donation button to any Widget area or use the [kofi] shortcode to add your button to any Page or Post.', 'Ko_fi' ),
 			'menu_title'       => __( 'Ko-fi Settings', 'Ko_fi' ),
 			'capability'       => 'manage_options',
 			'menu_slug'        => 'ko_fi_options',
