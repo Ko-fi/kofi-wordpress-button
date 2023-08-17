@@ -1,2 +1,3 @@
 .DS_Store
 Tests/vendor/
+node_modules
