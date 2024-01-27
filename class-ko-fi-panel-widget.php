@@ -20,9 +20,9 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 	public function __construct() {
 		$args = array(
 			'classname'   => 'ko-fi-panel-widget',
-			'description' => 'A Ko-Fi donation panel for your website!',
+			'description' => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
 		);
-		parent::__construct( 'ko_fi_panel_widget', 'Ko-fi Donation Panel', $args );
+		parent::__construct( 'ko_fi_panel_widget', __( 'Ko-fi Donation Panel', 'ko-fi-button' ), $args );
 	}
 
 	/**
@@ -60,11 +60,11 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 		$code  = isset( $instance['code'] ) ? $instance['code'] : Ko_Fi::$options['coffee_code'];
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Username:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Username:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>">
 		</p>
 		<?php
