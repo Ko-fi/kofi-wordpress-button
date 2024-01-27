@@ -21,6 +21,8 @@ Create your free page at ko-fi.com in just a few minutes and link your PayPal or
 
 Use the Plugin to add a Ko-fi button or donation panel to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
 
+Not sure where to start? [Take a look at our guide!](https://help.ko-fi.com/hc/en-us/articles/115004002614-Adding-a-Ko-fi-Button-to-your-WordPress-site-or-blog)
+
 == Installation ==
 
 To install the plugin, please follow the following steps.
