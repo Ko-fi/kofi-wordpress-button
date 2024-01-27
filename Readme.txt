@@ -94,6 +94,7 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 = 1.3.5 =
 * Fix plugin translations not being loaded
 * Fix overzealous escaping being applied to HTML elements
+* Fix undefined index error sometimes occuring if a page has not been saved
 
 = 1.3.4 =
 * Fix fatal error on outdated versions of PHP

@@ -45,6 +45,7 @@ class Default_Ko_Fi_Options {
 				'coffee_button_alignment'        => 'left',
 				'coffee_floating_button_display' => 'none',
 				'coffee_floating_button_text'    => __( 'Support Me', 'ko-fi-button' ),
+				'coffee_floating_button_color'   => '',
 			),
 			'sections'         => array(
 				array(
