@@ -39,7 +39,8 @@ class Ko_Fi {
 		require_once 'class-ko-fi-options.php';
 
 		self::$options = ( new Ko_Fi_Options() )->get();
-		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 5 );
+		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'add_row_meta' ), 10, 2 );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -51,20 +52,43 @@ class Ko_Fi {
 	 * @return array
 	 */
 	public static function add_action_links( $actions, $plugin_file ) {
-		static $plugin;
+		$plugin = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'Ko_fi.php';
 
-		if ( ! isset( $plugin ) ) {
-			$plugin = plugin_basename( __FILE__ );
-		}
 		if ( $plugin === $plugin_file ) {
 
-			$settings_url = sprintf( '<a href="%s">Settings</a>', menu_page_url( Default_ko_fi_options::get()['menu_slug'], false ) );
+			$settings_url = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				menu_page_url( Default_ko_fi_options::get()['menu_slug'], false ),
+				__( 'Settings', 'ko-fi-button' )
+			);
 			$plugin_links = array( 'settings' => $settings_url );
 
 			$actions = array_merge( $plugin_links, $actions );
 		}
 
 		return $actions;
+	}
+
+	/**
+	 * Add extra links to the plugin meta
+	 *
+	 * @param array  $links Current list of actions.
+	 * @param string $plugin_file Plugin file name.
+	 * @return array
+	 */
+	public static function add_row_meta( $links, $plugin_file ) {
+		$plugin = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'Ko_fi.php';
+
+		if ( $plugin === $plugin_file ) {
+
+			$links[] = sprintf(
+				'<a href="%1$s" target="_blank" rel="noopener">%2$s</a>',
+				'https://help.ko-fi.com/hc/en-us/articles/115004002614-Adding-a-Ko-fi-Button-to-your-WordPress-site-or-blog',
+				__( 'Getting started', 'ko-fi-button' ),
+			);
+		}
+
+		return $links;
 	}
 
 	/**
@@ -193,7 +217,7 @@ class Ko_Fi {
 
 		if ( ! empty( $settings['coffee_hyperlink'] ) && $settings['coffee_hyperlink'] ) {
 			return sprintf(
-				'<div style="%1$s" class="ko-fi-button"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div></div>',
+				'<div style="%1$s" class="ko-fi-button-link"><div class="btn-container"><a href="http://www.ko-fi.com/%2$s">%3$s</a></div></div>',
 				esc_attr( $btn_container_style ),
 				esc_attr( $settings['coffee_code'] ),
 				esc_attr( wp_strip_all_tags( $settings['coffee_text'] ) )
@@ -258,6 +282,7 @@ class Ko_Fi {
 		// Strip URL down to just a username.
 		$username = str_replace( 'http://ko-fi.com/', '', $username );
 		$username = str_replace( 'https://ko-fi.com/', '', $username );
+		$username = str_replace( 'ko-fi.com/', '', $username );
 		$username = rtrim( $username, '/' );
 		return $username;
 	}
@@ -346,7 +371,7 @@ class Ko_Fi {
 		);
 		if ( ! empty( $public_post_types ) ) {
 			foreach ( $public_post_types as $public_post_type ) {
-				add_meta_box( 'kofi_posts', __( 'Ko-fi', 'Ko_fi' ), array( __CLASS__, 'posts_meta_box_callback' ), $public_post_type, 'side' );
+				add_meta_box( 'kofi_posts', __( 'Ko-fi', 'ko-fi-button' ), array( __CLASS__, 'posts_meta_box_callback' ), $public_post_type, 'side' );
 			}
 		}
 	}
@@ -362,11 +387,23 @@ class Ko_Fi {
 		wp_nonce_field( 'kofi_meta_box_save', 'kofi_meta_box_nonce' );
 		?>
 		<label>
-			<p><strong><?php esc_html_e( 'Display floating button on this page', 'Ko_fi' ); ?></strong></p>
+			<p><strong><?php esc_html_e( 'Display floating button on this page', 'ko-fi-button' ); ?></strong></p>
 			<select name="kofi_display_floating_button">
-				<option value="">Default (<?php echo 'all' === $default ? 'Show' : 'Hide'; ?>)</option>
-				<option value="yes" <?php selected( 'yes', $value ); ?>>Always show on this page</option>
-				<option value="no" <?php selected( 'no', $value ); ?>>Never show on this page</option>
+				<option value="">
+					<?php
+					printf(
+						/* translators: 1. The default option for displaying the floating button (Show|Hide). */
+						esc_html__( 'Default (%1$s)', 'ko-fi-button' ),
+						'all' === $default ? esc_html__( 'Show', 'ko-fi-button' ) : esc_html__( 'Hide', 'ko-fi-button' )
+					);
+					?>
+				</option>
+				<option value="yes" <?php selected( 'yes', $value ); ?>>
+					<?php esc_html_e( 'Always show on this page', 'ko-fi-button' ); ?>
+				</option>
+				<option value="no" <?php selected( 'no', $value ); ?>>
+					<?php esc_html_e( 'Never show on this page', 'ko-fi-button' ); ?>
+				</option>
 			</select>
 		</label>
 		<?php

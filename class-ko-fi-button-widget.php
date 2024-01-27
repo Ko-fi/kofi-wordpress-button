@@ -20,9 +20,9 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'ko_fi_widget',
-			'description' => 'A ko-fi button for your website!',
+			'description' => __( 'A ko-fi button for your website!', 'ko-fi-button' ),
 		);
-		parent::__construct( 'ko_fi_widget', 'Ko-fi Button', $widget_ops );
+		parent::__construct( 'ko_fi_widget', __( 'Ko-fi Button', 'ko-fi-button' ), $widget_ops );
 	}
 
 	/**
@@ -89,12 +89,12 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Page Name or ID:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Page Name or ID:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>" placeholder="<?php echo ! empty( $current_opts['coffee_code'] ) ? esc_attr( $current_opts['coffee_code'] ) : 'supportkofi'; ?>">
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Button text:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Button text:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>" type="text" value="<?php echo esc_attr( $text ); ?>">
 		</p>
 
@@ -114,20 +114,20 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'description' ) ); ?>"><?php esc_html_e( 'Description:' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'description' ) ); ?>"><?php esc_html_e( 'Description:', 'ko-fi-button' ); ?></label>
 			<textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'description' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'description' ) ); ?>" rows="5" type="text"><?php echo esc_textarea( $description ); ?></textarea>
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'hyperlink' ) ); ?>"><?php esc_html_e( 'Text link only?' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'hyperlink' ) ); ?>"><?php esc_html_e( 'Text link only?', 'ko-fi-button' ); ?></label>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'hyperlink' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'hyperlink' ) ); ?>" type="checkbox" value="true" <?php checked( $hyperlink, 'true' ); ?>>
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'button_alignment' ) ); ?>"><?php esc_html_e( 'Button Alignment' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button_alignment' ) ); ?>"><?php esc_html_e( 'Button Alignment', 'ko-fi-button' ); ?></label>
 			<select id="<?php echo esc_attr( $this->get_field_id( 'button_alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button_alignment' ) ); ?>">
 				<option value="left" <?php selected( $button_alignment, 'left' ); ?>>Left</option>
 				<option value="centre" <?php selected( $button_alignment, 'centre' ); ?>>Centre</option>
