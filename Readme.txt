@@ -25,12 +25,12 @@ Not sure where to start? [Take a look at our guide!](https://help.ko-fi.com/hc/e
 
 == Installation ==
 
-To install the plugin, please follow the following steps.
+To install the plugin, please follow the following steps:
 
-1. Go to ‘Plugins’and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory. 
+1. Go to ‘Plugins’and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory.
 2. Activate the plugin through the ‘Plugins’ screen in WordPress.
-3. Use the Settings > Ko-fi Settings screen to link to your Ko-fi page and configure the default settings.  
-4. Go to Appearance > Widgets and add a ‘Ko-fi button’ widget to any Sidebar or Widget area. 
+3. Use the Settings > Ko-fi Settings screen to link to your Ko-fi page and configure the default settings.
+4. Go to Appearance > Widgets and add a ‘Ko-fi button’ widget to any Sidebar or Widget area.
 5. Override any default settings in the widget.
 6. You can also add your Ko-fi button to any Page or Post using Shortcode [kofi].
 
@@ -89,7 +89,7 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 == Screenshots ==
 
 1. Ko-fi settings page, set the default settings of the button
-2. Customise the button for a specific widget placement
+2. Customize the button for a specific widget placement
 
 == Changelog ==
 
@@ -105,7 +105,7 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 
 = 1.3.3 =
 * XSS security fix
-* Fix missing closing tag on link only buttons
+* Fix missing closing tag on link-only buttons
 
 = 1.3.2 =
 * Fix undefined array key warning
@@ -147,7 +147,7 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 * Re-arrange settings into a more logical order on the settings page.
 
 = 1.0.1 =
-* Minor Updates to the wording used withhin the plugin and to the use of 'Ko-fi'.
+* Minor updates to the wording used within the plugin and to the use of 'Ko-fi'.
 * Addition of ability to change button alignment within containing element.
 * Bring plugin version in-line with readme.
 * Fix hyperlink functionlity.
