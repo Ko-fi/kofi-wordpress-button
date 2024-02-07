@@ -84,7 +84,7 @@ class Ko_Fi {
 			$links[] = sprintf(
 				'<a href="%1$s" target="_blank" rel="noopener">%2$s</a>',
 				'https://help.ko-fi.com/hc/en-us/articles/115004002614-Adding-a-Ko-fi-Button-to-your-WordPress-site-or-blog',
-				__( 'Getting started', 'ko-fi-button' ),
+				__( 'Getting started', 'ko-fi-button' )
 			);
 		}
 
