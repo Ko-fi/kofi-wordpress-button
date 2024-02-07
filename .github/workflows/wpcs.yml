@@ -15,8 +15,8 @@ jobs:
             php-version: '5.6'
             tools: phpcs
 
-        - name: Run PHPCS on PHP 5.6
-          run: phpcs
+        - name: Run phpcs
+          run: phpcs .
 
         - name: WPCS Check
           uses: 10up/wpcs-action@stable
