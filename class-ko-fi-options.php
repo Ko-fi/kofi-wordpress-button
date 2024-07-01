@@ -34,7 +34,7 @@ class Ko_Fi_Options {
 	 */
 	public function __construct() {
 
-		$this->options = Default_ko_fi_options::get();
+		$this->options = Default_Ko_Fi_Options::get();
 
 		$this->fallbacks = get_option( $this->options['option_name'] );
 
