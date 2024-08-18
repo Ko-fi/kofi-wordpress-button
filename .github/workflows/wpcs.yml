@@ -13,3 +13,5 @@ jobs:
           uses: 10up/wpcs-action@stable
           with:
             excludes: 'Tests'
+            enable_warnings: true
+            extra_args: --runtime-set testVersion 5.6-
