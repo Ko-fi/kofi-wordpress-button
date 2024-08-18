@@ -14,4 +14,9 @@ jobs:
           with:
             excludes: 'Tests'
             enable_warnings: true
-            extra_args: --runtime-set testVersion 5.6-
+
+        - name: PHP compat
+          uses: pantheon-systems/phpcompatibility-action@v1
+          with:
+            test-versions: 5.6-
+          if: always()
