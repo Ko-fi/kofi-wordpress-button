@@ -352,6 +352,7 @@ class Ko_Fi {
 	 * @return string Black or white
 	 */
 	public static function get_contrast_yiq( $hex ) {
+		$hex = ltrim( $hex, '#' );
 		$r   = hexdec( substr( $hex, 0, 2 ) );
 		$g   = hexdec( substr( $hex, 2, 2 ) );
 		$b   = hexdec( substr( $hex, 4, 2 ) );

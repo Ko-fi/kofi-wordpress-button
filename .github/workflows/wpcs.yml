@@ -13,3 +13,11 @@ jobs:
           uses: 10up/wpcs-action@stable
           with:
             excludes: 'Tests'
+            enable_warnings: false
+          if: always()
+
+        - name: PHP compat
+          uses: pantheon-systems/phpcompatibility-action@v1
+          with:
+            test-versions: 5.6-
+          if: always()
