@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,11 +13,9 @@ Receive donations on your Ko-fi page with a button on your WordPress site.
 
 == Description ==
 
-Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $200 million has been earned on Ko-fi so far and it's growing every month! 
+Ko-fi is a fast and friendly way to earn money from your blog, website or project. Over $200 million has been earned on Ko-fi so far and it's growing every month!
 
-The money goes directly to you with 0% fees from Ko-fi, it's completely free and a great alternative to ads!
-
-Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations. 
+Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations.
 
 Use the Plugin to add a Ko-fi button or donation panel to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
 
@@ -27,10 +25,10 @@ Not sure where to start? [Take a look at our guide!](https://help.ko-fi.com/hc/e
 
 To install the plugin, please follow the following steps:
 
-1. Go to ‘Plugins’and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory.
-2. Activate the plugin through the ‘Plugins’ screen in WordPress.
+1. Go to 'Plugins' and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory.
+2. Activate the plugin through the ‘Plugins' screen in WordPress.
 3. Use the Settings > Ko-fi Settings screen to link to your Ko-fi page and configure the default settings.
-4. Go to Appearance > Widgets and add a ‘Ko-fi button’ widget to any Sidebar or Widget area.
+4. Go to Appearance > Widgets and add a ‘Ko-fi button' widget to any Sidebar or Widget area.
 5. Override any default settings in the widget.
 6. You can also add your Ko-fi button to any Page or Post using Shortcode [kofi].
 
@@ -42,7 +40,7 @@ Ko-fi is a donation service allowing creators to receive small payments (roughly
 
 = Do Ko-fi take a fee =
 
-Nope, we don't take a fee from your donations. The payment processor will take a small fee for processing the transaction, but Ko-fi is a free service. 
+The payment processor will take a small fee for processing the transaction, but Ko-fi is free to use for accepting simple donations. For advanced features you'll pay a creator-friendly 5% platform fee.
 
 = What about monthly memberships =
 
