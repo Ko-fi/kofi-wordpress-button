@@ -52,7 +52,7 @@ class Ko_Fi {
 	 * @return array
 	 */
 	public static function add_action_links( $actions, $plugin_file ) {
-		$plugin = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'Ko_fi.php';
+		$plugin = trailingslashit( basename( __DIR__ ) ) . 'Ko_fi.php';
 
 		if ( $plugin === $plugin_file ) {
 
@@ -77,7 +77,7 @@ class Ko_Fi {
 	 * @return array
 	 */
 	public static function add_row_meta( $links, $plugin_file ) {
-		$plugin = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'Ko_fi.php';
+		$plugin = trailingslashit( basename( __DIR__ ) ) . 'Ko_fi.php';
 
 		if ( $plugin === $plugin_file ) {
 
@@ -124,7 +124,6 @@ class Ko_Fi {
 		register_widget( 'Ko_Fi_Button_Widget' );
 		require_once 'class-ko-fi-panel-widget.php';
 		register_widget( 'Ko_Fi_Panel_Widget' );
-
 	}
 
 	/**
@@ -141,6 +140,7 @@ class Ko_Fi {
 				'color' => self::get_plugin_option( 'coffee_color' ),
 				'type'  => 'button',
 				'code'  => self::get_plugin_option( 'coffee_code' ),
+				'title' => self::get_plugin_option( 'coffee_html_title' ),
 			),
 			$atts
 		);
@@ -160,7 +160,7 @@ class Ko_Fi {
 	 */
 	public static function get_jscolor( $args ) {
 		$value = ! empty( $args['value'] ) ? '#' . ltrim( $args['value'], '#' ) : $args['value'];
-		echo sprintf(
+		printf(
 			'<input class="jscolor"  id="%1$s" name="%2$s" value="%3$s" />',
 			esc_attr( $args['option_id'] ),
 			esc_attr( empty( $args['name'] ) ? $args['option_id'] : $args['name'] ),
@@ -202,6 +202,9 @@ class Ko_Fi {
 				case 'button_alignment':
 					$key = 'coffee_button_alignment';
 					break;
+				case 'title':
+					$key = 'title';
+					break;
 			}
 
 			$settings[ $key ] = $value;
@@ -235,12 +238,13 @@ class Ko_Fi {
 			wp_enqueue_script( 'ko-fi-button' );
 
 			return sprintf(
-				'<div class="ko-fi-button" data-text="%1$s" data-color="%2$s" data-code="%3$s" id="%4$s" style="%5$s"></div>',
+				'<div class="ko-fi-button" data-text="%1$s" data-color="%2$s" data-code="%3$s" id="%4$s" style="%5$s" data-title="%6$s"></div>',
 				esc_attr( wp_strip_all_tags( $settings['coffee_text'] ) ),
 				esc_attr( $settings['coffee_color'] ),
 				esc_attr( $settings['coffee_code'] ),
 				esc_attr( $html_variable_name ),
-				esc_attr( $btn_container_style )
+				esc_attr( $btn_container_style ),
+				esc_attr( $settings['title'] )
 			);
 		}
 	}
@@ -267,7 +271,7 @@ class Ko_Fi {
 			$code = self::get_plugin_option( 'coffee_code' );
 		}
 		if ( ! empty( $code ) ) {
-			$return = '<iframe id="kofiframe" src="https://ko-fi.com/' . esc_attr( $code ) . '/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="%1$s"></iframe>';
+			$return = '<iframe id="kofiframe" src="https://ko-fi.com/' . esc_attr( $code ) . '/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;display:block;" height="712" title="%1$s"></iframe>';
 		}
 		return $return;
 	}
@@ -446,5 +450,4 @@ class Ko_Fi {
 	public static function get_plugin_option( $option ) {
 		return isset( self::$options[ $option ] ) && ! empty( self::$options[ $option ] ) ? self::$options[ $option ] : Default_ko_fi_options::get()['defaults'][ $option ];
 	}
-
 }

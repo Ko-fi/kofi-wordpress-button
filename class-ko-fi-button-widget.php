@@ -58,6 +58,7 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 				'hyperlink'        => $instance['hyperlink'],
 				'code'             => $instance['code'],
 				'button_alignment' => $instance['button_alignment'],
+				'html_title'       => $instance['html_title'],
 			);
 		}
 
@@ -85,6 +86,7 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 		$color            = $instance['color'];
 		$code             = isset( $instance['code'] ) ? $instance['code'] : $current_opts['coffee_code'];
 		$button_alignment = $instance['button_alignment'];
+		$html_title       = $instance['html_title'];
 
 		?>
 
@@ -114,7 +116,7 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'ko-fi-button' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Widget Title:', 'ko-fi-button' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
@@ -133,6 +135,10 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 				<option value="centre" <?php selected( $button_alignment, 'centre' ); ?>>Centre</option>
 				<option value="right" <?php selected( $button_alignment, 'right' ); ?>>Right</option>
 			</select>
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'html_title' ) ); ?>"><?php esc_html_e( 'Title Tag:', 'ko-fi-button' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'html_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'html_title' ) ); ?>" type="text" value="<?php echo esc_attr( $html_title ); ?>">
 		</p>
 
 		<?php
@@ -164,6 +170,7 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 		$instance['color']            = ( ! empty( $new_instance['color'] ) ) ? wp_strip_all_tags( $new_instance['color'] ) : $defaults['coffee_color'];
 		$instance['code']             = ( ! empty( $new_instance['code'] ) ) ? wp_strip_all_tags( $new_instance['code'] ) : '';
 		$instance['button_alignment'] = ( ! empty( $new_instance['button_alignment'] ) ) ? wp_strip_all_tags( $new_instance['button_alignment'] ) : '';
+		$instance['html_title']       = ( ! empty( $new_instance['html_title'] ) ) ? wp_strip_all_tags( $new_instance['html_title'] ) : '';
 
 		return $instance;
 	}
@@ -186,6 +193,7 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 			'hyperlink'        => ! empty( $current_opts['coffee_hyperlink'] ) ? $current_opts['coffee_hyperlink'] : false,
 			'code'             => $current_opts['coffee_code'],
 			'button_alignment' => $current_opts['coffee_button_alignment'],
+			'html_title'       => $current_opts['coffee_html_title'],
 		);
 
 		return $instance;

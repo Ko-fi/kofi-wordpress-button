@@ -1,9 +1,9 @@
 === Ko-fi Button ===
 Contributors: kofibutton, chrisodell, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
-Tags: paypal, apple pay, paypal donate, donate plugin, members, membership, monetization, kofi_button, ko-fi, button
+Tags: paypal donate, donate plugin, membership, monetization, ko-fi
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.8
 Stable tag: 1.3.8
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -90,6 +90,12 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 2. Customize the button for a specific widget placement
 
 == Changelog ==
+
+= 1.3.9 =
+* Tested with WordPress 6.8
+* Code quality improvements
+* Fix panel widget alignment issue in some block themes
+* Add option to customize the HTML title attribute for donate buttons
 
 = 1.3.8 =
 * Tested with WordPress 6.7

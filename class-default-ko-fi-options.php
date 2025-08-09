@@ -43,6 +43,7 @@ class Default_Ko_Fi_Options {
 				'coffee_code'                    => '',
 				'coffee_hyperlink'               => false,
 				'coffee_button_alignment'        => 'left',
+				'coffee_html_title'              => '',
 				'coffee_floating_button_display' => 'none',
 				'coffee_floating_button_text'    => __( 'Support Me', 'ko-fi-button' ),
 				'coffee_floating_button_color'   => '',
@@ -86,7 +87,7 @@ class Default_Ko_Fi_Options {
 							'slug'        => 'title',
 							'title'       => __( 'Title', 'ko-fi-button' ),
 							'type'        => 'text',
-							'description' => __( 'Default title for your ko-fi widgets. The title will only display above the widgets, not the shortcode link.', 'ko-fi-button' ),
+							'description' => __( 'Default title for your Ko-fi widgets. The title will only display above the widgets, not the shortcode link.', 'ko-fi-button' ),
 							'label'       => __( 'Title', 'ko-fi-button' ),
 						),
 						array(
@@ -94,7 +95,6 @@ class Default_Ko_Fi_Options {
 							'title'       => __( 'Description', 'ko-fi-button' ),
 							'type'        => 'textarea',
 							'description' => __( 'Description will appear above the button.', 'ko-fi-button' ),
-
 						),
 						array(
 							'slug'        => 'hyperlink',
@@ -116,6 +116,13 @@ class Default_Ko_Fi_Options {
 									'right'  => __( 'Right', 'ko-fi-button' ),
 								),
 							),
+						),
+						array(
+							'slug'        => 'html_title',
+							'title'       => __( 'Title Tag', 'ko-fi-button' ),
+							'type'        => 'text',
+							'description' => __( 'Default hover text for your Ko-fi buttons.', 'ko-fi-button' ),
+							'label'       => __( 'Title Tag', 'ko-fi-button' ),
 						),
 					),
 				),
@@ -154,5 +161,4 @@ class Default_Ko_Fi_Options {
 			),
 		);
 	}
-
 }
