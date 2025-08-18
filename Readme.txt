@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal donate, donate plugin, membership, monetization, ko-fi
 Requires at least: 4.6
 Tested up to: 6.8
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
