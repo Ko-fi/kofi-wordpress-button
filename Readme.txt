@@ -3,7 +3,7 @@ Contributors: kofibutton, chrisodell, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
 Tags: paypal donate, donate plugin, membership, monetization, ko-fi
 Requires at least: 4.6
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 1.3.9
 Requires PHP: 5.6
 License: GPLv2 or later
