@@ -202,7 +202,7 @@ class Ko_Fi {
 				case 'button_alignment':
 					$key = 'coffee_button_alignment';
 					break;
-				case 'title':
+				case 'html_title':
 					$key = 'title';
 					break;
 			}
