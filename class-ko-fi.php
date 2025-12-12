@@ -346,6 +346,7 @@ class Ko_Fi {
 				esc_attr( self::get_contrast_yiq( $color ) )
 			)
 		);
+		printf( '<style>div.floatingchat-container-wrap{max-width:%1$spx}iframe.floatingchat-container{width:100%%}</style>', ( strlen( $text ) * 10 ) + 97 );
 	}
 
 	/**
