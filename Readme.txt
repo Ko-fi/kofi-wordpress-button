@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/supportkofi
 Tags: paypal donate, donate plugin, membership, monetization, ko-fi
 Requires at least: 4.6
 Tested up to: 6.9
-Stable tag: 1.3.9
+Stable tag: 1.3.10
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,6 +90,11 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 2. Customize the button for a specific widget placement
 
 == Changelog ==
+
+= 1.3.10 =
+* Tested with WordPress 6.9
+* Fix HTML title attribute not working for widgets
+* Automatically resize floating button based on button text
 
 = 1.3.9 =
 * Tested with WordPress 6.8
