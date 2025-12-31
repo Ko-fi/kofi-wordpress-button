@@ -19,8 +19,9 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$args = array(
-			'classname'   => 'ko-fi-panel-widget',
-			'description' => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
+			'classname'             => 'ko-fi-panel-widget',
+			'description'           => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
+			'show_instance_in_rest' => true,
 		);
 		parent::__construct( 'ko_fi_panel_widget', __( 'Ko-fi Donation Panel', 'ko-fi-button' ), $args );
 	}

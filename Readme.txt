@@ -8,6 +8,7 @@ Stable tag: 1.3.10
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ko-fi-button
 
 Receive donations on your Ko-fi page with a button on your WordPress site.
 

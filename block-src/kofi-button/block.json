@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ko-fi-button/kofi-button",
+	"version": "1.3.10",
+	"title": "Ko-fi Donate Button",
+	"category": "widgets",
+	"description": "Display a donate button.",
+	"example": {},
+	"attributes": {
+		"code": {
+			"type": "string"
+		},
+		"text": {
+			"type": "string"
+		},
+		"color": {
+			"type": "string"
+		},
+		"title": {
+			"type": "string"
+		},
+		"button_alignment": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "ko-fi-button",
+	"editorScript": [ "file:./index.js", "ko-fi-button-widget" ],
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

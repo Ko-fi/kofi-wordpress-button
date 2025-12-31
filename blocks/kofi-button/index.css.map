@@ -1,0 +1,1 @@
+{"version":3,"file":"kofi-button/index.css","mappings":";;;AAAA;EACC;AACD,C","sources":["webpack://kofi-wordpress-button/./block-src/kofi-button/editor.scss"],"sourcesContent":[".wp-block-ko-fi-button-kofi-button .kofi-button {\r\n\tpointer-events: none;\r\n}\r\n"],"names":[],"ignoreList":[],"sourceRoot":""}

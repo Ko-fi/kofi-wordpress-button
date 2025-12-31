@@ -19,8 +19,9 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'ko_fi_widget',
-			'description' => __( 'A ko-fi button for your website!', 'ko-fi-button' ),
+			'classname'             => 'ko_fi_widget',
+			'description'           => __( 'A ko-fi button for your website!', 'ko-fi-button' ),
+			'show_instance_in_rest' => true,
 		);
 		parent::__construct( 'ko_fi_widget', __( 'Ko-fi Button', 'ko-fi-button' ), $widget_ops );
 	}

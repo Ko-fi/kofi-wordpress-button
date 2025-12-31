@@ -26,12 +26,13 @@ class Ko_Fi {
 	 */
 	public static function init() {
 		add_action( 'widgets_init', array( __CLASS__, 'widget' ) );
-		add_action( 'init', array( __CLASS__, 'register_scripts' ) );
+		add_action( 'init', array( __CLASS__, 'register_scripts' ), 11 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 9 );
 		add_action( 'wp_head', array( __CLASS__, 'maybe_display_floating_button' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'register_posts_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_post_meta' ), 10, 2 );
 		add_action( 'rest_api_init', array( __CLASS__, 'prevent_floating_button_displaying_on_widget_previews' ) );
+		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
 
 		add_shortcode( 'kofi', array( __CLASS__, 'kofi_shortcode' ) );
 
@@ -104,6 +105,22 @@ class Ko_Fi {
 		wp_register_script( 'ko-fi-button-widget', 'https://storage.ko-fi.com/cdn/widget/Widget_2.js', array( 'jquery' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-button', trailingslashit( $dir_url ) . 'js/widget.js', array( 'jquery', 'ko-fi-button-widget' ), $plugin_data['Version'], true );
 		wp_register_script( 'ko-fi-floating-button', 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js', array( 'jquery' ), $plugin_data['Version'], true );
+		wp_localize_script(
+			'ko-fi-button-kofi-button-editor-script',
+			'kofiButtonBlock',
+			array(
+				'defaultCode'  => self::get_plugin_option( 'coffee_code' ),
+				'defaultText'  => self::get_plugin_option( 'coffee_text' ),
+				'defaultColor' => self::get_plugin_option( 'coffee_color' ),
+			)
+		);
+		wp_localize_script(
+			'ko-fi-button-kofi-panel-editor-script',
+			'kofiPanelBlock',
+			array(
+				'defaultCode' => self::get_plugin_option( 'coffee_code' ),
+			)
+		);
 	}
 
 	/**
@@ -144,6 +161,12 @@ class Ko_Fi {
 			),
 			$atts
 		);
+
+		// Convert title prop.
+		if ( isset( $atts['title'] ) ) {
+			$atts['html_title'] = $atts['title'];
+			unset( $atts['title'] );
+		}
 
 		// Return custom embed code.
 		if ( 'button' === $atts['type'] ) {
@@ -203,7 +226,7 @@ class Ko_Fi {
 					$key = 'coffee_button_alignment';
 					break;
 				case 'html_title':
-					$key = 'title';
+					$key = 'coffee_html_title';
 					break;
 			}
 
@@ -244,7 +267,7 @@ class Ko_Fi {
 				esc_attr( $settings['coffee_code'] ),
 				esc_attr( $html_variable_name ),
 				esc_attr( $btn_container_style ),
-				esc_attr( $settings['title'] )
+				esc_attr( $settings['coffee_html_title'] )
 			);
 		}
 	}
@@ -450,5 +473,22 @@ class Ko_Fi {
 	 */
 	public static function get_plugin_option( $option ) {
 		return isset( self::$options[ $option ] ) && ! empty( self::$options[ $option ] ) ? self::$options[ $option ] : Default_ko_fi_options::get()['defaults'][ $option ];
+	}
+
+	/**
+	 * Register custom blocks introduced by the plugin
+	 */
+	public static function register_blocks() {
+		if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+			wp_register_block_types_from_metadata_collection( __DIR__ . '/blocks', __DIR__ . '/blocks/blocks-manifest.php' );
+			return;
+		}
+		if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
+			wp_register_block_metadata_collection( __DIR__ . '/blocks', __DIR__ . '/blocks/blocks-manifest.php' );
+		}
+		$manifest_data = require __DIR__ . '/blocks/blocks-manifest.php';
+		foreach ( array_keys( $manifest_data ) as $block_type ) {
+			register_block_type( sprintf( '%1$s/blocks/%2$s', __DIR__, $block_type ) );
+		}
 	}
 }
