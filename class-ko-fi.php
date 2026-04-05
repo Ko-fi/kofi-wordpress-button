@@ -212,7 +212,9 @@ class Ko_Fi {
 					break;
 				case 'color':
 					$key   = 'coffee_color';
-					$value = '#' . ltrim( $value, '#' );
+					if ( ! is_numeric( strpos( $value, 'var', 0 ) ) ) {
+						$value = '#' . ltrim( $value, '#' );
+					}
 					break;
 				case 'code':
 					$key = 'coffee_code';
@@ -288,6 +290,7 @@ class Ko_Fi {
 	 * @return string
 	 */
 	public static function get_panel_embed_code( $atts, $widget_id = '' ) {
+		$return = '';
 		if ( isset( $atts['code'] ) && ! empty( $atts['code'] ) ) {
 			$code = $atts['code'];
 		} else {

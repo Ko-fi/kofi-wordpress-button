@@ -5,6 +5,9 @@
 	"author": "Ko-fi",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
+	"engines": {
+		"npm": ">=24.0"
+	},
 	"scripts": {
 		"build": "wp-scripts build --webpack-copy-php --blocks-manifest --output-path=blocks --source-path=block-src",
 		"format": "wp-scripts format",
