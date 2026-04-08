@@ -50,18 +50,15 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 
 		$new_instance = $this->get_new_instance();
 
-		if ( ! empty( $instance['description'] ) ) {
-
-			$new_instance = array(
-				'title'            => $instance['title'],
-				'text'             => $instance['text'],
-				'color'            => $instance['color'],
-				'hyperlink'        => $instance['hyperlink'],
-				'code'             => $instance['code'],
-				'button_alignment' => $instance['button_alignment'],
-				'html_title'       => $instance['html_title'],
-			);
-		}
+		$new_instance = array(
+			'title'            => $instance['title'],
+			'text'             => $instance['text'],
+			'color'            => $instance['color'],
+			'hyperlink'        => $instance['hyperlink'],
+			'code'             => $instance['code'],
+			'button_alignment' => $instance['button_alignment'],
+			'html_title'       => $instance['html_title'],
+		);
 
 		echo Ko_Fi::get_button_embed_code( $new_instance, $args['widget_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

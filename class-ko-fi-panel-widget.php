@@ -66,7 +66,7 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Username:', 'ko-fi-button' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>">
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>" placeholder="<?php echo ! empty( $code ) ? esc_attr( $code ) : 'supportkofi'; ?>">
 		</p>
 		<?php
 	}
