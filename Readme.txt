@@ -3,11 +3,12 @@ Contributors: kofibutton, chrisodell, cameronjonesweb
 Donate link: https://ko-fi.com/supportkofi
 Tags: paypal donate, donate plugin, membership, monetization, ko-fi
 Requires at least: 4.6
-Tested up to: 6.9
-Stable tag: 1.3.10
+Tested up to: 7.0
+Stable tag: 1.4.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ko-fi-button
 
 Receive donations on your Ko-fi page with a button on your WordPress site.
 
@@ -17,7 +18,9 @@ Ko-fi is a fast and friendly way to earn money from your blog, website or projec
 
 Create your free page at ko-fi.com in just a few minutes and link your PayPal or Stripe account to start receiving donations.
 
-Use the Plugin to add a Ko-fi button or donation panel to any widget area, sidebar or use the shortcode [kofi] to add a button to any page or post.
+Use the Plugin to add a Ko-fi button or donation panel as a block, or use a classic widget or shortcode for sites not using the block editor.
+
+Now featuring donation button and donation panel blocks, with seamless migration from shortcodes and widgets to the new block implementation.
 
 Not sure where to start? [Take a look at our guide!](https://help.ko-fi.com/hc/en-us/articles/115004002614-Adding-a-Ko-fi-Button-to-your-WordPress-site-or-blog)
 
@@ -28,9 +31,8 @@ To install the plugin, please follow the following steps:
 1. Go to 'Plugins' and click Add New, search for Ko-fi and install the plugin or upload the plugin files to the /wp-content/plugins/Ko-fi-plugin directory.
 2. Activate the plugin through the ‘Plugins' screen in WordPress.
 3. Use the Settings > Ko-fi Settings screen to link to your Ko-fi page and configure the default settings.
-4. Go to Appearance > Widgets and add a ‘Ko-fi button' widget to any Sidebar or Widget area.
-5. Override any default settings in the widget.
-6. You can also add your Ko-fi button to any Page or Post using Shortcode [kofi].
+4. Add a Ko-fi Button or Ko-fi Donation Panel block in any block based editor, or use the widgets and `[kofi]` shortcode if using a classic theme.
+5. Where necessary, individual blocks, widgets and shortcodes can override the default settings.
 
 == Frequently Asked Questions ==
 
@@ -48,9 +50,7 @@ Yes, use Ko-fi to receive monthly subscriptions or create your own membership ti
 
 = What does the WordPress Plugin do =
 
-The WordPress plugin allows WordPress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the widget in a sidebar or widget area.
-
-Alternatively use the [kofi] shortcode in your page or in the shortcode block.
+The WordPress plugin allows WordPress users to easily add a customisable 'Support me on Ko-fi' button to their blog or website. Simply add the plugin, enter your page details and place the block, widget or shortcode anywhere on your site.
 
 For more information see the help page at [ko-fi.com.](https://help.ko-fi.com/hc/en-us/articles/115004002614-Add-a-Ko-fi-button-to-your-WordPress-site)
 
@@ -90,6 +90,11 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 2. Customize the button for a specific widget placement
 
 == Changelog ==
+
+= 1.4.0 =
+* Introduced donation button and donation panel blocks
+* Tested with WordPress 7.0
+* Button classic widget now displays regardless of whether a description was provided, the description was previously required
 
 = 1.3.10 =
 * Tested with WordPress 6.9

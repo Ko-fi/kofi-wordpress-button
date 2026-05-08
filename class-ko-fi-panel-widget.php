@@ -19,8 +19,9 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$args = array(
-			'classname'   => 'ko-fi-panel-widget',
-			'description' => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
+			'classname'             => 'ko-fi-panel-widget',
+			'description'           => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
+			'show_instance_in_rest' => true,
 		);
 		parent::__construct( 'ko_fi_panel_widget', __( 'Ko-fi Donation Panel', 'ko-fi-button' ), $args );
 	}
@@ -65,7 +66,7 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>"><?php esc_html_e( 'Username:', 'ko-fi-button' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>">
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'code' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'code' ) ); ?>" type="text" value="<?php echo esc_attr( $code ); ?>" placeholder="<?php echo ! empty( $code ) ? esc_attr( $code ) : 'supportkofi'; ?>">
 		</p>
 		<?php
 	}
