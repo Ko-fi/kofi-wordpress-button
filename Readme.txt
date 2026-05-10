@@ -94,7 +94,7 @@ For more advanced use cases, you can use the `kofi_display_floating_button` filt
 = 1.4.0 =
 * Introduced donation button and donation panel blocks
 * Tested with WordPress 7.0
-* Button classic widget now displays regardless of whether a description was provided, the description was previously required
+* Button classic widget now displays correct settings regardless of whether a description was provided. The default configuration would previously display if the description was not provided.
 
 = 1.3.10 =
 * Tested with WordPress 6.9
