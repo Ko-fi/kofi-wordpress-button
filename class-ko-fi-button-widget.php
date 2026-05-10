@@ -48,16 +48,30 @@ class Ko_Fi_Button_Widget extends WP_Widget {
 			);
 		}
 
-		$new_instance = $this->get_new_instance();
+		$widget_settings = array();
+		
+		if ( isset( $instance['text'] ) ) {
+			$widget_settings['text'] = $instance['text'];
+		}
+		if ( isset( $instance['color'] ) ) {
+			$widget_settings['color'] = $instance['color'];
+		}
+		if ( isset( $instance['hyperlink'] ) ) {
+			$widget_settings['hyperlink'] = $instance['hyperlink'];
+		}
+		if ( isset( $instance['code'] ) ) {
+			$widget_settings['code'] = $instance['code'];
+		}
+		if ( isset( $instance['button_alignment'] ) ) {
+			$widget_settings['button_alignment'] = $instance['button_alignment'];
+		}
+		if ( isset( $instance['html_title'] ) ) {
+			$widget_settings['html_title'] = $instance['html_title'];
+		}
 
-		$new_instance = array(
-			'title'            => $instance['title'],
-			'text'             => $instance['text'],
-			'color'            => $instance['color'],
-			'hyperlink'        => $instance['hyperlink'],
-			'code'             => $instance['code'],
-			'button_alignment' => $instance['button_alignment'],
-			'html_title'       => $instance['html_title'],
+		$new_instance = wp_parse_args(
+			$widget_settings,
+			$this->get_new_instance()
 		);
 
 		echo Ko_Fi::get_button_embed_code( $new_instance, $args['widget_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
