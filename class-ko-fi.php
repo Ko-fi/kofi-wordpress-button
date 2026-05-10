@@ -33,16 +33,23 @@ class Ko_Fi {
 		add_action( 'save_post', array( __CLASS__, 'save_post_meta' ), 10, 2 );
 		add_action( 'rest_api_init', array( __CLASS__, 'prevent_floating_button_displaying_on_widget_previews' ) );
 		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
+		add_action( 'init', array( __CLASS__, 'setup_options' ) );
 
 		add_shortcode( 'kofi', array( __CLASS__, 'kofi_shortcode' ) );
 
 		require_once 'class-default-ko-fi-options.php';
 		require_once 'class-ko-fi-options.php';
 
-		self::$options = ( new Ko_Fi_Options() )->get();
 		add_filter( 'plugin_action_links', array( __CLASS__, 'add_action_links' ), 10, 2 );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'add_row_meta' ), 10, 2 );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
+	}
+
+	/**
+	 * Set up plugin settings defaults
+	 */
+	public static function setup_options() {
+		self::$options = ( new Ko_Fi_Options() )->get();
 	}
 
 	/**
