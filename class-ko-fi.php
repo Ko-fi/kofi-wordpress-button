@@ -206,40 +206,42 @@ class Ko_Fi {
 	 */
 	public static function get_button_embed_code( $atts, $widget_id = '' ) {
 		$settings = wp_parse_args( $atts, self::$options );
-		foreach ( $atts as $key => $value ) {
-			switch ( $key ) {
-				case 'title':
-					$key = 'coffee_title';
-					break;
-				case 'text':
-					$key = 'coffee_text';
-					break;
-				case 'hyperlink':
-					$key = 'coffee_hyperlink';
-					break;
-				case 'color':
-					$key   = 'coffee_color';
-					if ( ! is_numeric( strpos( $value, 'var', 0 ) ) ) {
-						$value = '#' . ltrim( $value, '#' );
-					}
-					break;
-				case 'code':
-					$key = 'coffee_code';
-					if ( empty( $value ) ) {
-						$value = self::sanitise_username( self::get_plugin_option( 'coffee_code' ) );
-					} else {
-						$value = self::sanitise_username( $value );
-					}
-					break;
-				case 'button_alignment':
-					$key = 'coffee_button_alignment';
-					break;
-				case 'html_title':
-					$key = 'coffee_html_title';
-					break;
-			}
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $key => $value ) {
+				switch ( $key ) {
+					case 'title':
+						$key = 'coffee_title';
+						break;
+					case 'text':
+						$key = 'coffee_text';
+						break;
+					case 'hyperlink':
+						$key = 'coffee_hyperlink';
+						break;
+					case 'color':
+						$key   = 'coffee_color';
+						if ( ! is_numeric( strpos( $value, 'var', 0 ) ) ) {
+							$value = '#' . ltrim( $value, '#' );
+						}
+						break;
+					case 'code':
+						$key = 'coffee_code';
+						if ( empty( $value ) ) {
+							$value = self::sanitise_username( self::get_plugin_option( 'coffee_code' ) );
+						} else {
+							$value = self::sanitise_username( $value );
+						}
+						break;
+					case 'button_alignment':
+						$key = 'coffee_button_alignment';
+						break;
+					case 'html_title':
+						$key = 'coffee_html_title';
+						break;
+				}
 
-			$settings[ $key ] = $value;
+				$settings[ $key ] = $value;
+			}
 		}
 
 		$style_registry = array(
