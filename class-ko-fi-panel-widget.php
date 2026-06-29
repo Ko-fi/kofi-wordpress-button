@@ -20,7 +20,7 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 	public function __construct() {
 		$args = array(
 			'classname'             => 'ko-fi-panel-widget',
-			'description'           => __( 'A Ko-Fi donation panel for your website!', 'ko-fi-button' ),
+			'description'           => __( 'A Ko-fi donation panel for your website!', 'ko-fi-button' ),
 			'show_instance_in_rest' => true,
 		);
 		parent::__construct( 'ko_fi_panel_widget', __( 'Ko-fi Donation Panel', 'ko-fi-button' ), $args );
@@ -72,7 +72,7 @@ class Ko_Fi_Panel_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Updating widget replacing old instances with new
+	 * Updating widget, replacing old instances with new
 	 *
 	 * @param array $new_instance Updated widget instance.
 	 * @param array $old_instance Previous widget instance.
