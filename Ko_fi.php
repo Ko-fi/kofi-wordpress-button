@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! function_exists( 'write_log' ) ) {
 	/**
-	 * Write to the debug log is `WP_DEBUG` is enabled
+	 * Write to the debug log if `WP_DEBUG` is enabled
 	 * Appears to be unused
 	 *
 	 * @param mixed $log Input to send to the error log.
